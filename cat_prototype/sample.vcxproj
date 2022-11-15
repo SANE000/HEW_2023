@@ -137,6 +137,7 @@
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="blocktype.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="cat.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="BG.h" />
     <ClInclude Include="block.h" />
     <ClInclude Include="blocktype.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="cat.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="cursor.h" />
