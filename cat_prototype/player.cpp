@@ -16,12 +16,13 @@
 #define MOVE_Y (PLAYER_SIZE_H)
 #define BULLET_WAIT (38)
 //プロトタイプ宣言
+///
 
 ///////////////////////グローバル
 //int JumpSoundNo = 0;
 //プレイヤーオブジェクト
 static PLAYER g_Player;
-
+///
 
 HRESULT InitPlayer()
 {
