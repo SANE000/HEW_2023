@@ -21,7 +21,7 @@ HRESULT InitResult()
 
 void UninitResult()
 {
-	
+	//
 
 }
 
