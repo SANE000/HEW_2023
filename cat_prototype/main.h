@@ -47,6 +47,7 @@
 //猫の移動速度
 #define WALK 0.5f
 //タイマー関連
+#define WAIT_TIME 10;
 #define TIME_MAX 3
 #define TIME_POS_X 530
 #define TIME_POS_Y 50

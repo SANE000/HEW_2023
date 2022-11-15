@@ -1,6 +1,2 @@
-﻿  cat.cpp
-c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\cat.cpp(58): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
-c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\cat.cpp(139): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\cat.cpp(138): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\cat.cpp(175): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-  sample.vcxproj -> C:\Users\81804\OneDrive\デスクトップ\HEW2023\HEW_2023\cat_prototype\x64\Debug\sample.exe
+﻿  player.cpp
+  sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe

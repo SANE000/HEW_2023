@@ -2,7 +2,8 @@
 
 #include "shop.h"
 #include "texture.h"
-#include "input.h"
+#include "inputx.h"
+#include "keyboard.h"
 #include "scene.h"
 #include "sprite.h"
 
@@ -15,6 +16,8 @@
 //==========================================
 //グローバル変数
 //==========================================
+//キーボード入力用連続入力防止時間
+static int time = 0;
 //お金
 int g_money;
 MONEY money[MONEY_MAX];
@@ -116,8 +119,13 @@ void UninitShop()
 
 void UpdateShop()
 {
+	//毎フレーム減らす
+	if (time > 0)
+	{
+		time -= 1;
+	}
 	//マップ見れるボタン
-	if (GetKeyboardTrigger(DIK_M))
+	if (Keyboard_IsKeyDown(KK_M)|| IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time<=0 )
 	{
 		if (map_flag == false)
 		{
@@ -128,7 +136,8 @@ void UpdateShop()
 			//もう一度押してマップ終了
 			map_flag = false;
 		}
-
+		//時間リセット
+		time = WAIT_TIME;
 	}
 
 
@@ -141,82 +150,92 @@ void UpdateShop()
 		if (confirmation_flag == true)
 		{
 			//購入
-			if (GetKeyboardTrigger(DIK_Y))
+			if (Keyboard_IsKeyDown(KK_Y)||IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
 			{
 				
 				Buyblock();
 
 				confirmation_flag = false;
+				time = WAIT_TIME;
 			}
 			//購入しない
-			else if (GetKeyboardTrigger(DIK_N))
+			else if (Keyboard_IsKeyDown(KK_N) || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
 			{
 				confirmation_flag = false;
+				time = WAIT_TIME;
 			}
 		}
 		//スタートの際の確認メッセージ
 		else if(start_flag == true)
 		{
 			//始める
-			if (GetKeyboardTrigger(DIK_Y))
+			if (Keyboard_IsKeyDown(KK_Y) || IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
 			{
 				start_flag = false;
 				SetScene(SCENE_GAME);
+				time = WAIT_TIME;
 				
 			}
 			//始めない
-			else if (GetKeyboardTrigger(DIK_N))
+			else if (Keyboard_IsKeyDown(KK_N) || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
 			{
 				start_flag = false;
+				time = WAIT_TIME;
 			}
 			
 		}
 		else
 		{
 			//カーソル操作　とりあえず
-			if (GetKeyboardTrigger(DIK_RIGHT))
+			if (Keyboard_IsKeyDown(KK_RIGHT) || GetThumbLeftX(0) > 0 && time <= 0)
 			{//右
 				if (cursor.pos.x != CURSOR_X_04)
 				{
 					cursor.pos.x += CURSOR_MOVE_X;
 				}
+				time = WAIT_TIME;
 
 			}
-			else if (GetKeyboardTrigger(DIK_LEFT))
+			else if (Keyboard_IsKeyDown(KK_LEFT) || GetThumbLeftX(0) < 0 && time <= 0)
 			{//左
 				if (cursor.pos.x != CURSOR_X_00)
 				{
 					cursor.pos.x -= CURSOR_MOVE_X;
 				}
+				time = WAIT_TIME;
 			}
-			else if (GetKeyboardTrigger(DIK_DOWN))
+			else if (Keyboard_IsKeyDown(KK_DOWN) || GetThumbLeftY(0) < 0 && time <= 0)
 			{//下
 				if (cursor.pos.y != CURSOR_Y_02)
 				{
 					cursor.pos.y += CURSOR_MOVE_Y;
 				}
+				time = WAIT_TIME;
 			}
-			else if (GetKeyboardTrigger(DIK_UP))
+			else if (Keyboard_IsKeyDown(KK_UP) || GetThumbLeftY(0) > 0 && time <= 0)
 			{//上
 				if (cursor.pos.y != CURSOR_Y_00)
 				{
 					cursor.pos.y -= CURSOR_MOVE_Y;
 				}
+				time = WAIT_TIME;
 			}
 
 
 			//購入ボタン　->　確認ボタン
 
-			if (GetKeyboardTrigger(DIK_SPACE))
+			if (Keyboard_IsKeyDown(KK_SPACE) || IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
 			{
 				//購入確認
 				confirmation_flag = true;
+				time = WAIT_TIME;
 			}
 
-			if (GetKeyboardTrigger(DIK_S))
+			if (Keyboard_IsKeyDown(KK_S) || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
 			{
 				//スタート確認
 				start_flag = true;
+				time = WAIT_TIME;
 
 			}
 

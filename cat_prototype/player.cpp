@@ -1,7 +1,8 @@
 #include "player.h"
 #include "main.h"
 #include "block.h"
-#include "input.h"
+#include "inputx.h"
+#include "keyboard.h"
 #include "texture.h"
 #include "sprite.h"
 #include "Scene.h"
@@ -20,6 +21,7 @@
 
 
 ///////////////////////グローバル
+static int time = 0;
 //int JumpSoundNo = 0;
 //プレイヤーオブジェクト
 static PLAYER g_Player;
@@ -57,6 +59,10 @@ void UnInitPlayer()
 //更新処理
 void UpdatePlayer()
 {
+	if (time > 0)
+	{
+		time -= 1;
+	}
 	//初期値から左へはいかないようにする
 	if (g_Player.pos.x <= PLAYER_INIT_X)
 	{
@@ -82,41 +88,45 @@ void UpdatePlayer()
 		g_Player.pos.y = SCREEN_HEIGHT - PLAYER_INIT_Y;
 	}
 
-	////コントローラー所持者にお願いして対応したい////////////////////////////////////////////////////////////////
 	//操作関係
 	//上下左右矢印キーで移動する
-	if (GetKeyboardTrigger(DIK_D))
+	if (Keyboard_IsKeyDown(KK_D) || GetThumbLeftX(0) > 0 && time <= 0)
 	{//右
 		g_Player.pos.x += MOVE_X;
+		time = WAIT_TIME;
 	}
-	else if (GetKeyboardTrigger(DIK_A))
+	else if (Keyboard_IsKeyDown(KK_A)|| GetThumbLeftX(0) < 0 && time <= 0)
 	{//左
 		g_Player.pos.x -= MOVE_X;
+		time = WAIT_TIME;
 	}
 	//上下の移動によってバグが生じそうだから今は辞めておく
-	else if (GetKeyboardTrigger(DIK_S))
+	else if (Keyboard_IsKeyDown(KK_S) || GetThumbLeftY(0) < 0 && time <= 0)
 	{//下
 		g_Player.pos.y += MOVE_Y;
+		time = WAIT_TIME;
 	}
-	else if (GetKeyboardTrigger(DIK_W))
+	else if (Keyboard_IsKeyDown(KK_W) || GetThumbLeftY(0) > 0 && time <= 0)
 	{//上
 		g_Player.pos.y -= MOVE_Y;
+		time = WAIT_TIME;
 	}
 
 	//プレビューブロックを回転
-	if (GetKeyboardTrigger(DIK_Z))
+	if (Keyboard_IsKeyDown(KK_Z) || IsButtonTriggered(0, XINPUT_GAMEPAD_X) && time <= 0)
 	{
 		GetPreviewBlock()->rot += 90;
 		if (GetPreviewBlock()->rot == 360)
 		{
 			GetPreviewBlock()->rot = 0;
 		}
+		time = WAIT_TIME;
 	}
 
 	//SPACEキーでブロックをプレイヤーの下方向へ射出して
 	//猫の足場を形成(授業でやったバレットを参考にする)
 	g_Player.SetPos = g_Player.pos;
-	if (GetKeyboardTrigger(DIK_SPACE) && g_Player.bwait == 0)
+	if (Keyboard_IsKeyDown(KK_SPACE) || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && g_Player.bwait == 0)
 	{
 		if(FalseExistCheck() == true)
 		SetMoveBlock();
@@ -125,9 +135,10 @@ void UpdatePlayer()
 	}
 
 	//リセットキー
-	if (GetKeyboardTrigger(DIK_R))
+	if (Keyboard_IsKeyDown(KK_R)||IsButtonTriggered(0, XINPUT_GAMEPAD_START) &&time<=0)
 	{
 		SetScene(SCENE_SHOP);
+		time = WAIT_TIME;
 	}
 }
 void DrawPlayer()

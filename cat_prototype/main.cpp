@@ -8,7 +8,8 @@
 ==============================================================================*/
 #include "main.h"
 #include "renderer.h"
-#include "input.h"//入力処理
+#include "inputx.h"//入力処理
+#include "keyboard.h"
 #include "texture.h"
 #include "polygon.h"//新しいのを入れたのが分かる
 #include "player.h"
@@ -30,6 +31,7 @@
 #pragma comment (lib, "dxerr.lib")
 #pragma comment (lib, "dxguid.lib")
 #pragma comment (lib, "dinput8.lib")
+#pragma comment (lib, "xinput.lib")
 
 //*****************************************************************************
 // マクロ定義
@@ -171,27 +173,28 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 //=============================================================================
 // プロシージャ
 //=============================================================================
-LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (uMsg) {
-	case WM_KEYDOWN:
-		if (wParam == VK_ESCAPE) {
-			SendMessage(hWnd, WM_CLOSE, 0, 0);
-		}
-		break;
-
-	case WM_CLOSE:
-		if (MessageBox(hWnd, "本当に終了してよろしいですか？", "確認", MB_OKCANCEL | MB_DEFBUTTON2) == IDOK) {
-			DestroyWindow(hWnd);
-		}
-		return 0;
-
+	Keyboard_ProcessMessage(message, wParam, lParam);
+	switch (message)
+	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
-		return 0;
-	};
+		break;
 
-	return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			DestroyWindow(hWnd);
+			break;
+		}
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+
+	return 0;
 }
 
 //=============================================================================
@@ -201,6 +204,8 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 {
 	// レンダリング処理の初期化
 	InitRenderer(hInstance, hWnd, bWindow);
+	//宣言
+	Keyboard_Initialize();
 	//入力処理の初期化
 	InitInput(hInstance, hWnd);
 	//サウンドはシーンが始まる前に置いておく

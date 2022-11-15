@@ -5,7 +5,8 @@
 #include "sprite.h"
 #include "blocktype.h"
 #include "shop.h"
-#include "input.h"
+#include "inputx.h"
+#include "keyboard.h"
 #include "camera.h"
 
 //マクロ定義をヘッダーに移動
@@ -128,7 +129,7 @@ void UpdateBlock()
 {
 	if (FalseExistCheck() == true)
 	{
-		if (GetKeyboardTrigger(DIK_RIGHT))
+		if (Keyboard_IsKeyDown(KK_RIGHT))
 		{//右
 			//コメント書くのムズイので処理の内容が分からない場合實吉まで聞きに来てください。申し訳ない分かりづれぇ
 
@@ -160,7 +161,7 @@ void UpdateBlock()
 
 			//}
 		}
-		else if (GetKeyboardTrigger(DIK_LEFT))
+		else if (Keyboard_IsKeyDown(KK_LEFT))
 		{//左
 			//使うブロックを変える　配列の一個前のブロックを使う
 			//もし前のブロックがすでに使用済みだったら使用済みじゃなくなるまで戻る

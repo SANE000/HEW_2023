@@ -3,7 +3,8 @@
 #include "title.h"
 #include "texture.h"
 #include "sprite.h"
-#include "input.h"
+#include "inputx.h"
+#include"keyboard.h"
 #include "scene.h"
 #include "sound.h"
 #include<stdio.h>

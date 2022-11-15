@@ -143,7 +143,8 @@
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="etcUI.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="input.cpp" />
+    <ClCompile Include="inputx.cpp" />
+    <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Linecircle.cpp" />
     <ClCompile Include="main.cpp" />
@@ -169,7 +170,8 @@
     <ClInclude Include="cursor.h" />
     <ClInclude Include="etcUI.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="input.h" />
+    <ClInclude Include="inputx.h" />
+    <ClInclude Include="keyboard.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Linecircle.h" />
     <ClInclude Include="main.h" />

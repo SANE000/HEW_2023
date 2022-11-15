@@ -3,7 +3,7 @@
 #include "texture.h"
 #include "sprite.h"
 #include "scene.h"
-#include "input.h"
+#include "inputx.h"
 #include "BG.h"
 
 

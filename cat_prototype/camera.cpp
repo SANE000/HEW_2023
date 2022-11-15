@@ -8,7 +8,8 @@
 ==============================================================================*/
 #include "camera.h"
 #include "main.h"
-#include "input.h"
+#include "inputx.h"
+#include "keyboard.h"
 #include "cat.h"
 #include "block.h"
 #include "player.h"
@@ -82,11 +83,11 @@ void UpdateCamera(void)
 	////}
 	 
 
-	if (GetKeyboardPress(DIK_V))
+	if (Keyboard_IsKeyDown(KK_V))
 	{
 			g_Camera.pos.x++;
 	}
-	if (GetKeyboardPress(DIK_C))
+	if (Keyboard_IsKeyDown(KK_C))
 	{
 		g_Camera.pos.x--;
 	}
