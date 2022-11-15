@@ -6,6 +6,7 @@
 #include "blocktype.h"
 #include "shop.h"
 #include "input.h"
+#include "camera.h"
 
 //マクロ定義をヘッダーに移動
 
@@ -222,6 +223,8 @@ void UpdateBlock()
 }
 void DrawBlock()
 {
+	D3DXVECTOR2 basePos = GetBase();
+
 	//動かないステージブロック
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
@@ -233,8 +236,8 @@ void DrawBlock()
 			//スプライトの描画
 			DrawSpriteColorRotate
 			(
-			g_Block[i].pos.x,
-			g_Block[i].pos.y,
+			basePos.x + g_Block[i].pos.x,
+			basePos.y + g_Block[i].pos.y,
 			g_Block[i].w,
 			g_Block[i].h,
 			g_Block[i].rot,
@@ -259,8 +262,8 @@ void DrawBlock()
 			//typeごとに数や配置を変える
 			DrawSpriteColorRotate
 			(
-				g_MoveBlock[i].pos.x,
-				g_MoveBlock[i].pos.y,
+				basePos.x + g_MoveBlock[i].pos.x,
+				basePos.y + g_MoveBlock[i].pos.y,
 				g_MoveBlock[i].w,
 				g_MoveBlock[i].h,
 				g_MoveBlock[i].rot,
@@ -288,8 +291,8 @@ void DrawBlock()
 				//typeごとに数や配置を変える
 				DrawSpriteColorRotate
 				(
-					g_PreviewBlock[i].pos.x,
-					g_PreviewBlock[i].pos.y,
+					basePos.x + g_PreviewBlock[i].pos.x,
+					basePos.y + g_PreviewBlock[i].pos.y,
 					g_PreviewBlock[i].w,
 					g_PreviewBlock[i].h,
 					0.0f,

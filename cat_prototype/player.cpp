@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "sound.h"
 #include "collision.h"
+#include "camera.h"
 //マクロ定義
 #define PLAYER_SIZE_W (48)
 #define PLAYER_SIZE_H (48)
@@ -62,10 +63,10 @@ void UpdatePlayer()
 		g_Player.pos.x = PLAYER_INIT_X;
 	}
 	//終端値から右へもいかないようにする
-	else if (g_Player.pos.x >= SCREEN_WIDTH - PLAYER_INIT_X)
-	{
-		g_Player.pos.x = SCREEN_WIDTH - PLAYER_INIT_X;
-	}
+	//else if (g_Player.pos.x >= SCREEN_WIDTH - PLAYER_INIT_X)
+	//{
+	//	g_Player.pos.x = SCREEN_WIDTH - PLAYER_INIT_X;
+	//}
 	if (g_Player.bwait > 0)
 	{
 		g_Player.bwait -= 1;
