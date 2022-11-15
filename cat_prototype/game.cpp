@@ -10,6 +10,7 @@
 #include "collision.h"
 #include "sound.h"
 #include "blocktype.h"
+#include "camera.h"
 
 //マクロ定義
 //あとはタイム表示、
@@ -34,7 +35,7 @@ void InitGame()
 	//タイマーの初期化
 	InitTime();
 	//ステージの初期化
-
+	InitCamera();
 	InitPlayer();
 	InitCat();
 	InitBlock();
@@ -51,6 +52,7 @@ void UninitGame()
 	UnInitBlock();
 	UnInitCat();
 	UnInitPlayer();
+	UninitCamera();
 	UnInitTime();
 	UnInitEtc();
 	//背景の終了
@@ -66,6 +68,7 @@ void UpdateGame()
 	//ステージの更新
 	UpdatePlayer();
 	UpdateCat();
+	UpdateCamera();
 	UpdateBlock();
 	UpdateCollision();
 	////////////////ゲーム関連

@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "sound.h"
 #include "collision.h"
+#include "camera.h"
 
 //マクロ定義
 
@@ -112,8 +113,8 @@ void UpdateCat()
 	if (g_Cat.pos.x >= CAT_GOLL && g_Cat.jump_flag == true)
 	{
 		//テストだから初期位置に戻す
-		g_Cat.pos.x = CAT_INIT_X;
-		g_Cat.pos.y = CAT_INIT_Y;
+		//g_Cat.pos.x = CAT_INIT_X;
+		//g_Cat.pos.y = CAT_INIT_Y;
 	}
 	//猫が穴に落ちてしまった場合
 	if (g_Cat.pos.y >= SCREEN_HEIGHT)
@@ -124,15 +125,16 @@ void UpdateCat()
 	}
 }
 void DrawCat()
-{
+{	
+	D3DXVECTOR2 basePos = GetBase();
 	//テクスチャのセット
 	GetDeviceContext()->PSSetShaderResources
 	(0, 1, GetTexture(g_Cat.texNo));
 	g_Cat.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	//スプラsイトの描画
 	DrawSpriteColorRotate(
-		g_Cat.pos.x,
-		g_Cat.pos.y,
+		basePos.x + g_Cat.pos.x,
+		basePos.y + g_Cat.pos.y,
 		g_Cat.w,
 		g_Cat.h,
 		g_Cat.rot,
