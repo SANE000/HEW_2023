@@ -12,7 +12,6 @@
 #include "cat.h"
 #include "block.h"
 #include "player.h"
-#include "number.h"
 
 //*****************************************************************************
 // ƒ}ƒNƒ’è‹`
