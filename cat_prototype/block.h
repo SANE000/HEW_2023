@@ -4,59 +4,45 @@
 #include "renderer.h"
 
 //マクロ定義
-#define BLOCK_MAX 8
+#define BLOCK_MAX 22
 #define MOVE_BLOCK_MAX 50
 #define PREVIEW_BLOCK_MAX 10
-
-//マクロ定義
-#define BLOCK_SIZE_W 96
-#define BLOCK_SIZE_H 48
-//96だとひっかかるかも/////////////////////////////////
-#define MOVE_BLOCK_SIZE_W 47.5
-#define MOVE_BLOCK_SIZE_H 48
 
 
 //構造体定義
 struct BLOCK
 {
-	//キャラはほとんど決まってる共通部品がある
 	//構造体使用中フラグ
-	bool use;
+	bool use = true;
 	//表示座標
 	D3DXVECTOR2 pos;
 	//回転角度
-	float rot;
+	float rot = 0;
 	//テクスチャ番号
 	int texNo;
-	//ブロックサイズ
-	float w, h;
 	//色
-	D3DXCOLOR col;
+	D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	//スクロール用ブロック移動ベクトル
-	D3DXVECTOR2 Speed;
-	//ジャンプ用
-	bool Hit;
+	D3DXVECTOR2 Speed = D3DXVECTOR2(0, 0);
+	//種類用のアニメ番号
+	float Patern = 0;
 };
 
 struct MOVE_BLOCK
 {
 	//キャラはほとんど決まってる共通部品がある
 	//構造体使用中フラグ
-	bool use;
+	bool use = false;
 	//表示座標
 	D3DXVECTOR2 pos;
 	//回転角度
 	float rot;
 	//テクスチャ番号
 	int texNo;
-	//ブロックサイズ
-	float w, h;
 	//色
 	D3DXCOLOR col;
 	//スクロール用ブロック移動ベクトル
 	D3DXVECTOR2 Speed;
-	//ジャンプ用
-	bool Hit;
 	//ブロックの種類判別用変数
 	int type;
 };
@@ -72,8 +58,6 @@ struct PREVIEW_BLOCK
 	float rot;
 	//テクスチャ番号
 	int texNo;
-	//ブロックサイズ
-	float w, h;
 	//色
 	D3DXCOLOR col;
 };

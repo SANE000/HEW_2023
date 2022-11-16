@@ -60,24 +60,16 @@ void UpdateCollision()
 	float CatLeft = cat->pos.x - cat->w / 2;
 	float CatRight = cat->pos.x + cat->w / 2;
 
-
-	float PlayerTop = player->pos.y - player->h / 2;
-	float PlayerBottom = player->pos.y + player->h / 2;
-	float PlayerLeft = player->pos.x - player->w / 2;
-	float PlayerRight = player->pos.x + player->w / 2;
-
-	
-
 	if (cat->use == true)
 	{
 		temp = BLOCK_MAX;
 
 		for (int i = 0; i < BLOCK_MAX; i++)
 		{
-			float BlockTop = block[i].pos.y - block[i].h / 2;
-			float BlockBottom = block[i].pos.y + block[i].h / 2;
-			float BlockLeft = block[i].pos.x - block[i].w / 2;
-			float BlockRight = block[i].pos.x + block[i].w / 2;
+			float BlockTop = block[i].pos.y - SIZE / 2;
+			float BlockBottom = block[i].pos.y + SIZE / 2;
+			float BlockLeft = block[i].pos.x - BASE_SIZE / 2;
+			float BlockRight = block[i].pos.x + BASE_SIZE / 2;
 			//もし構造体を使ってなかったらスキップ
 			if (block[i].use != true)
 			{
@@ -87,7 +79,7 @@ void UpdateCollision()
 			bool hit = CollisionBB(
 				cat->pos, block[i].pos,
 				D3DXVECTOR2(cat->w, cat->h),
-				D3DXVECTOR2(block[i].w, block[i].h)
+				D3DXVECTOR2(BASE_SIZE, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
@@ -97,12 +89,11 @@ void UpdateCollision()
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.y = BlockTop - cat->h / 2;
-					block[i].Hit = true;
 					temp = BLOCK_MAX;
 				}
 				//床ブロックより下
 				else if (CatTop <= BlockBottom &&
-					cat->pos.y - (cat->h / 2 - GRAV) > block[i].pos.y + (block[i].h / 2 - GRAV))
+					cat->pos.y - (cat->h / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
 				{
 					//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
 					cat->jump_y = 0;
@@ -149,16 +140,16 @@ void UpdateCollision()
 				continue;
 			}
 
-			float BlockTopM = m_block[i].pos.y - m_block[i].h / 2;
-			float BlockBottomM = m_block[i].pos.y + m_block[i].h / 2;
-			float BlockLeftM = m_block[i].pos.x - m_block[i].w / 2;
-			float BlockRightM = m_block[i].pos.x + m_block[i].w / 2;
+			float BlockTopM = m_block[i].pos.y - SIZE / 2;
+			float BlockBottomM = m_block[i].pos.y + SIZE / 2;
+			float BlockLeftM = m_block[i].pos.x - SIZE / 2;
+			float BlockRightM = m_block[i].pos.x + SIZE / 2;
 
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, m_block[i].pos,
 				D3DXVECTOR2(cat->w, cat->h),
-				D3DXVECTOR2(m_block[i].w, m_block[i].h)
+				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
@@ -208,17 +199,17 @@ void UpdateCollision()
 				continue;
 			}
 
-			float JumpSensorTopM = m_block[i].pos.y - m_block[i].h / 2;
-			float JumpSensorBottomM = m_block[i].pos.y + m_block[i].h / 2;
-			float JumpSensorLeftM = m_block[i].pos.x - m_block[i].w / 2 - SENSOR_SIZE ;
-			float JumpSensorRightM = m_block[i].pos.x + m_block[i].w / 2 + SENSOR_SIZE;
+			float JumpSensorTopM = m_block[i].pos.y - SIZE / 2;
+			float JumpSensorBottomM = m_block[i].pos.y + SIZE / 2;
+			float JumpSensorLeftM = m_block[i].pos.x - SIZE / 2 - SENSOR_SIZE ;
+			float JumpSensorRightM = m_block[i].pos.x + SIZE / 2 + SENSOR_SIZE;
 
 
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, m_block[i].pos,
 				D3DXVECTOR2(cat->w + SENSOR_SIZE * 2, cat->h),
-				D3DXVECTOR2(m_block[i].w, m_block[i].h)
+				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
@@ -292,17 +283,17 @@ void UpdateCollision()
 				continue;
 			}
 
-			float JumpSensorTopM = block[i].pos.y - block[i].h / 2;
-			float JumpSensorBottomM = block[i].pos.y + block[i].h / 2;
-			float JumpSensorLeftM = block[i].pos.x - block[i].w / 2 - SENSOR_SIZE;
-			float JumpSensorRightM = block[i].pos.x + block[i].w / 2 + SENSOR_SIZE;
+			float JumpSensorTopM = block[i].pos.y - SIZE / 2;
+			float JumpSensorBottomM = block[i].pos.y + SIZE / 2;
+			float JumpSensorLeftM = block[i].pos.x - BASE_SIZE / 2 - SENSOR_SIZE;
+			float JumpSensorRightM = block[i].pos.x + BASE_SIZE / 2 + SENSOR_SIZE;
 
 
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, m_block[i].pos,
 				D3DXVECTOR2(cat->w + SENSOR_SIZE * 2, cat->h),
-				D3DXVECTOR2(block[i].w, block[i].h)
+				D3DXVECTOR2(BASE_SIZE, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
@@ -372,21 +363,21 @@ void UpdateCollision()
 			//動くブロックは存在する？
 			if (m_block[i].use == true)
 			{
-				float BlockTopI2 = m_block[i].pos.y - m_block[i].h / 2;
-				float BlockBottomI2 = m_block[i].pos.y + m_block[i].h / 2;
+				float BlockTopI2 = m_block[i].pos.y - SIZE / 2;
+				float BlockBottomI2 = m_block[i].pos.y + SIZE / 2;
 				//もう一つの構造体を全て調べる
 				for (int n = 0; n < BLOCK_MAX; n++)
 				{
 					//動かないブロックは実在する？
 					if (block[n].use == true)
 					{
-						float BlockTop2 = block[n].pos.y - block[n].h / 2;
-						float BlockBottom2 = block[n].pos.y + block[n].h / 2;
+						float BlockTop2 = block[n].pos.y - SIZE / 2;
+						float BlockBottom2 = block[n].pos.y + SIZE / 2;
 						//当たり判定
 						bool hit = CollisionBB(
 							m_block[i].pos, block[n].pos,
-							D3DXVECTOR2(m_block[i].w, m_block[i].h),
-							D3DXVECTOR2(block[n].w, block[n].h)
+							D3DXVECTOR2(SIZE, SIZE),
+							D3DXVECTOR2(BASE_SIZE, SIZE)
 						);
 						if (hit == true)
 						{
@@ -395,7 +386,7 @@ void UpdateCollision()
 							{
 								//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 								m_block[i].Speed.y = 0;
-								m_block[i].pos.y = BlockTop2 - 1 - m_block[i].h / 2;
+								m_block[i].pos.y = BlockTop2 - 1 - SIZE / 2;
 							}
 						}
 					}
@@ -409,10 +400,10 @@ void UpdateCollision()
 			if (m_block[i].use == true)
 			{
 				//存在が分かってから入れる
-				float BlockTopI = m_block[i].pos.y - m_block[i].h / 2;
-				float BlockBottomI = m_block[i].pos.y + m_block[i].h / 2;
-				float BlockLeftI = m_block[i].pos.x - m_block[i].w / 2;
-				float BlockRightI = m_block[i].pos.x + m_block[i].w / 2;
+				float BlockTopI = m_block[i].pos.y - SIZE / 2;
+				float BlockBottomI = m_block[i].pos.y + SIZE / 2;
+				float BlockLeftI = m_block[i].pos.x - SIZE / 2;
+				float BlockRightI = m_block[i].pos.x + SIZE / 2;
 				//もう一つの構造体を全て調べる
 				for (int n = 0; n < MOVE_BLOCK_MAX; n++)
 				{
@@ -424,15 +415,15 @@ void UpdateCollision()
 							continue;
 						}
 						//存在が分かり自分以外だったら入れる
-						float BlockTopN = m_block[n].pos.y - m_block[n].h / 2;
-						float BlockBottomN = m_block[n].pos.y + m_block[n].h / 2;
-						float BlockLeftN = m_block[n].pos.x - m_block[n].w / 2;
-						float BlockRightN = m_block[n].pos.x + m_block[n].w / 2;
+						float BlockTopN = m_block[n].pos.y - SIZE / 2;
+						float BlockBottomN = m_block[n].pos.y + SIZE / 2;
+						float BlockLeftN = m_block[n].pos.x - SIZE / 2;
+						float BlockRightN = m_block[n].pos.x + SIZE / 2;
 						//当たり判定
 						bool hit = CollisionBB(
 							m_block[i].pos, m_block[n].pos,
-							D3DXVECTOR2(m_block[i].w, m_block[i].h),
-							D3DXVECTOR2(m_block[n].w, m_block[n].h)
+							D3DXVECTOR2(SIZE, SIZE),
+							D3DXVECTOR2(SIZE, SIZE)
 						);
 						if (hit == true)
 						{
@@ -442,20 +433,20 @@ void UpdateCollision()
 								//BlockBottomI - GRAV  <= BlockTopN &&
 
 								//下にあるブロックが地面に触れているブロックなのか確かめてそうなら当たり判定で止まる処理の追加の必要があるかも
-								if (m_block[i].pos.x - m_block[i].w / 2 <= m_block[n].pos.x && m_block[i].pos.x + m_block[i].w / 2 >= m_block[n].pos.x)
+								if (m_block[i].pos.x - SIZE / 2 <= m_block[n].pos.x && m_block[i].pos.x + SIZE / 2 >= m_block[n].pos.x)
 								{
 									if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 									{
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 										m_block[n].Speed.y = 0;
-										m_block[n].pos.y = BlockBottomI + m_block[n].h / 2;
+										m_block[n].pos.y = BlockBottomI +1 + SIZE / 2;
 										//block[i].Hit = true;
 										//temp = BLOCK_MAX;
 									}
 									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 									{
 										m_block[i].Speed.y = 0;
-										m_block[i].pos.y = BlockTopN - m_block[i].h / 2;
+										m_block[i].pos.y = BlockTopN -1 - SIZE / 2;
 									}
 									
 									
@@ -476,7 +467,7 @@ void UpdateCollision()
 							//			//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 							//			m_block[i].Speed.y = 0;
 							//			m_block[n].Speed.y = 0;
-							//			m_block[i].pos.y = BlockTopN - m_block[i].h / 2;
+							//			m_block[i].pos.y = BlockTopN - SIZE / 2;
 							//			//block[i].Hit = true;
 							//			//temp = BLOCK_MAX;
 							//		}
@@ -488,14 +479,14 @@ void UpdateCollision()
 							if (BlockLeftI <= BlockRightN && m_block[i].pos.x > BlockRightN)
 							{
 								//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-								if (m_block[i].pos.y - m_block[i].h / 2 <= m_block[n].pos.y && m_block[i].pos.y + m_block[i].h / 2 >= m_block[n].pos.y)
+								if (m_block[i].pos.y - SIZE / 2 <= m_block[n].pos.y && m_block[i].pos.y + SIZE / 2 >= m_block[n].pos.y)
 								{
 									if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 									{
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 										
 										m_block[n].Speed.y = 0;
-										m_block[n].pos.x = BlockLeftI - m_block[n].w / 2;
+										m_block[n].pos.x = BlockLeftI - SIZE / 2;
 										m_block[n].pos.y = m_block[i].pos.y;
 										
 										//block[i].Hit = true;
@@ -504,7 +495,7 @@ void UpdateCollision()
 									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 									{
 										m_block[i].Speed.y = 0;
-										m_block[i].pos.x = BlockRightN + m_block[i].w / 2;
+										m_block[i].pos.x = BlockRightN + SIZE / 2;
 										m_block[i].pos.y = m_block[n].pos.y;
 									}
 									
@@ -514,14 +505,14 @@ void UpdateCollision()
 							else if (BlockRightI >= BlockLeftN && BlockRightI < m_block[n].pos.x)
 							{//左
 
-								if (m_block[i].pos.y - m_block[i].h / 2 <= m_block[n].pos.y && m_block[i].pos.y + m_block[i].h / 2 >= m_block[n].pos.y)
+								if (m_block[i].pos.y - SIZE / 2 <= m_block[n].pos.y && m_block[i].pos.y + SIZE / 2 >= m_block[n].pos.y)
 								{
 									if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 									{
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 
 										m_block[n].Speed.y = 0;
-										m_block[n].pos.x = BlockRightI + m_block[n].w / 2;
+										m_block[n].pos.x = BlockRightI + SIZE / 2;
 										m_block[n].pos.y = m_block[i].pos.y;
 
 										//block[i].Hit = true;
@@ -530,7 +521,7 @@ void UpdateCollision()
 									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 									{
 										m_block[i].Speed.y = 0;
-										m_block[i].pos.x = BlockLeftN - m_block[i].w / 2;
+										m_block[i].pos.x = BlockLeftN - SIZE/ 2;
 										m_block[i].pos.y = m_block[n].pos.y;
 									}
 								}
@@ -538,9 +529,9 @@ void UpdateCollision()
 							}
 							//Nブロックより下
 							//else if (BlockTopI <= BlockBottomN &&
-							//	m_block[i].pos.y - (m_block[i].h / 2 - GRAV) > m_block[n].pos.y + (m_block[n].h / 2 - GRAV))
+							//	m_block[i].pos.y - (SIZE / 2 - GRAV) > m_block[n].pos.y + (SIZE / 2 - GRAV))
 							//{
-							//	m_block[i].pos.y = BlockBottomN + m_block[i].h / 2;
+							//	m_block[i].pos.y = BlockBottomN + SIZE / 2;
 							//}
 						}
 						//ジャンプ関係はあとで
@@ -622,20 +613,20 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 			if (mb[b].pos.x == mb[i].pos.x)
 			{
 				//y軸が一個上なら
-				if (mb[b].pos.y <= (mb[i].pos.y - MOVE_BLOCK_SIZE_H / 2) &&
-					mb[b].pos.y >= (mb[i].pos.y - (MOVE_BLOCK_SIZE_H + MOVE_BLOCK_SIZE_H / 2)))
+				if (mb[b].pos.y <= (mb[i].pos.y - SIZE / 2) &&
+					mb[b].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
 				{
 					blockexist1 = true;
 				}
 				//2個上なら
-				else if (mb[b].pos.y <= (mb[i].pos.y - (MOVE_BLOCK_SIZE_H + MOVE_BLOCK_SIZE_H / 2)) &&
-					mb[b].pos.y >= (mb[i].pos.y - (MOVE_BLOCK_SIZE_H * 2 + MOVE_BLOCK_SIZE_H / 2)))
+				else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE + SIZE / 2)) &&
+					mb[b].pos.y >= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)))
 				{
 					blockexist2 = true;
 				}
 				//3個上なら
-				else if (mb[b].pos.y <= (mb[i].pos.y - (MOVE_BLOCK_SIZE_H * 2 + MOVE_BLOCK_SIZE_H / 2)) &&
-					mb[b].pos.y >= (mb[i].pos.y - (MOVE_BLOCK_SIZE_H * 3 + MOVE_BLOCK_SIZE_H / 2)))
+				else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)) &&
+					mb[b].pos.y >= (mb[i].pos.y - (SIZE * 3 + SIZE / 2)))
 				{
 					blockexist3 = true;
 				}

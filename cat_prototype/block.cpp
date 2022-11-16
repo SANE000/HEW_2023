@@ -12,10 +12,11 @@
 //マクロ定義をヘッダーに移動
 
 //プロトタイプ宣言
-
+void InitStage11();
 //==========================================
 //グローバル変数
 //==========================================
+static int time = 0;
 //ブロックオブジェクト
 //地面や足場の判定に使う
 
@@ -34,53 +35,34 @@ int before_use_haveblock_number = 0;
 //設置するブロックの数　blocktypeに応じて変化
 int previewblocknum = 0;
 
-BLOCK InitDate[] =
-{
-
-	//地面テスト
-	{true,D3DXVECTOR2(48,468),0,0,BLOCK_SIZE_W,BLOCK_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),D3DXVECTOR2(0,0),false},
-	{true,D3DXVECTOR2(144,468),0,0,BLOCK_SIZE_W,BLOCK_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),D3DXVECTOR2(0,0),false},
-	{true,D3DXVECTOR2(240,468),0,0,BLOCK_SIZE_W,BLOCK_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),D3DXVECTOR2(0,0),false},
-
-
-
-	{true,D3DXVECTOR2(432,372),0,0,BLOCK_SIZE_W,BLOCK_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),D3DXVECTOR2(0,0),false},
-	{true,D3DXVECTOR2(528,372),0,0,BLOCK_SIZE_W,BLOCK_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),D3DXVECTOR2(0,0),false},
-	{true,D3DXVECTOR2(624,372),0,0,BLOCK_SIZE_W,BLOCK_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),D3DXVECTOR2(0,0),false},
-
-	{true,D3DXVECTOR2(816,276),0,0,BLOCK_SIZE_W,BLOCK_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),D3DXVECTOR2(0,0),false},
-	{true,D3DXVECTOR2(912,276),0,0,BLOCK_SIZE_W,BLOCK_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),D3DXVECTOR2(0,0),false},
-	//{true,D3DXVECTOR2(864,300),0,0,BLOCK_SIZE_W,BLOCK_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),D3DXVECTOR2(0,0),false},
-};
-
 HRESULT InitBlock()
 {
 	nexttype = 0;
 
 	use_haveblock_number = 0;
 	before_use_haveblock_number = 0;
-	//テクスチャロード 画像の名前を入れよう
 
-	//構造体の初期化
+
+	//BLOCK構造体の初期化
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
-		g_Block[i] = InitDate[i];
+		//テクスチャロード 画像の名前を入れよう
 		g_Block[i].texNo = LoadTexture((char*)"data\\texture\\grass_block.png");
 	}
+	//足場ブロックの設置.一番最後に設定
+	InitStage11();
 	//射出ブロック初期化
 	for (int i = 0; i < MOVE_BLOCK_MAX; i++)
 	{
 		g_MoveBlock[i].use = false;
 		g_MoveBlock[i].pos = D3DXVECTOR2(0, 0);
 		g_MoveBlock[i].rot = 0.0f;
-		g_MoveBlock[i].w = MOVE_BLOCK_SIZE_W;
-		g_MoveBlock[i].h = MOVE_BLOCK_SIZE_H;
 		g_MoveBlock[i].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 		g_MoveBlock[i].texNo = LoadTexture((char*)"data\\texture\\sand_block.png");
 		g_MoveBlock[i].type = 1;
 		//下にまっすぐ撃つ想定
 		g_MoveBlock[i].Speed.x = 0.0f;
-		g_MoveBlock[i].Speed.y = GRAV;
+		g_MoveBlock[i].Speed.y = 0.0f;
 	}
 	//プレビューブロック初期化
 	for (int i = 0; i < PREVIEW_BLOCK_MAX; i++)
@@ -88,8 +70,6 @@ HRESULT InitBlock()
 		g_PreviewBlock[i].use = false;
 		g_PreviewBlock[i].pos = D3DXVECTOR2(0, 0);
 		g_PreviewBlock[i].rot = 0.0f;
-		g_PreviewBlock[i].w = MOVE_BLOCK_SIZE_W;
-		g_PreviewBlock[i].h = MOVE_BLOCK_SIZE_H;
 		g_PreviewBlock[i].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 		g_PreviewBlock[i].texNo = LoadTexture((char*)"data\\texture\\cursor_02.png");
 
@@ -127,9 +107,14 @@ void UnInitBlock()
 //更新処理
 void UpdateBlock()
 {
+	if (time > 0)
+	{
+		time -= 1;
+	}
+
 	if (FalseExistCheck() == true)
 	{
-		if (Keyboard_IsKeyDown(KK_RIGHT))
+		if (Keyboard_IsKeyDown(KK_RIGHT)|| IsButtonTriggered(0, XINPUT_GAMEPAD_RIGHT_SHOULDER) && time <= 0)
 		{//右
 			//コメント書くのムズイので処理の内容が分からない場合實吉まで聞きに来てください。申し訳ない分かりづれぇ
 
@@ -160,8 +145,9 @@ void UpdateBlock()
 			//	}
 
 			//}
+			time = WAIT_TIME;
 		}
-		else if (Keyboard_IsKeyDown(KK_LEFT))
+		else if (Keyboard_IsKeyDown(KK_LEFT) || IsButtonTriggered(0, XINPUT_GAMEPAD_LEFT_SHOULDER) && time <= 0)
 		{//左
 			//使うブロックを変える　配列の一個前のブロックを使う
 			//もし前のブロックがすでに使用済みだったら使用済みじゃなくなるまで戻る
@@ -176,7 +162,7 @@ void UpdateBlock()
 			} while (blocktype[use_haveblock_number].GetUse() == true);
 
 			
-
+			time = WAIT_TIME;
 		}
 
 		//前フレームと値が変わっていた場合
@@ -209,10 +195,10 @@ void UpdateBlock()
 			////座標の更新
 			g_MoveBlock[i].pos += g_MoveBlock[i].Speed;
 			//画面下まで着いたらスピードを0にして固定する
-			if (g_MoveBlock[i].pos.y > (SCREEN_HEIGHT - g_MoveBlock[i].h / 2.0))
+			if (g_MoveBlock[i].pos.y > (SCREEN_HEIGHT - DRAW_SIZE/ 2.0))
 			{
 				g_MoveBlock[i].Speed.y = 0.0f;
-				g_MoveBlock[i].pos.y = (SCREEN_HEIGHT - g_MoveBlock[i].h / 2.0);
+				g_MoveBlock[i].pos.y = (SCREEN_HEIGHT - DRAW_SIZE / 2.0);
 			}
 		}
 	}
@@ -239,12 +225,12 @@ void DrawBlock()
 			(
 			basePos.x + g_Block[i].pos.x,
 			basePos.y + g_Block[i].pos.y,
-			g_Block[i].w,
-			g_Block[i].h,
+			BASE_DRAW_SIZE,
+			DRAW_SIZE,
 			g_Block[i].rot,
 			g_Block[i].col,
-			0,
-			1.0f,
+			g_Block[i].Patern,
+			3.0f,
 			1.0f,
 			1
 			);
@@ -265,8 +251,8 @@ void DrawBlock()
 			(
 				basePos.x + g_MoveBlock[i].pos.x,
 				basePos.y + g_MoveBlock[i].pos.y,
-				g_MoveBlock[i].w,
-				g_MoveBlock[i].h,
+				DRAW_SIZE,
+				DRAW_SIZE,
 				g_MoveBlock[i].rot,
 				g_MoveBlock[i].col,
 				0,
@@ -294,8 +280,8 @@ void DrawBlock()
 				(
 					basePos.x + g_PreviewBlock[i].pos.x,
 					basePos.y + g_PreviewBlock[i].pos.y,
-					g_PreviewBlock[i].w,
-					g_PreviewBlock[i].h,
+					DRAW_SIZE,
+					DRAW_SIZE,
 					0.0f,
 					g_PreviewBlock[i].col,
 					0,
@@ -337,6 +323,7 @@ void SetMoveBlock()
 				g_MoveBlock[i].pos = g_PreviewBlock[b].pos;
 				//フラグを使用中にして
 				g_MoveBlock[i].use = true;
+				g_MoveBlock[i].Speed.y = GRAV;
 				////サウンド再生
 				//PlaySound(BulletSoundNo, 0);
 				//1つ作ったら終わり！
@@ -408,9 +395,9 @@ void BlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
+		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y + SIZE + GRAV);
 	
 		break;
 
@@ -429,10 +416,10 @@ void BlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x , pos.y - MOVE_BLOCK_SIZE_H * 2 - 5);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x , pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x , pos.y + MOVE_BLOCK_SIZE_H + 2.5);
-		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x, pos.y + MOVE_BLOCK_SIZE_H * 2 + 5);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x , pos.y - SIZE * 2 - 5);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x , pos.y - SIZE - GRAV);
+		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x , pos.y + SIZE + GRAV);
+		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x, pos.y + SIZE * 2 + 5);
 
 		break;
 
@@ -449,10 +436,10 @@ void BlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y);
-		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
+		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
+		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
 
 		break;
 
@@ -468,9 +455,9 @@ void BlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y - MOVE_BLOCK_SIZE_H - 1);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y - SIZE - 1);
+		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
 		
 		break;
 
@@ -504,26 +491,26 @@ void UpdateBlockPreview(D3DXVECTOR2 pos)
 
 		if (g_PreviewBlock[0].rot == 0)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y + SIZE + GRAV);
 		}
 		//　■
 		//　□
 		//■■
 		if (g_PreviewBlock[0].rot == 90)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y + SIZE + GRAV);
 		}
 		//■
 		//■□■
 		if (g_PreviewBlock[0].rot == 180)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - SIZE, pos.y - SIZE - GRAV);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
 
 		}
 		//■■
@@ -531,9 +518,9 @@ void UpdateBlockPreview(D3DXVECTOR2 pos)
 		//■
 		if (g_PreviewBlock[0].rot == 270)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y - SIZE - GRAV);
 		}
 		break;
 
@@ -548,18 +535,18 @@ void UpdateBlockPreview(D3DXVECTOR2 pos)
 
 		if (g_PreviewBlock[0].rot == 0 || g_PreviewBlock[0].rot == 180)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - MOVE_BLOCK_SIZE_H * 2 - 5);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
-			g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x, pos.y + MOVE_BLOCK_SIZE_H * 2 + 5);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE * 2 - 5);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
+			g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x, pos.y + SIZE * 2 + 5);
 		}
 		//■■□■■
 		else if (g_PreviewBlock[0].rot == 90 || g_PreviewBlock[0].rot == 270)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W * 2, pos.y );
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y );
-			g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W * 2, pos.y );
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - SIZE * 2, pos.y );
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y );
+			g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + SIZE * 2, pos.y );
 		}
 
 		break;
@@ -568,10 +555,10 @@ void UpdateBlockPreview(D3DXVECTOR2 pos)
 		//どの角度でも一緒
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y);
-		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
+		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
+		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
 		
 		break;
 
@@ -584,34 +571,34 @@ void UpdateBlockPreview(D3DXVECTOR2 pos)
 
 		if (g_PreviewBlock[0].rot == 0)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y - SIZE - GRAV);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
 		}
 		//■■
 		//□■
 		if (g_PreviewBlock[0].rot == 90)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y - MOVE_BLOCK_SIZE_H - 2.5);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y );
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + SIZE, pos.y - SIZE - GRAV);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y );
 		}
 		//□■
 		//■■
 		if (g_PreviewBlock[0].rot == 180)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x , pos.y + MOVE_BLOCK_SIZE_H + 2.5);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + MOVE_BLOCK_SIZE_W, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x , pos.y + SIZE + GRAV);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y + SIZE + GRAV);
 
 		}
 		//■□
 		//■■
 		if (g_PreviewBlock[0].rot == 270)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y );
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - MOVE_BLOCK_SIZE_W, pos.y + MOVE_BLOCK_SIZE_H + 2.5);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y );
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y + SIZE + GRAV);
 		}
 		break;
 	
@@ -646,4 +633,40 @@ bool FalseExistCheck()
 	}
 
 	return false;
+}
+
+void InitStage11()
+{
+	//足場に関しては,ザーッと並べる感じにする
+//DRAW_SIZEをかけた分一マスずつずれていく
+//大きな形ごとに分けるとわかりやすいかも
+	g_Block[0].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[1].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 1, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[2].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 2, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[3].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 3, DEFO_SIZE_Y - DRAW_SIZE * 3);
+
+	g_Block[4].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[5].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 5, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[6].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 6, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[7].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[8].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[9].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[10].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[11].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[12].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[13].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[14].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[15].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 4);
+
+	g_Block[16].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 9, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[17].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 10, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[18].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 11, DEFO_SIZE_Y - DRAW_SIZE * 3);
+
+	g_Block[19].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 3);
+
+	g_Block[20].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[21].pos = D3DXVECTOR2(BASE_DEFO_SIZE_X + BASE_DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 0);
 }

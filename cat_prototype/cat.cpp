@@ -26,7 +26,7 @@ HRESULT InitCat()
 	//テクスチャロード 画像の名前を入れよう
 	g_Cat.texNo = LoadTexture((char*)"data\\texture\\neko.png");
 	//構造体の初期化
-	g_Cat.pos.x = CAT_INIT_X;
+	g_Cat.pos.x = DEFO_SIZE_X;
 	g_Cat.pos.y = CAT_INIT_Y;
 	g_Cat.w = CAT_SIZE_W;
 	g_Cat.h = CAT_SIZE_H;
@@ -113,8 +113,8 @@ void UpdateCat()
 	if (g_Cat.pos.x >= CAT_GOLL && g_Cat.jump_flag == true)
 	{
 		//テストだから初期位置に戻す
-		//g_Cat.pos.x = CAT_INIT_X;
-		//g_Cat.pos.y = CAT_INIT_Y;
+		g_Cat.pos.x = CAT_INIT_X;
+		g_Cat.pos.y = CAT_INIT_Y;
 	}
 	//猫が穴に落ちてしまった場合
 	if (g_Cat.pos.y >= SCREEN_HEIGHT)
@@ -167,7 +167,7 @@ void CatJump(float jumpheight)
 
 	//猫が飛び上がる高さ
 	//現在の猫の位置から　collisionの中で引数で貰った段数　×　ブロックの高さ　飛ぶ
-	g_Cat.limit_jump = g_Cat.pos.y - ((MOVE_BLOCK_SIZE_H ) * jumpheight);
+	g_Cat.limit_jump = g_Cat.pos.y - ((SIZE/2) * jumpheight);
 
 
 	g_Cat.jump_y = JUMP;

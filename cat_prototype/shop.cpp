@@ -150,7 +150,7 @@ void UpdateShop()
 		if (confirmation_flag == true)
 		{
 			//購入
-			if (Keyboard_IsKeyDown(KK_Y)||IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
+			if (Keyboard_IsKeyDown(KK_Y)||IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
 			{
 				
 				Buyblock();
@@ -159,7 +159,7 @@ void UpdateShop()
 				time = WAIT_TIME;
 			}
 			//購入しない
-			else if (Keyboard_IsKeyDown(KK_N) || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
+			else if (Keyboard_IsKeyDown(KK_N) || IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
 			{
 				confirmation_flag = false;
 				time = WAIT_TIME;
@@ -169,7 +169,7 @@ void UpdateShop()
 		else if(start_flag == true)
 		{
 			//始める
-			if (Keyboard_IsKeyDown(KK_Y) || IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
+			if (Keyboard_IsKeyDown(KK_Y) || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
 			{
 				start_flag = false;
 				SetScene(SCENE_GAME);
@@ -177,7 +177,7 @@ void UpdateShop()
 				
 			}
 			//始めない
-			else if (Keyboard_IsKeyDown(KK_N) || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
+			else if (Keyboard_IsKeyDown(KK_N) || IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
 			{
 				start_flag = false;
 				time = WAIT_TIME;
@@ -224,14 +224,14 @@ void UpdateShop()
 
 			//購入ボタン　->　確認ボタン
 
-			if (Keyboard_IsKeyDown(KK_SPACE) || IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
+			if (Keyboard_IsKeyDown(KK_SPACE) || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
 			{
 				//購入確認
 				confirmation_flag = true;
 				time = WAIT_TIME;
 			}
 
-			if (Keyboard_IsKeyDown(KK_S) || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
+			if (Keyboard_IsKeyDown(KK_S) || IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
 			{
 				//スタート確認
 				start_flag = true;

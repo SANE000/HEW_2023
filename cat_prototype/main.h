@@ -6,6 +6,8 @@
 --------------------------------------------------------------------------------
 
 ==============================================================================*/
+#ifndef MAIN_H
+#define MAIN_H
 #pragma once
 
 
@@ -42,6 +44,21 @@
 #define SCREEN_LIMIT_LEFT (0)
 //右
 #define SCREEN_LIMIT_RIGHT (960)
+//ブロック描画,当たり判定用
+//判定用サイズ
+#define SIZE			 (59)
+//描画用サイズ
+#define DRAW_SIZE		 (60)
+//左から
+#define DEFO_SIZE_X		 (DRAW_SIZE/2)
+//下から
+#define DEFO_SIZE_Y		 (SCREEN_HEIGHT - DEFO_SIZE_X)
+//横3倍した判定サイズ
+#define BASE_SIZE	 (DRAW_SIZE*3-1)
+//横3倍した足場用サイズ
+#define BASE_DRAW_SIZE	 (DRAW_SIZE*3)
+//横3倍した足場初期位置
+#define BASE_DEFO_SIZE_X (BASE_DRAW_SIZE/2)
 //重力
 #define GRAV 2.5f
 //猫の移動速度
@@ -57,4 +74,4 @@
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
-
+#endif // MAIN_H

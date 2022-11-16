@@ -4,9 +4,9 @@
 #include "renderer.h"
 
 //É}ÉNÉçíËã`
-#define CAT_GOLL 860
-#define CAT_SIZE_W 48
-#define CAT_SIZE_H 48
+#define CAT_GOLL 2700
+#define CAT_SIZE_W 60
+#define CAT_SIZE_H 60
 #define CAT_INIT_X (CAT_SIZE_W)
 #define CAT_INIT_Y 240
 

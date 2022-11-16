@@ -21,8 +21,6 @@ struct PLAYER
 	int texNo;
 	//アニメ番号
 	float patern;
-	//プレイヤーサイズ
-	float w, h;
 	//色
 	D3DXCOLOR col;
 	//発射間隔

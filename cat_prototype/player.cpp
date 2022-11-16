@@ -10,12 +10,6 @@
 #include "collision.h"
 #include "camera.h"
 //マクロ定義
-#define PLAYER_SIZE_W (48)
-#define PLAYER_SIZE_H (48)
-#define PLAYER_INIT_X (PLAYER_SIZE_W/2)
-#define PLAYER_INIT_Y (PLAYER_SIZE_H/2)
-#define MOVE_X (PLAYER_SIZE_W)
-#define MOVE_Y (PLAYER_SIZE_H)
 #define BULLET_WAIT (38)
 //プロトタイプ宣言
 
@@ -32,12 +26,10 @@ HRESULT InitPlayer()
 	//テクスチャロード 画像の名前を入れよう
 	g_Player.texNo = LoadTexture((char*)"data\\texture\\player.png");
 	//構造体の初期化
-	g_Player.pos.x = PLAYER_INIT_X;
-	g_Player.pos.y = PLAYER_INIT_Y;
+	g_Player.pos.x = DEFO_SIZE_X;
+	g_Player.pos.y = DEFO_SIZE_X;
 	g_Player.SetPos.x = g_Player.pos.x;
-	g_Player.SetPos.y = g_Player.pos.y + PLAYER_SIZE_H;
-	g_Player.w = PLAYER_SIZE_W;
-	g_Player.h = PLAYER_SIZE_H;
+	g_Player.SetPos.y = g_Player.pos.y + DRAW_SIZE;
 	g_Player.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	g_Player.patern = 0.0f;
 	g_Player.bwait = 0;
@@ -64,9 +56,9 @@ void UpdatePlayer()
 		time -= 1;
 	}
 	//初期値から左へはいかないようにする
-	if (g_Player.pos.x <= PLAYER_INIT_X)
+	if (g_Player.pos.x <= DEFO_SIZE_X)
 	{
-		g_Player.pos.x = PLAYER_INIT_X;
+		g_Player.pos.x = DEFO_SIZE_X;
 	}
 	//終端値から右へもいかないようにする
 	//else if (g_Player.pos.x >= SCREEN_WIDTH - PLAYER_INIT_X)
@@ -78,37 +70,37 @@ void UpdatePlayer()
 		g_Player.bwait -= 1;
 	}
 	//初期値から上へはいかないようにする
-	if (g_Player.pos.y <= PLAYER_INIT_Y)
+	if (g_Player.pos.y <= DEFO_SIZE_X)
 	{
-		g_Player.pos.y = PLAYER_INIT_Y;
+		g_Player.pos.y = DEFO_SIZE_X;
 	}
 	//終端値から下へもいかないようにする
-	else if (g_Player.pos.y >= SCREEN_HEIGHT - PLAYER_INIT_Y)
+	else if (g_Player.pos.y >= SCREEN_HEIGHT - DEFO_SIZE_X)
 	{
-		g_Player.pos.y = SCREEN_HEIGHT - PLAYER_INIT_Y;
+		g_Player.pos.y = SCREEN_HEIGHT - DEFO_SIZE_X;
 	}
 
 	//操作関係
 	//上下左右矢印キーで移動する
 	if (Keyboard_IsKeyDown(KK_D) || GetThumbLeftX(0) > 0 && time <= 0)
 	{//右
-		g_Player.pos.x += MOVE_X;
+		g_Player.pos.x += DRAW_SIZE;
 		time = WAIT_TIME;
 	}
 	else if (Keyboard_IsKeyDown(KK_A)|| GetThumbLeftX(0) < 0 && time <= 0)
 	{//左
-		g_Player.pos.x -= MOVE_X;
+		g_Player.pos.x -= DRAW_SIZE;
 		time = WAIT_TIME;
 	}
 	//上下の移動によってバグが生じそうだから今は辞めておく
 	else if (Keyboard_IsKeyDown(KK_S) || GetThumbLeftY(0) < 0 && time <= 0)
 	{//下
-		g_Player.pos.y += MOVE_Y;
+		g_Player.pos.y += DRAW_SIZE;
 		time = WAIT_TIME;
 	}
 	else if (Keyboard_IsKeyDown(KK_W) || GetThumbLeftY(0) > 0 && time <= 0)
 	{//上
-		g_Player.pos.y -= MOVE_Y;
+		g_Player.pos.y -= DRAW_SIZE;
 		time = WAIT_TIME;
 	}
 
