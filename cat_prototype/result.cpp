@@ -78,13 +78,13 @@ void DrawResult()
 
 		int time = g_Time;
 
-		for (int i = 0; i < TIME_MAX; i++)
+		for (int i = 0; i < TIME_MAX - 1; i++)
 		{
 			//1の位の数値を取り出す
 			int suuji = time % 10;;
 
 			GetDeviceContext()->PSSetShaderResources(0, 1, GetTexture(g_TextureNo));//&time.png);
-			DrawSpriteColorRotate(270.0f - (32.0f*i), 280.0f, 32.0f, 32.0f, 0, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
+			DrawSpriteColorRotate(480.0f - (32.0f*i), 220.0f, 32.0f, 32.0f, 0, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
 				suuji, 0.1f, 1.0f, 10);
 
 			//数値全体を10で割る
@@ -98,7 +98,7 @@ void DrawResult()
 			//1の位の数値を取り出す
 			int num = block % 10;;
 
-			DrawSpriteColorRotate(270.0f - (32.0f*i), 415.0f, 32.0f, 32.0f, 0, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
+			DrawSpriteColorRotate(480.0f - (32.0f*i), 355.0f, 32.0f, 32.0f, 0, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
 				num, 0.1f, 1.0f, 10);
 
 			//数値全体を10で割る
