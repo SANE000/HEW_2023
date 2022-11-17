@@ -56,33 +56,40 @@ void UpdateCamera(void)
 
 
 	//横に動く
+	//猫が画面の右側にいったら
 	if (pCat->pos.x >= g_Camera.pos.x + SCREEN_WIDTH - 20) {
+	//ムーブフラグをturuにする
 		g_Camera.move = true;
 	}
+	//ムーブフラグがtrueなら
 	if (g_Camera.move == true)
-	{
+	{//一定の速度で移動
 		g_Camera.pos.x += 10;
 		//pPreviewBlock->pos.x += 10;
 		if (pCat->pos.x - 10 <= g_Camera.pos.x) {
+			//猫が左端についたら移動を止め位置補正
 			pPreviewBlock->pos.x = g_Camera.pos.x;
 			g_Camera.move = false;
 			Nowpos = g_Camera.pos.x;
 		}
 	}
-
+	//左側に行ったら初期画面
 	if (pCat->pos.x <= g_Camera.pos.x - 20) {
 		g_Camera.pos.x = 0;
 	}
 
+	//ムーブフラグがfalse / posが9601の倍数以外
 	if (g_Camera.move == false && Nowpos % SCREEN_WIDTH != 0)
-	{
+	{//画面に合わせ位置補正
 		g_Camera.pos.x = g_Camera.Oldpos.x + SCREEN_WIDTH;
 		Nowpos = g_Camera.pos.x;
 		pplayer->pos.x = g_Camera.Oldpos.x + SCREEN_WIDTH - 30;
 	}
 
+	//ムーブフラグがfalse / posが9601の倍数
 	if (g_Camera.move == false && Nowpos % SCREEN_WIDTH == 0)
 	{
+		//Oldposに今の位置を入れる
 		g_Camera.Oldpos = g_Camera.pos;
 	}
 
