@@ -4,7 +4,7 @@
 #include "cat.h"
 #include "block.h"
 //マクロ定義
-#define SENSOR_SIZE	(10.0f)		//ジャンプセンサーの横サイズ
+#define SENSOR_SIZE	(3.0f)		//ジャンプセンサーの横サイズ
 
 
 

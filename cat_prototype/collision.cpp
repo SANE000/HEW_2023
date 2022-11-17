@@ -23,8 +23,6 @@ int temp = BLOCK_MAX;
 //ブロックとネコがぶつかった際、
 //そのブロックの１個上、２個上のブロックが存在するかどうかをいれる変数
 bool blockexist1;
-bool blockexist2;
-bool blockexist3;
 
 bool enablejump;
 
@@ -36,8 +34,6 @@ int blocknum;
 HRESULT InitCollsion()
 {
 	blockexist1 = false;
-	blockexist2 = false;
-	blockexist3 = false;
 
 	enablejump = false;
 	 
@@ -310,10 +306,10 @@ void UpdateCollision()
 						//ジャンプする段数が0以上4未満かどうか
 						//0は何かしらのエラー　4は飛ばずに引き返す
 						if (SearchJumpHeight(m_block, cat, i) > 0 &&
-							SearchJumpHeight(m_block, cat, i) < 4)
+							SearchJumpHeight(m_block, cat, i) < 2)
 						{
 							//地面についているか
-							if (cat->jump_flag = true)
+							if (cat->jump_flag == true)
 							{
 								CatJump(SearchJumpHeight(m_block, cat, i));
 							}
@@ -336,13 +332,13 @@ void UpdateCollision()
 						//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
 						//下で作成
 
-						//ジャンプする段数が0以上4未満かどうか
+						//ジャンプする段数が0以上2未満かどうか
 						//0は何かしらのエラー　4は飛ばずに引き返す
 						if (SearchJumpHeight(m_block, cat, i) > 0 &&
-							SearchJumpHeight(m_block, cat, i) < 4)
+							SearchJumpHeight(m_block, cat, i) < 2)
 						{
 							//地面についているか
-							if (cat->jump_flag = true)
+							if (cat->jump_flag == true)
 							{
 								CatJump(SearchJumpHeight(m_block, cat, i));
 							}
@@ -618,23 +614,23 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 				{
 					blockexist1 = true;
 				}
-				//2個上なら
-				else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE + SIZE / 2)) &&
-					mb[b].pos.y >= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)))
-				{
-					blockexist2 = true;
-				}
-				//3個上なら
-				else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)) &&
-					mb[b].pos.y >= (mb[i].pos.y - (SIZE * 3 + SIZE / 2)))
-				{
-					blockexist3 = true;
-				}
+				////2個上なら
+				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE + SIZE / 2)) &&
+				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)))
+				//{
+				//	blockexist2 = true;
+				//}
+				////3個上なら
+				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)) &&
+				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 3 + SIZE / 2)))
+				//{
+				//	blockexist3 = true;
+				//}
 
 			}
 
 			//全部のブロックが見つかったら終了
-			if (blockexist1 == true && blockexist2 == true && blockexist3 == true)
+			if (blockexist1 == true)
 			{
 				break;
 			}
@@ -644,38 +640,34 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 		//blockexisitをfalseにする
 
 		//どっちも見つからなかった時
-		if (blockexist1 == false && blockexist2 == false)
+		if (blockexist1 == false )
 		{
 			catjump_height = 1;
 			enablejump = true;
 		}
 		//一個上だけ存在する
-		else if (blockexist1 == true && blockexist2 == false)
+		else if (blockexist1 == true )
 		{
 			catjump_height = 2;
-			enablejump = true;
-		}
-		//一個上と二個上存在する
-		else if (blockexist1 == true && blockexist2 == true && blockexist3 == false)
-		{
-			catjump_height = 3;
-			enablejump = true;
-		}
-		//全部存在する
-		else if (blockexist1 == true && blockexist2 == true && blockexist3 == true)
-		{
-			catjump_height = 4;
 			enablejump = false;
 		}
+		////一個上と二個上存在する
+		//else if (blockexist1 == true && blockexist2 == true )
+		//{
+		//	catjump_height = 3;
+		//	enablejump = true;
+		//}
+		////全部存在する
+		//else if (blockexist1 == true && blockexist2 == true && blockexist3 == true)
+		//{
+		//	catjump_height = 4;
+		//	enablejump = false;
+	}
 
 		//二個上のブロックだけ存在した際どうするかは今後考える
 		//else if (blockexist1 == false && blockexist2 == true)
 
-		blockexist1 = false;
-		blockexist2 = false;
-		blockexist3 = false;
-	}
-
+	blockexist1 = false;
 	return catjump_height;
 }
 
