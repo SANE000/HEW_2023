@@ -9,6 +9,7 @@
 struct CAMERA_2D
 {
 	D3DXVECTOR2 pos;
+	D3DXVECTOR2 Oldpos;
 
 	bool move;
 };

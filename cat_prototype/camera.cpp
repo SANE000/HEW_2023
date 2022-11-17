@@ -27,6 +27,7 @@
 //*****************************************************************************
 static CAMERA_2D	g_Camera;	// カメラ用データ
 static D3DXVECTOR2  g_Base;		// マップ全体の親座標
+static int			Nowpos;
 
 //=============================================================================
 // 初期化処理
@@ -56,17 +57,16 @@ void UpdateCamera(void)
 
 	//横に動く
 	if (pCat->pos.x >= g_Camera.pos.x + SCREEN_WIDTH - 20) {
-		g_Camera.move  = true;
+		g_Camera.move = true;
 	}
 	if (g_Camera.move == true)
-	{	 
+	{
 		g_Camera.pos.x += 10;
-	  //pPreviewBlock->pos.x += 10;
-	    pplayer->pos.x += 10;
+		//pPreviewBlock->pos.x += 10;
 		if (pCat->pos.x - 10 <= g_Camera.pos.x) {
-		 pPreviewBlock->pos.x = g_Camera.pos.x;
-		  pplayer->pos.x = g_Camera.pos.x;
+			pPreviewBlock->pos.x = g_Camera.pos.x;
 			g_Camera.move = false;
+			Nowpos = g_Camera.pos.x;
 		}
 	}
 
@@ -74,23 +74,28 @@ void UpdateCamera(void)
 		g_Camera.pos.x = 0;
 	}
 
-	////パッと切り替わる
-	////if (pCat->pos.x >= g_Camera.pos.x + SCREEN_WIDTH - 20) {
-	////	カメラを動かす
-	////	g_Camera.pos.x += 960;
-	////	pPreviewBlock->pos.x += 960;
-	////	pplayer->pos.x += 960;
-	////}
-	 
+	if (g_Camera.move == false && Nowpos % SCREEN_WIDTH != 0)
+	{
+		g_Camera.pos.x = g_Camera.Oldpos.x + SCREEN_WIDTH;
+		Nowpos = g_Camera.pos.x;
+		pplayer->pos.x = g_Camera.Oldpos.x + SCREEN_WIDTH - 30;
+	}
+
+	if (g_Camera.move == false && Nowpos % SCREEN_WIDTH == 0)
+	{
+		g_Camera.Oldpos = g_Camera.pos;
+	}
+
 
 	if (Keyboard_IsKeyDown(KK_V))
 	{
-			g_Camera.pos.x++;
+		g_Camera.pos.x++;
 	}
 	if (Keyboard_IsKeyDown(KK_C))
 	{
 		g_Camera.pos.x--;
 	}
+
 }
 
 
