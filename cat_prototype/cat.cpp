@@ -167,7 +167,7 @@ void CatJump(float jumpheight)
 
 	//猫が飛び上がる高さ
 	//現在の猫の位置から　collisionの中で引数で貰った段数　×　ブロックの高さ　飛ぶ
-	g_Cat.limit_jump = g_Cat.pos.y - ((SIZE/2) * jumpheight);
+	g_Cat.limit_jump = g_Cat.pos.y - ( SIZE * jumpheight);
 
 
 	g_Cat.jump_y = JUMP;

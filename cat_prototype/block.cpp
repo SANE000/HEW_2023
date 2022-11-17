@@ -84,10 +84,12 @@ HRESULT InitBlock()
 
 	for (int i = 0; i < BLOCKTYPE_MAX; i++)
 	{
+		blocktype[i].ChangeUse(false);
+
 		//-1の時はブロックを買っていないため使用フラグをtrueにして使えなくする
 		if (blocktype[i].Gettype() == -1)
 		{
-			blocktype[i].ChangeUse();
+			blocktype[i].ChangeUse(true);
 		}
 		
 	}
@@ -334,7 +336,7 @@ void SetMoveBlock()
 	
 		
 	//使用済みにする
-	blocktype[use_haveblock_number].ChangeUse();
+	blocktype[use_haveblock_number].ChangeUse(true);
 
 	if (FalseExistCheck() == true)
 	{

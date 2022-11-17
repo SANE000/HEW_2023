@@ -39,8 +39,8 @@ public:
 		m_type = type;
 	}
 	//ブロックのuseをtrueにする ブロックを設置する際呼び出す
-	void ChangeUse() {
-		m_use = true;
+	void ChangeUse(bool use) {
+		m_use = use;
 	}
 
 	bool GetUse() const{

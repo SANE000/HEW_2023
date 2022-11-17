@@ -135,23 +135,23 @@ void UpdatePlayer()
 }
 void DrawPlayer()
 {
-	////テクスチャのセット
-	//GetDeviceContext()->PSSetShaderResources
-	//(0, 1, GetTexture(g_Player.texNo));
-	//g_Player.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	////スプライトの描画
-	//DrawSpriteColorRotate(
-	//	g_Player.pos.x,
-	//	g_Player.pos.y,
-	//	g_Player.w,
-	//	g_Player.h,
-	//	g_Player.rot,
-	//	g_Player.col,
-	//	g_Player.patern,		
-	//	1.0f,//横
-	//	1.0f,//縦
-	//	1//横のパターン枚数
-	//);
+	//テクスチャのセット
+	GetDeviceContext()->PSSetShaderResources
+	(0, 1, GetTexture(g_Player.texNo));
+	g_Player.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	//スプライトの描画
+	DrawSpriteColorRotate(
+		g_Player.pos.x,
+		g_Player.pos.y,
+		DRAW_SIZE,
+		DRAW_SIZE,
+		g_Player.rot,
+		g_Player.col,
+		g_Player.patern,		
+		1.0f,//横
+		1.0f,//縦
+		1//横のパターン枚数
+	);
 }
 //構造体の先頭ポインタを返す　皆が使えるように
 PLAYER *GetPlayer()

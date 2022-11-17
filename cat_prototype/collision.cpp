@@ -14,7 +14,7 @@
 //BBとは当たり判定の最低限の□
 //四角形の中心座標２つとサイズ２つ true衝突
 int temp = BLOCK_MAX;
- 
+
 
 //==========================================
 //グローバル変数
@@ -36,7 +36,7 @@ HRESULT InitCollsion()
 	blockexist1 = false;
 
 	enablejump = false;
-	 
+
 	catjump_height = 0;
 
 	return S_OK;
@@ -197,19 +197,22 @@ void UpdateCollision()
 
 			float JumpSensorTopM = m_block[i].pos.y - SIZE / 2;
 			float JumpSensorBottomM = m_block[i].pos.y + SIZE / 2;
-			float JumpSensorLeftM = m_block[i].pos.x - SIZE / 2 - SENSOR_SIZE ;
+			float JumpSensorLeftM = m_block[i].pos.x - SIZE / 2 - SENSOR_SIZE;
 			float JumpSensorRightM = m_block[i].pos.x + SIZE / 2 + SENSOR_SIZE;
 
 
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, m_block[i].pos,
-				D3DXVECTOR2(cat->w + SENSOR_SIZE * 2, cat->h),
+				D3DXVECTOR2(cat->w + SENSOR_SIZE * 2, 1.0f),
 				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
 			{
+				//目の前のブロックの高さをとる
+				int jumpheight = SearchJumpHeight(m_block, cat, i);
+
 				//猫が床ブロックより右
 				if (CatLeft <= JumpSensorRightM && cat->pos.x > JumpSensorRightM)
 				{
@@ -219,15 +222,15 @@ void UpdateCollision()
 						//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
 						//下で作成
 
-						//ジャンプする段数が0以上4未満かどうか
-						//0は何かしらのエラー　4は飛ばずに引き返す
-						if (SearchJumpHeight(m_block, cat, i) > 0 &&
-							SearchJumpHeight(m_block, cat, i) < 4)
+						//ジャンプする段数が0以上2未満かどうか
+						//0は何かしらのエラー　2は飛ばずに引き返す
+						if (jumpheight > 0 &&
+							jumpheight < 2)
 						{
 							//地面についているか
-							if (cat->jump_flag = true)
+							if (cat->jump_flag == true)
 							{
-								CatJump(SearchJumpHeight(m_block, cat, i));
+								CatJump(jumpheight);
 							}
 						}
 						else
@@ -235,28 +238,28 @@ void UpdateCollision()
 							//引き返す
 							ChangeMoveFlag(cat);
 						}
-						
+
 					}
 				}
 				//猫が床ブロックより左
 				else if (CatRight >= JumpSensorLeftM && CatRight < m_block[i].pos.x)
 				{//左
-					
+
 					if (cat->move_flag == false)
 					{
 						//ブロックとぶつかったとき飛べる高さか調べる関数
 						//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
 						//下で作成
 
-						//ジャンプする段数が0以上4未満かどうか
-						//0は何かしらのエラー　4は飛ばずに引き返す
-						if (SearchJumpHeight(m_block, cat, i) > 0 &&
-							SearchJumpHeight(m_block, cat, i) < 4)
+						//ジャンプする段数が0以上2未満かどうか
+						//0は何かしらのエラー　2は飛ばずに引き返す
+						if (jumpheight > 0 &&
+							jumpheight < 2)
 						{
 							//地面についているか
-							if (cat->jump_flag = true)
+							if (cat->jump_flag == true)
 							{
-								CatJump(SearchJumpHeight(m_block, cat, i));
+								CatJump(jumpheight);
 							}
 						}
 						else
@@ -287,13 +290,16 @@ void UpdateCollision()
 
 			//当たり判定を行う
 			bool hit = CollisionBB(
-				cat->pos, m_block[i].pos,
-				D3DXVECTOR2(cat->w + SENSOR_SIZE * 2, cat->h),
+				cat->pos, block[i].pos,
+				D3DXVECTOR2(cat->w + SENSOR_SIZE * 2, 1.0f),
 				D3DXVECTOR2(BASE_SIZE, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
 			{
+				//目の前のブロックの高さをとる
+				int jumpheight = SearchJumpHeight(m_block, block, cat, i);
+
 				//猫が床ブロックより右
 				if (CatLeft <= JumpSensorRightM && cat->pos.x > JumpSensorRightM)
 				{
@@ -303,27 +309,30 @@ void UpdateCollision()
 						//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
 						//下で作成
 
-						//ジャンプする段数が0以上4未満かどうか
-						//0は何かしらのエラー　4は飛ばずに引き返す
-						if (SearchJumpHeight(m_block, cat, i) > 0 &&
-							SearchJumpHeight(m_block, cat, i) < 2)
+						//ジャンプする段数が0以上2未満かどうか
+						//0は何かしらのエラー　2は飛ばずに引き返す
+						if (jumpheight > 0 &&
+							jumpheight < 2)
 						{
 							//地面についているか
 							if (cat->jump_flag == true)
 							{
-								CatJump(SearchJumpHeight(m_block, cat, i));
+								CatJump(jumpheight);
 							}
 						}
 						else
 						{
-							//引き返す
-							ChangeMoveFlag(cat);
+							if (cat->jump_flag == true)
+							{
+								//引き返す
+								ChangeMoveFlag(cat);
+							}
 						}
 
 					}
 				}
 				//猫が床ブロックより左
-				else if (CatRight >= JumpSensorLeftM && CatRight < m_block[i].pos.x)
+				else if (CatRight >= JumpSensorLeftM && CatRight < block[i].pos.x)
 				{//左
 
 					if (cat->move_flag == false)
@@ -333,26 +342,29 @@ void UpdateCollision()
 						//下で作成
 
 						//ジャンプする段数が0以上2未満かどうか
-						//0は何かしらのエラー　4は飛ばずに引き返す
-						if (SearchJumpHeight(m_block, cat, i) > 0 &&
-							SearchJumpHeight(m_block, cat, i) < 2)
+						//0は何かしらのエラー　2は飛ばずに引き返す
+						if (jumpheight > 0 &&
+							jumpheight < 2)
 						{
 							//地面についているか
 							if (cat->jump_flag == true)
 							{
-								CatJump(SearchJumpHeight(m_block, cat, i));
+								CatJump(jumpheight);
 							}
 						}
 						else
 						{
-							//引き返す
-							ChangeMoveFlag(cat);
+							if (cat->jump_flag == true)
+							{
+								//引き返す
+								ChangeMoveFlag(cat);
+							}
 						}
 					}
 				}
 			}
 		}
-		
+
 		//動くブロックと動かないブロックの当たり判定
 		for (int i = 0; i < MOVE_BLOCK_MAX; i++)
 		{
@@ -382,7 +394,7 @@ void UpdateCollision()
 							{
 								//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 								m_block[i].Speed.y = 0;
-								m_block[i].pos.y = BlockTop2 - 1 - SIZE / 2;
+								m_block[i].pos.y = BlockTop2 - 2.5 - SIZE / 2;
 							}
 						}
 					}
@@ -391,7 +403,7 @@ void UpdateCollision()
 		}
 		//動くブロック同士の当たり判定/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		for (int i = 0; i < MOVE_BLOCK_MAX; i++)
-		{	
+		{
 			//ブロックは存在する？
 			if (m_block[i].use == true)
 			{
@@ -424,7 +436,7 @@ void UpdateCollision()
 						if (hit == true)
 						{
 							//Nブロックより上(重力GRAVの影響も排除する)
-							if ( m_block[i].pos.y < m_block[n].pos.y)
+							if (m_block[i].pos.y < m_block[n].pos.y)
 							{
 								//BlockBottomI - GRAV  <= BlockTopN &&
 
@@ -435,19 +447,19 @@ void UpdateCollision()
 									{
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 										m_block[n].Speed.y = 0;
-										m_block[n].pos.y = BlockBottomI +1 + SIZE / 2;
+										m_block[n].pos.y = BlockBottomI + 1 + SIZE / 2;
 										//block[i].Hit = true;
 										//temp = BLOCK_MAX;
 									}
 									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 									{
 										m_block[i].Speed.y = 0;
-										m_block[i].pos.y = BlockTopN -1 - SIZE / 2;
+										m_block[i].pos.y = BlockTopN - 1 - SIZE / 2;
 									}
-									
-									
+
+
 								}
-								
+
 							}
 							////Nブロックより下
 							//
@@ -480,11 +492,11 @@ void UpdateCollision()
 									if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 									{
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-										
+
 										m_block[n].Speed.y = 0;
 										m_block[n].pos.x = BlockLeftI - SIZE / 2;
 										m_block[n].pos.y = m_block[i].pos.y;
-										
+
 										//block[i].Hit = true;
 										//temp = BLOCK_MAX;
 									}
@@ -494,7 +506,7 @@ void UpdateCollision()
 										m_block[i].pos.x = BlockRightN + SIZE / 2;
 										m_block[i].pos.y = m_block[n].pos.y;
 									}
-									
+
 								}
 							}
 							//Nブロックより左 
@@ -517,11 +529,11 @@ void UpdateCollision()
 									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 									{
 										m_block[i].Speed.y = 0;
-										m_block[i].pos.x = BlockLeftN - SIZE/ 2;
+										m_block[i].pos.x = BlockLeftN - SIZE / 2;
 										m_block[i].pos.y = m_block[n].pos.y;
 									}
 								}
-								
+
 							}
 							//Nブロックより下
 							//else if (BlockTopI <= BlockBottomN &&
@@ -590,7 +602,7 @@ bool CollisionBB(D3DXVECTOR2 pos1, D3DXVECTOR2 pos2,
 	return true;//↑4つを乗り越えたら衝突しているってことだからtrue
 }
 
-//ブロックとぶつかったとき飛べる高さか調べる関数
+//ブロックとぶつかったとき飛べる高さか調べる関数　動くブロックとぶつかったとき
 //引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
 float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 {
@@ -603,14 +615,21 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 		//ぶつかったブロックと同じx座標で一個上の高さのブロックを探す
 		//それがあったら二個上の高さのブロックを探す
 		//全部あれば三個分ジャンプ　ジャンプの高さを決める
-		for (int b = 0; b < MOVE_BLOCK_MAX; b++)
+
+		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
 		{
+			//全部のブロックが見つかったら終了
+			if (blockexist1 == true)
+			{
+				break;
+			}
+
 			//x座標が同じなら
-			if (mb[b].pos.x == mb[i].pos.x)
+			if (mb[a].pos.x == mb[i].pos.x)
 			{
 				//y軸が一個上なら
-				if (mb[b].pos.y <= (mb[i].pos.y - SIZE / 2) &&
-					mb[b].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
+				if (mb[a].pos.y <= (mb[i].pos.y - SIZE / 2) &&
+					mb[a].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
 				{
 					blockexist1 = true;
 				}
@@ -629,24 +648,19 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 
 			}
 
-			//全部のブロックが見つかったら終了
-			if (blockexist1 == true)
-			{
-				break;
-			}
 		}
 
 		//何段飛べるという変数を渡す
 		//blockexisitをfalseにする
 
 		//どっちも見つからなかった時
-		if (blockexist1 == false )
+		if (blockexist1 == false)
 		{
 			catjump_height = 1;
 			enablejump = true;
 		}
 		//一個上だけ存在する
-		else if (blockexist1 == true )
+		else if (blockexist1 == true)
 		{
 			catjump_height = 2;
 			enablejump = false;
@@ -664,12 +678,118 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 		//	enablejump = false;
 	}
 
-		//二個上のブロックだけ存在した際どうするかは今後考える
-		//else if (blockexist1 == false && blockexist2 == true)
+	//二個上のブロックだけ存在した際どうするかは今後考える
+	//else if (blockexist1 == false && blockexist2 == true)
 
 	blockexist1 = false;
 	return catjump_height;
 }
+
+//ブロックとぶつかったとき飛べる高さか調べる関数 床ブロックとぶつかったとき
+//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
+float SearchJumpHeight(MOVE_BLOCK* mb, BLOCK* b, CAT* c, int i)
+{
+	//ジャンプフラグがtrueだったら
+					//床についていたら
+	if (GetJumpFlag() == true)
+	{
+
+		//全ブロックを探知
+		//ぶつかったブロックと同じx座標で一個上の高さのブロックを探す
+		//それがあったら二個上の高さのブロックを探す
+		//全部あれば三個分ジャンプ　ジャンプの高さを決める
+		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
+		{
+			//全部のブロックが見つかったら終了
+			if (blockexist1 == true)
+			{
+				break;
+			}
+
+			//x座標が同じなら
+			if (mb[a].pos.x == mb[i].pos.x)
+			{
+				//y軸が一個上なら
+				if (b[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
+					b[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
+				{
+					blockexist1 = true;
+				}
+				////2個上なら
+				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE + SIZE / 2)) &&
+				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)))
+				//{
+				//	blockexist2 = true;
+				//}
+				////3個上なら
+				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)) &&
+				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 3 + SIZE / 2)))
+				//{
+				//	blockexist3 = true;
+				//}
+
+			}
+
+		}
+
+		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
+		{
+			//全部のブロックが見つかったら終了
+			if (blockexist1 == true)
+			{
+				break;
+			}
+
+			//x座標が同じなら
+			if (mb[a].pos.x == mb[i].pos.x)
+			{
+				//y軸が一個上なら
+				if (mb[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
+					mb[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
+				{
+					blockexist1 = true;
+				}
+				////2個上なら
+				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE + SIZE / 2)) &&
+				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)))
+				//{
+				//	blockexist2 = true;
+				//}
+				////3個上なら
+				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)) &&
+				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 3 + SIZE / 2)))
+				//{
+				//	blockexist3 = true;
+				//}
+
+			}
+
+		}
+
+		//何段飛べるという変数を渡す
+		//blockexisitをfalseにする
+
+		//どっちも見つからなかった時
+		if (blockexist1 == false)
+		{
+			catjump_height = 1;
+			enablejump = true;
+		}
+		//一個上だけ存在する
+		else if (blockexist1 == true)
+		{
+			catjump_height = 2;
+			enablejump = false;
+		}
+	}
+
+	//二個上のブロックだけ存在した際どうするかは今後考える
+	//else if (blockexist1 == false && blockexist2 == true)
+
+	blockexist1 = false;
+	return catjump_height;
+}
+
 
 int GetBlockNum()
 {

@@ -4,7 +4,7 @@
 #include "cat.h"
 #include "block.h"
 //マクロ定義
-#define SENSOR_SIZE	(3.0f)		//ジャンプセンサーの横サイズ
+#define SENSOR_SIZE	(7.5f)		//ジャンプセンサーの横サイズ
 
 
 
@@ -18,5 +18,7 @@ bool CollisionBB(D3DXVECTOR2 pos1, D3DXVECTOR2 pos2,
 	D3DXVECTOR2 size1, D3DXVECTOR2 size2);
 
 float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i);
+float SearchJumpHeight(MOVE_BLOCK* mb, BLOCK* b, CAT* c, int i);
+
 int GetBlockNum();
 
