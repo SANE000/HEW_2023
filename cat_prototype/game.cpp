@@ -5,6 +5,7 @@
 #include "player.h"
 #include "cat.h"
 #include "block.h"
+#include "blockpreview.h"
 #include "timer.h"
 #include "etcUI.h"
 #include "collision.h"
@@ -40,6 +41,7 @@ void InitGame()
 	InitPlayer();
 	InitCat();
 	InitBlock();
+	InitPreview();
 	InitCollsion();
 	InitResult();
 
@@ -53,6 +55,7 @@ void UninitGame()
 	//BGMの終了
 	//StopSound(GameSoundNo);
 	UnInitBlock();
+	UnInitPreview();
 	UnInitCat();
 	UnInitPlayer();
 	UninitCamera();
@@ -73,6 +76,7 @@ void UpdateGame()
 	UpdateCat();
 	UpdateCamera();
 	UpdateBlock();
+	UpdatePreview();
 	UpdateCollision();
 	UpdateResult();
 	////////////////ゲーム関連
@@ -85,8 +89,9 @@ void DrawGame()
 	DrawPolygon();
 	DrawEtc();
 	DrawTime();
-	//地面の表示
+	//ブロックの表示
 	DrawBlock();
+	DrawPreview();
 	//猫の表示
 	DrawCat();
 	//プレイヤーの描画//は下の方に！

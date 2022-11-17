@@ -61,8 +61,6 @@
 #define BASE_DEFO_SIZE_X (BASE_DRAW_SIZE/2)
 //重力
 #define GRAV 2.5f
-//猫の移動速度
-#define WALK 0.5f
 //タイマー関連
 #define WAIT_TIME 10;
 #define TIME_MAX 3

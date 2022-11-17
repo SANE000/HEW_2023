@@ -4,11 +4,17 @@
 #include "renderer.h"
 
 //マクロ定義
-#define CAT_GOLL 180
+#define CAT_GOLL 2780
 #define CAT_SIZE_W 60
 #define CAT_SIZE_H 60
 #define CAT_INIT_X (CAT_SIZE_W)
 #define CAT_INIT_Y 240
+//猫の移動速度
+#define WALK (0.75f)
+//ジャンプ力
+#define JUMP (7.0f)
+//ジャンプセンサーの横サイズ
+#define SENSOR_SIZE	(12.5f)		
 
 
 //構造体定義
@@ -25,8 +31,6 @@ struct CAT
 	int texNo;
 	//アニメ番号
 	float patern;
-	//猫サイズ
-	float w, h;
 	//色
 	D3DXCOLOR col;
 	//左右反転するフラグ

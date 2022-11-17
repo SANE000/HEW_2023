@@ -12,6 +12,7 @@
 #include "keyboard.h"
 #include "cat.h"
 #include "block.h"
+#include "blockpreview.h"
 #include "player.h"
 
 //*****************************************************************************

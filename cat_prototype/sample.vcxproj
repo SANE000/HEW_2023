@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="block.cpp" />
+    <ClCompile Include="blockpreview.cpp" />
     <ClCompile Include="blocktype.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cat.cpp" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="BG.h" />
     <ClInclude Include="block.h" />
+    <ClInclude Include="blockpreview.h" />
     <ClInclude Include="blocktype.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cat.h" />

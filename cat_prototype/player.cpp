@@ -1,6 +1,7 @@
 #include "player.h"
 #include "main.h"
 #include "block.h"
+#include "blockpreview.h"
 #include "inputx.h"
 #include "keyboard.h"
 #include "texture.h"

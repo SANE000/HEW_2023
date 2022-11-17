@@ -4,21 +4,16 @@
 #include "player.h"
 #include "cat.h"
 #include "block.h"
+#include "blockpreview.h"
 #include "Scene.h"
 #include "sound.h"
-
-
-//マクロ
-//プロトタイプ宣言
-//この中でしか使わない変数
-//BBとは当たり判定の最低限の□
-//四角形の中心座標２つとサイズ２つ true衝突
-int temp = BLOCK_MAX;
-
 
 //==========================================
 //グローバル変数
 //==========================================
+
+//猫のジャンプフラグ用
+int temp = BLOCK_MAX;
 
 //ブロックとネコがぶつかった際、
 //そのブロックの１個上、２個上のブロックが存在するかどうかをいれる変数
@@ -51,10 +46,10 @@ void UpdateCollision()
 	BLOCK *block = GetBlock();
 	MOVE_BLOCK *m_block = GetMoveBlock();
 
-	float CatTop = cat->pos.y - cat->h / 2;
-	float CatBottom = cat->pos.y + cat->h / 2;
-	float CatLeft = cat->pos.x - cat->w / 2;
-	float CatRight = cat->pos.x + cat->w / 2;
+	float CatTop = cat->pos.y - SIZE / 2;
+	float CatBottom = cat->pos.y + SIZE / 2;
+	float CatLeft = cat->pos.x - SIZE / 2;
+	float CatRight = cat->pos.x + SIZE / 2;
 
 	if (cat->use == true)
 	{
@@ -74,7 +69,7 @@ void UpdateCollision()
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, block[i].pos,
-				D3DXVECTOR2(cat->w, cat->h),
+				D3DXVECTOR2(SIZE, SIZE),
 				D3DXVECTOR2(BASE_SIZE, SIZE)
 			);
 			//ブロックに触れていて
@@ -84,12 +79,12 @@ void UpdateCollision()
 				if (CatBottom - GRAV <= BlockTop && cat->pos.y < block[i].pos.y)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.y = BlockTop - cat->h / 2;
+					cat->pos.y = BlockTop - SIZE / 2;
 					temp = BLOCK_MAX;
 				}
 				//床ブロックより下
 				else if (CatTop <= BlockBottom &&
-					cat->pos.y - (cat->h / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
+					cat->pos.y - (SIZE / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
 				{
 					//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
 					cat->jump_y = 0;
@@ -98,7 +93,7 @@ void UpdateCollision()
 				else if (CatLeft <= BlockRight && cat->pos.x > BlockRight)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = BlockRight + cat->w / 2;
+					cat->pos.x = BlockRight + SIZE / 2;
 					//壁にぶつかったら反転。右へ
 					cat->move_flag = false;
 				}
@@ -106,7 +101,7 @@ void UpdateCollision()
 				else if (CatRight >= BlockLeft && cat->pos.x < block[i].pos.x)
 				{//左
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = BlockLeft - cat->w / 2;
+					cat->pos.x = BlockLeft - SIZE / 2;
 					//壁にぶつかったら反転。左へ
 					cat->move_flag = true;
 				}
@@ -144,7 +139,7 @@ void UpdateCollision()
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, m_block[i].pos,
-				D3DXVECTOR2(cat->w, cat->h),
+				D3DXVECTOR2(SIZE, SIZE),
 				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
@@ -154,7 +149,7 @@ void UpdateCollision()
 				if (CatBottom - GRAV <= BlockTopM && cat->pos.y < m_block[i].pos.y)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.y = BlockTopM - 1 - cat->h / 2;
+					cat->pos.y = BlockTopM - 1 - SIZE / 2;
 					cat->jump_flag = true;
 					cat->nowjump_flag = 0;
 				}
@@ -162,7 +157,7 @@ void UpdateCollision()
 				else if (CatLeft <= BlockRightM && cat->pos.x > BlockRightM)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = BlockRightM + cat->w / 2;
+					cat->pos.x = BlockRightM + SIZE / 2;
 
 
 
@@ -171,7 +166,7 @@ void UpdateCollision()
 				else if (CatRight >= BlockLeftM && CatRight < m_block[i].pos.x)
 				{//左
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = BlockLeftM - cat->w / 2;
+					cat->pos.x = BlockLeftM - SIZE / 2;
 
 					//ブロックとぶつかったとき飛べる高さか調べる関数
 					//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
@@ -204,7 +199,7 @@ void UpdateCollision()
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, m_block[i].pos,
-				D3DXVECTOR2(cat->w + SENSOR_SIZE * 2, 1.0f),
+				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2, 1.0f),
 				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
@@ -271,7 +266,6 @@ void UpdateCollision()
 				}
 			}
 		}
-
 		//床ブロックと猫のジャンプセンサーの当たり判定/////////////////////////////////////////////////////////////////////
 		for (int i = 0; i < BLOCK_MAX; i++)
 		{
@@ -291,7 +285,7 @@ void UpdateCollision()
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, block[i].pos,
-				D3DXVECTOR2(cat->w + SENSOR_SIZE * 2, 1.0f),
+				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2, 1.0f),
 				D3DXVECTOR2(BASE_SIZE, SIZE)
 			);
 			//ブロックに触れていて
@@ -394,7 +388,7 @@ void UpdateCollision()
 							{
 								//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 								m_block[i].Speed.y = 0;
-								m_block[i].pos.y = BlockTop2 - 2.5 - SIZE / 2;
+								m_block[i].pos.y = BlockTop2 - GRAV - SIZE / 2;
 							}
 						}
 					}
@@ -448,41 +442,14 @@ void UpdateCollision()
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 										m_block[n].Speed.y = 0;
 										m_block[n].pos.y = BlockBottomI + 1 + SIZE / 2;
-										//block[i].Hit = true;
-										//temp = BLOCK_MAX;
 									}
 									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 									{
 										m_block[i].Speed.y = 0;
 										m_block[i].pos.y = BlockTopN - 1 - SIZE / 2;
 									}
-
-
 								}
-
 							}
-							////Nブロックより下
-							//
-							//if (BlockTopI <= BlockBottomN &&
-							//	m_block[i].pos.y - (block[i].h / 2 - GRAV) - 10 > block[n].pos.y + (block[n].h / 2 - GRAV))
-							//{
-
-							//	//下にあるブロックが地面に触れているブロックなのか確かめてそうなら当たり判定で止まる処理の追加の必要があるかも
-							//	if (m_block[i].pos.x == m_block[n].pos.x)
-							//	{
-							//		if (m_block[i].Speed.y == 0 || m_block[n].Speed.y == 0)
-							//		{
-							//			//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-							//			m_block[i].Speed.y = 0;
-							//			m_block[n].Speed.y = 0;
-							//			m_block[i].pos.y = BlockTopN - SIZE / 2;
-							//			//block[i].Hit = true;
-							//			//temp = BLOCK_MAX;
-							//		}
-
-							//	}
-
-							//}
 							//Nブロックより右
 							if (BlockLeftI <= BlockRightN && m_block[i].pos.x > BlockRightN)
 							{
@@ -518,13 +485,9 @@ void UpdateCollision()
 									if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 									{
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-
 										m_block[n].Speed.y = 0;
 										m_block[n].pos.x = BlockRightI + SIZE / 2;
 										m_block[n].pos.y = m_block[i].pos.y;
-
-										//block[i].Hit = true;
-										//temp = BLOCK_MAX;
 									}
 									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 									{
@@ -535,27 +498,7 @@ void UpdateCollision()
 								}
 
 							}
-							//Nブロックより下
-							//else if (BlockTopI <= BlockBottomN &&
-							//	m_block[i].pos.y - (SIZE / 2 - GRAV) > m_block[n].pos.y + (SIZE / 2 - GRAV))
-							//{
-							//	m_block[i].pos.y = BlockBottomN + SIZE / 2;
-							//}
 						}
-						//ジャンプ関係はあとで
-						//else
-						//{
-						//	temp -= 1;
-						//}
-
-						//if (temp > 0)
-						//{
-						//	cat->jump_flug = true;
-						//}
-						//else
-						//{
-						//	cat->jump_flug = false;
-						//}
 					}
 				}
 			}

@@ -9,18 +9,10 @@
 #include "collision.h"
 #include "camera.h"
 
-//マクロ定義
-
-//ジャンプ力
-#define JUMP 7.0f
-//プロトタイプ宣言
-
-///////////////////////グローバル//
-
-
 //int JumpSoundNo = 0;
 //プレイヤーオブジェクト
 static CAT g_Cat;
+
 HRESULT InitCat()
 {
 	//テクスチャロード 画像の名前を入れよう
@@ -28,8 +20,6 @@ HRESULT InitCat()
 	//構造体の初期化
 	g_Cat.pos.x = DEFO_SIZE_X;
 	g_Cat.pos.y = CAT_INIT_Y;
-	g_Cat.w = CAT_SIZE_W;
-	g_Cat.h = CAT_SIZE_H;
 	g_Cat.move_flag = false;
 	g_Cat.jump_flag = false;
 	g_Cat.jump_y = 0.0f;
@@ -139,8 +129,8 @@ void DrawCat()
 	DrawSpriteColorRotate(
 		basePos.x + g_Cat.pos.x,
 		basePos.y + g_Cat.pos.y,
-		g_Cat.w,
-		g_Cat.h,
+		DRAW_SIZE,
+		DRAW_SIZE,
 		g_Cat.rot,
 		g_Cat.col,
 		g_Cat.patern,		
