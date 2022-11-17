@@ -37,3 +37,5 @@ void UpdatePlayer();
 void DrawPlayer();
 //構造体の先頭ポインタを返す　皆が使えるように
 PLAYER *GetPlayer();
+
+int BlockScore();

@@ -96,3 +96,40 @@ int GetFirstFrame()
 {
 	return TimerFrame;
 }
+
+//ゴールした時のタイマーの値を返す
+int GetTimer()
+{
+	for (int i = 0; i < TIME_MAX; i++)
+	{
+		if (i == 0)
+		{
+			//1の位計算して入れる
+			g_time->result = g_time[i].patern;
+		}
+		else if (i == 1)
+		{
+			//10の位計算して足す
+			g_time->result += g_time[i].patern * 10;
+		}
+		else if (i == 2)
+		{
+			//100の位計算して足す
+			g_time->result += g_time[i].patern * 100;
+		}
+	}
+	return g_time->result;
+}
+
+//ステージごとに設定された制限時間から残り時間引く
+int ResultTimer()
+{
+	//今回は90秒で設定
+
+	int num = 0;
+
+	num = 90 - GetTimer();
+
+	return num;
+
+}

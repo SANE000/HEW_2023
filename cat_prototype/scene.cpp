@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Game.h"
 #include "shop.h"
+#include "result.h"
 
 
 //ÉOÉçÅ[ÉoÉãïœêî
@@ -18,14 +19,15 @@ void InitScene(SCENE no)
 	{
 	case SCENE::SCENE_NONE:
 		break;
-
 	case SCENE::SCENE_SHOP:
 		InitShop();
-
-			break;
+		break;
 	case SCENE::SCENE_GAME:
 		InitGame();
 		break;
+	case SCENE::SCENE_SCORE:
+		break;
+
 	}
 }
 void UninitScene()
@@ -41,6 +43,9 @@ void UninitScene()
 		break;
 	case SCENE::SCENE_GAME:
 		UninitGame();
+		break;
+	case SCENE::SCENE_SCORE:
+		UninitResult();
 		break;
 	}
 }
@@ -58,6 +63,8 @@ void UpdateScene()
 	case SCENE::SCENE_GAME:
 		UpdateGame();
 		break;
+	case SCENE::SCENE_SCORE:
+		break;
 	}
 }
 void DrawScene()
@@ -74,6 +81,9 @@ void DrawScene()
 
 	case SCENE::SCENE_GAME:
 		DrawGame();
+		break;
+	case SCENE::SCENE_SCORE:
+		DrawResult();
 		break;
 	}
 }

@@ -39,6 +39,8 @@ struct CAT
 	float jump_y;
 	//ジャンプ限界高度
 	float limit_jump;
+	//ゴールフラグ
+	bool goal_flag;
 };
 
 //プロトタイプ宣言

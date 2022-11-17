@@ -19,6 +19,9 @@ static int time = 0;
 //int JumpSoundNo = 0;
 //プレイヤーオブジェクト
 static PLAYER g_Player;
+
+//1ステージに何個ブロックを使ったか
+static int blockscore = 0;
 ///
 
 HRESULT InitPlayer()
@@ -35,6 +38,8 @@ HRESULT InitPlayer()
 	g_Player.bwait = 0;
 	//使用中フラグをオンにする
 	g_Player.use = true;
+
+	blockscore = 0;
 
 
 	//サウンドのロード
@@ -124,6 +129,8 @@ void UpdatePlayer()
 		SetMoveBlock();
 		//要調整
 		g_Player.bwait = BULLET_WAIT;
+
+		blockscore++;//ブロックを何個使ったか
 	}
 
 	//リセットキー
@@ -157,4 +164,10 @@ void DrawPlayer()
 PLAYER *GetPlayer()
 {
 	return &g_Player;
+}
+
+//使ったブロックの数を調べるために使う
+int BlockScore()
+{
+	return blockscore;
 }

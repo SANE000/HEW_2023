@@ -21,6 +21,8 @@ struct TIMER
 	float w, h;
 	//色
 	D3DXCOLOR col;
+
+	float result;
 };
 
 //プロトタイプ宣言
@@ -31,3 +33,7 @@ void DrawTime();
 //構造体の先頭ポインタを返す　皆が使えるように
 TIMER *GetTime();
 int GetFirstFrame();
+
+int GetTimer();
+
+int ResultTimer();

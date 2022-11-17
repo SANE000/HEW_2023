@@ -112,9 +112,13 @@ void UpdateCat()
 	////ゴール//jump_flugは床ブロックと触れているかを取るので空中ゴールはしない
 	if (g_Cat.pos.x >= CAT_GOLL && g_Cat.jump_flag == true)
 	{
-		//テストだから初期位置に戻す
-		g_Cat.pos.x = CAT_INIT_X;
-		g_Cat.pos.y = CAT_INIT_Y;
+		////テストだから初期位置に戻す
+		//g_Cat.pos.x = CAT_INIT_X;
+		//g_Cat.pos.y = CAT_INIT_Y;
+		g_Cat.goal_flag = true;//ゴールフラグON
+
+		//スコアシーンに遷移
+		SetScene(SCENE_SCORE);
 	}
 	//猫が穴に落ちてしまった場合
 	if (g_Cat.pos.y >= SCREEN_HEIGHT)

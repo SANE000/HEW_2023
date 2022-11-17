@@ -7,7 +7,8 @@ enum SCENE
 	SCENE_NONE = 0,
 	SCENE_SHOP,
 	SCENE_GAME,
-	SCENE_MAX//4
+	SCENE_SCORE,
+	SCENE_MAX//5
 };
 
 //prototypeêÈåæ

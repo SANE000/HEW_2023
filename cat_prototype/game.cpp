@@ -11,6 +11,7 @@
 #include "sound.h"
 #include "blocktype.h"
 #include "camera.h"
+#include "result.h"
 
 //マクロ定義
 //あとはタイム表示、
@@ -40,6 +41,8 @@ void InitGame()
 	InitCat();
 	InitBlock();
 	InitCollsion();
+	InitResult();
+
 
 	///////////////////////////////
 }
@@ -71,6 +74,7 @@ void UpdateGame()
 	UpdateCamera();
 	UpdateBlock();
 	UpdateCollision();
+	UpdateResult();
 	////////////////ゲーム関連
 }
 //描画処理
