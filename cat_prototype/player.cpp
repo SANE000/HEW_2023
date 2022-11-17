@@ -118,7 +118,7 @@ void UpdatePlayer()
 	//SPACEキーでブロックをプレイヤーの下方向へ射出して
 	//猫の足場を形成(授業でやったバレットを参考にする)
 	g_Player.SetPos = g_Player.pos;
-	if (Keyboard_IsKeyDown(KK_SPACE) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && g_Player.bwait == 0)
+	if (Keyboard_IsKeyDown(KK_SPACE) && g_Player.bwait == 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && g_Player.bwait == 0)
 	{
 		if(FalseExistCheck() == true)
 		SetMoveBlock();
