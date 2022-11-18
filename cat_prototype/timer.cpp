@@ -1,11 +1,17 @@
 #include "timer.h"
+#include "cat.h"
 #include "texture.h"
 #include "sprite.h"
 
 //プロトタイプ宣言
 ///////////////////////グローバル宣言
 static TIMER g_time[TIME_MAX];
+//制限時間が0になってしまった時のフラグ
+bool NotReset = true;
 int TimerFrame;
+//制限時間の設定
+//制限時間90秒に60を掛けてフレーム化しています
+int TimerLimit = TIME_LIMIT * 60;
 
 TIMER InitDate[] =
 {
@@ -24,7 +30,7 @@ HRESULT InitTime()
 		g_time[i].texNo = LoadTexture((char*)"data\\texture\\time.png");
 	}
 	//タイマーの初期化
-	TimerFrame = 5400;
+	TimerFrame = 0;
 	return S_OK;
 }
 //終了処理
@@ -35,7 +41,12 @@ void UnInitTime()
 //描画処理
 void DrawTime()
 {
-	TimerFrame--;
+	TimerFrame++;
+	if (ResetTime() == true)
+	{
+		TimerFrame = 0;
+		NotReset = false;
+	}
 	for (int i = 0; i < TIME_MAX; i++)
 	{
 		if (TimerFrame < 60000)
@@ -44,19 +55,19 @@ void DrawTime()
 			{
 				//1の位なので時間をカウントしているTimerFrameを60で割って
 				//それに10の剰余で10以上に数字をいかないようにしてパターンを出す
-				g_time[i].patern = (TimerFrame / 60) % 10;
+				g_time[i].patern = ((TimerLimit - TimerFrame) / 60) % 10;
 			}
 			else if (i == 1)
 			{
 				//10の位なので時間をカウントしているTimerFrameを600で割って
 				//それに10の剰余で10以上に数字をいかないようにしてパターンを出す
-				g_time[i].patern = (TimerFrame / 600) % 10;
+				g_time[i].patern = ((TimerLimit - TimerFrame) / 600) % 10;
 			}
 			else if (i == 2)
 			{
 				//100の位なので時間をカウントしているTimerFrameを6000で割って
 				//それに10の剰余で10以上に数字をいかないようにしてパターンを出す
-				g_time[i].patern = (TimerFrame / 6000) % 10;
+				g_time[i].patern = ((TimerLimit - TimerFrame) / 6000) % 10;
 			}
 		}
 		else
@@ -92,9 +103,19 @@ TIMER *GetTime()
 	return &g_time[0];
 }
 
-int GetFirstFrame()
+//時間切れになった時のフラグcat.cppのリセット処理に続く
+bool GetReset()
 {
-	return TimerFrame;
+	if (NotReset == false)
+	{
+		return NotReset;
+	}
+}
+
+//残り制限時間を返す
+int GetLimitFrame()
+{
+	return TimerLimit - TimerFrame;
 }
 
 //ゴールした時のタイマーの値を返す
@@ -124,12 +145,7 @@ int GetTimer()
 //ステージごとに設定された制限時間から残り時間引く
 int ResultTimer()
 {
-	//今回は90秒で設定
-
-	int num = 0;
-
-	num = 90 - GetTimer();
+	int num = GetTimer();
 
 	return num;
-
 }

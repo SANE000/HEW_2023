@@ -43,11 +43,11 @@ void UninitResult()
 void UpdateResult()
 {
 	//スコア計算//ココプランナーに決めてもらうの忘れてた
-	if (BlockScore() <= 4 && ResultTimer() <= 20)
+	if (BlockScore() <= 4 && ResultTimer() >= TIME_LIMIT - 20)
 	{
 		Score = SCORE::SCORE_S;
 	}
-	else if (BlockScore() <= 5 && ResultTimer() <= 35)
+	else if (BlockScore() <= 5 && ResultTimer() >= TIME_LIMIT - 35)
 	{
 		Score = SCORE::SCORE_A;
 	}

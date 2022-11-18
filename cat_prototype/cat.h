@@ -65,3 +65,5 @@ void CatJump(float jumpheight);
 
 //
 void ChangeMoveFlag(CAT* c);
+
+bool ResetTime();

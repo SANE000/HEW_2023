@@ -61,13 +61,9 @@
 #define BASE_DEFO_SIZE_X (BASE_DRAW_SIZE/2)
 //重力
 #define GRAV 2.5f
-//タイマー関連
+//連続入力防止用待機時間
 #define WAIT_TIME 10;
-#define TIME_MAX 3
-#define TIME_POS_X 530
-#define TIME_POS_Y 50
-#define TIME_SIZE_W 50
-#define TIME_SIZE_H 50
+
 
 //*****************************************************************************
 // プロトタイプ宣言
