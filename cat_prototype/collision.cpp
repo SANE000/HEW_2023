@@ -79,7 +79,7 @@ void UpdateCollision()
 				if (CatBottom - GRAV <= BlockTop && cat->pos.y < block[i].pos.y)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.y = BlockTop - SIZE / 2;
+					cat->pos.y = BlockTop - 1 - SIZE / 2;
 					temp = BLOCK_MAX;
 				}
 				//床ブロックより下
@@ -149,7 +149,7 @@ void UpdateCollision()
 				if (CatBottom - GRAV <= BlockTopM && cat->pos.y < m_block[i].pos.y)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.y = BlockTopM - 1 - SIZE / 2;
+					cat->pos.y = BlockTopM - GRAV - SIZE / 2;
 					cat->jump_flag = true;
 					cat->nowjump_flag = 0;
 				}
@@ -388,7 +388,7 @@ void UpdateCollision()
 							{
 								//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 								m_block[i].Speed.y = 0;
-								m_block[i].pos.y = BlockTop2 - GRAV - SIZE / 2;
+								m_block[i].pos.y = BlockTop2 - 1 - SIZE / 2;
 							}
 						}
 					}
@@ -441,7 +441,7 @@ void UpdateCollision()
 									{
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 										m_block[n].Speed.y = 0;
-										m_block[n].pos.y = BlockBottomI + 1 + SIZE / 2;
+										m_block[n].pos.y = BlockBottomI + SIZE / 2;
 									}
 									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 									{
@@ -461,7 +461,7 @@ void UpdateCollision()
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 
 										m_block[n].Speed.y = 0;
-										m_block[n].pos.x = BlockLeftI - SIZE / 2;
+										m_block[n].pos.x = BlockLeftI - 1 - SIZE / 2;
 										m_block[n].pos.y = m_block[i].pos.y;
 
 										//block[i].Hit = true;
