@@ -66,8 +66,8 @@ void UpdateCollision()
 		{
 			float BlockTop = block[i].pos.y - SIZE / 2;
 			float BlockBottom = block[i].pos.y + SIZE / 2;
-			float BlockLeft = block[i].pos.x - BASE_SIZE / 2;
-			float BlockRight = block[i].pos.x + BASE_SIZE / 2;
+			float BlockLeft = block[i].pos.x - SIZE / 2;
+			float BlockRight = block[i].pos.x + SIZE / 2;
 			//もし構造体を使ってなかったらスキップ
 			if (block[i].use != true)
 			{
@@ -77,7 +77,7 @@ void UpdateCollision()
 			bool hit = CollisionBB(
 				cat->pos, block[i].pos,
 				D3DXVECTOR2(SIZE, SIZE),
-				D3DXVECTOR2(BASE_SIZE, SIZE)
+				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
@@ -196,21 +196,21 @@ void UpdateCollision()
 
 			float JumpSensorTopM = block[i].pos.y - SIZE / 2;
 			float JumpSensorBottomM = block[i].pos.y + SIZE / 2;
-			float JumpSensorLeftM = block[i].pos.x - BASE_SIZE / 2 - SENSOR_SIZE;
-			float JumpSensorRightM = block[i].pos.x + BASE_SIZE / 2 + SENSOR_SIZE;
+			float JumpSensorLeftM = block[i].pos.x - SIZE / 2 - SENSOR_SIZE;
+			float JumpSensorRightM = block[i].pos.x + SIZE / 2 + SENSOR_SIZE;
 
 
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, block[i].pos,
-				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2, 1.0f),
-				D3DXVECTOR2(BASE_SIZE, SIZE)
+				D3DXVECTOR2(SIZE + SENSOR_SIZE*2, 1.0f),
+				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
 			{
 				//目の前のブロックの高さをとる
-				int jumpheight = SearchJumpHeight(m_block, block, cat, i);
+				int jumpheight = SearchJumpHeightB(block, cat, i);
 
 				//猫が床ブロックより右
 				if (CatLeft <= JumpSensorRightM && cat->pos.x > JumpSensorRightM)
@@ -455,8 +455,8 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 }
 
 //ブロックとぶつかったとき飛べる高さか調べる関数 床ブロックとぶつかったとき
-//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
-float SearchJumpHeight(MOVE_BLOCK* mb, BLOCK* b, CAT* c, int i)
+//引数:blockのポインタ,猫ポインタ,ぶつかったブロックの添え字
+float SearchJumpHeightB(BLOCK* b, CAT* c, int i)
 {
 	//ジャンプフラグがtrueだったら
 					//床についていたら
@@ -467,7 +467,7 @@ float SearchJumpHeight(MOVE_BLOCK* mb, BLOCK* b, CAT* c, int i)
 		//ぶつかったブロックと同じx座標で一個上の高さのブロックを探す
 		//それがあったら二個上の高さのブロックを探す
 		//全部あれば三個分ジャンプ　ジャンプの高さを決める
-		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
+		for (int a = 0; a < BLOCK_MAX; a++)
 		{
 			//全部のブロックが見つかったら終了
 			if (blockexist1 == true)
@@ -476,7 +476,7 @@ float SearchJumpHeight(MOVE_BLOCK* mb, BLOCK* b, CAT* c, int i)
 			}
 
 			//x座標が同じなら
-			if (mb[a].pos.x == mb[i].pos.x)
+			if (b[a].pos.x == b[i].pos.x)
 			{
 				//y軸が一個上なら
 				if (b[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
@@ -501,7 +501,7 @@ float SearchJumpHeight(MOVE_BLOCK* mb, BLOCK* b, CAT* c, int i)
 
 		}
 
-		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
+		for (int a = 0; a < BLOCK_MAX; a++)
 		{
 			//全部のブロックが見つかったら終了
 			if (blockexist1 == true)
@@ -510,11 +510,11 @@ float SearchJumpHeight(MOVE_BLOCK* mb, BLOCK* b, CAT* c, int i)
 			}
 
 			//x座標が同じなら
-			if (mb[a].pos.x == mb[i].pos.x)
+			if (b[a].pos.x == b[i].pos.x)
 			{
 				//y軸が一個上なら
-				if (mb[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
-					mb[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
+				if (b[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
+					b[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
 				{
 					blockexist1 = true;
 				}
@@ -590,7 +590,7 @@ void BlockCollision()
 					bool hit = CollisionBB(
 						m_block[i].pos, block[n].pos,
 						D3DXVECTOR2(SIZE, SIZE),
-						D3DXVECTOR2(BASE_SIZE, SIZE)
+						D3DXVECTOR2(SIZE, SIZE)
 					);
 					if (hit == true)
 					{

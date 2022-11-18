@@ -4,7 +4,7 @@
 #include "renderer.h"
 
 //マクロ定義
-#define BLOCK_MAX 22
+#define BLOCK_MAX 66
 
 //構造体定義
 struct BLOCK

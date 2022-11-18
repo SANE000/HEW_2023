@@ -53,12 +53,7 @@
 #define DEFO_SIZE_X		 (DRAW_SIZE/2)
 //下から
 #define DEFO_SIZE_Y		 (SCREEN_HEIGHT - DEFO_SIZE_X)
-//横3倍した判定サイズ
-#define BASE_SIZE	 (DRAW_SIZE*3-1)
-//横3倍した足場用サイズ
-#define BASE_DRAW_SIZE	 (DRAW_SIZE*3)
-//横3倍した足場初期位置
-#define BASE_DEFO_SIZE_X (BASE_DRAW_SIZE/2)
+
 //重力
 #define GRAV 2.5f
 //連続入力防止用待機時間
