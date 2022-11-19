@@ -30,6 +30,8 @@ HRESULT InitCat()
 	g_Cat.limit_jump = 0.0f;
 	g_Cat.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	g_Cat.patern = 0.0f;
+	g_Cat.half_flag = false;
+	g_Cat.goal_flag = false;
 	//使用中フラグをオンにする
 	g_Cat.use = true;
 
@@ -49,7 +51,7 @@ void UnInitCat()
 //更新処理
 void UpdateCat()
 {
-	g_Cat.patern += 0.03;
+	g_Cat.patern += 0.04;
 	if (g_Cat.patern >= 2.0f)
 	{
 		g_Cat.patern -= 2.0f;
@@ -92,7 +94,6 @@ void UpdateCat()
 		//初期値まで戻ってきたら反転する
 		ChangeMoveFlag(&g_Cat);
 	}
-	//////////猫のジャンプは今後実装予定/////////////////////////////////////////////////////
 	//ジャンプパワー
 	g_Cat.pos.y -= g_Cat.jump_y;
 
@@ -106,9 +107,6 @@ void UpdateCat()
 	////ゴール//jump_flugは床ブロックと触れているかを取るので空中ゴールはしない
 	if (g_Cat.pos.x >= CAT_GOLL && g_Cat.jump_flag == true)
 	{
-		////テストだから初期位置に戻す
-		//g_Cat.pos.x = CAT_INIT_X;
-		//g_Cat.pos.y = CAT_INIT_Y;
 		g_Cat.goal_flag = true;//ゴールフラグON
 
 		//スコアシーンに遷移
@@ -153,7 +151,7 @@ void DrawCat()
 	GetDeviceContext()->PSSetShaderResources
 	(0, 1, GetTexture(g_Cat.texNo));
 	g_Cat.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	//スプラsイトの描画
+	//スプライトの描画
 	DrawSpriteColorRotate(
 		basePos.x + g_Cat.pos.x,
 		basePos.y + g_Cat.pos.y,
@@ -189,13 +187,18 @@ void CatJump(float jumpheight)
 
 	//猫が飛び上がる高さ
 	//現在の猫の位置から　collisionの中で引数で貰った段数　×　ブロックの高さ　飛ぶ
-	g_Cat.limit_jump = g_Cat.pos.y - ( SIZE * jumpheight);
+	//穴に落ちながら飛び上がるバグを修正
+	//下から一個分以下に猫が行ってしまったらジャンプはしない
+	if (g_Cat.pos.y <= DEFO_SIZE_Y - DEFO_SIZE_X)
+	{
+		g_Cat.limit_jump = g_Cat.pos.y - (SIZE * jumpheight);
 
 
-	g_Cat.jump_y = JUMP;
+		g_Cat.jump_y = JUMP;
 
-	g_Cat.nowjump_flag = jumpheight;
-	g_Cat.jump_flag = false;
+		g_Cat.nowjump_flag = jumpheight;
+		g_Cat.jump_flag = false;
+	}
 }
 
 void ChangeMoveFlag(CAT* c)

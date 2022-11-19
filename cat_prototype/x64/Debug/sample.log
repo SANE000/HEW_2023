@@ -1,8 +1,11 @@
-﻿  collision.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(213): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(232): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(264): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(305): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(324): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(353): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  shop.cpp
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(71): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(103): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(295): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(292): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(291): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(315): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(314): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(334): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(333): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe

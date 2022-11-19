@@ -1,5 +1,6 @@
 #include "main.h"
 #include "block.h"
+#include "shop.h"
 #include "texture.h"
 #include "sprite.h"
 #include "camera.h"
@@ -9,7 +10,8 @@ void InitStage11();
 //==========================================
 //グローバル変数
 //==========================================
-
+//偵察用
+static double map_pos = 0;
 //地面や足場の判定に使う
 static BLOCK g_Block[BLOCK_MAX];
 
@@ -20,13 +22,8 @@ HRESULT InitBlock()
 	{
 		//テクスチャロード 画像の名前を入れよう
 		//ブロックによってテクスチャの変更
-		//21~29
-		//33~44は表面では無い方へ変更
-		if (i >= 21 && i <= 29)
-		{
-			g_Block[i].texNo = LoadTexture((char*)"data\\texture\\under_soil_block.png");
-		}
-		else if (i >= 33 && i <= 44)
+		//21~29 or 33~44は表面では無い方へ変更
+		if (i >= 21 && i <= 29 || i >= 33 && i <= 44)
 		{
 			g_Block[i].texNo = LoadTexture((char*)"data\\texture\\under_soil_block.png");
 		}
@@ -48,7 +45,24 @@ void UnInitBlock()
 //更新処理
 void UpdateBlock()
 {
-
+	//マップボタンが押されたら
+	if (WatchMapFlag() == true)
+	{//画面端になるまで座標を引いていく
+		if (map_pos <= -SCREEN_WIDTH * 2)
+		{
+			//画面端になったら止める
+			map_pos += 0;
+		}
+		else
+		{
+			map_pos -= 1.5;
+		}
+	}
+	else
+	{
+		//マップボタンが押されてないなら0にする
+		map_pos = 0;
+	}
 }
 //描画処理
 void DrawBlock()
@@ -66,7 +80,7 @@ void DrawBlock()
 			//スプライトの描画
 			DrawSpriteColorRotate
 			(
-			basePos.x + g_Block[i].pos.x,
+			map_pos + basePos.x + g_Block[i].pos.x,
 			basePos.y + g_Block[i].pos.y,
 			DRAW_SIZE,
 			DRAW_SIZE,

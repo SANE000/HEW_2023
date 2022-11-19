@@ -71,6 +71,7 @@ void UpdateGame()
 	////////////////ゲーム関連
 	//背景の更新
 	UpdatePolygon();
+	UpdateEtc();
 	//ステージの更新
 	UpdatePlayer();
 	UpdateCat();
@@ -87,13 +88,14 @@ void DrawGame()
 	////////////////ゲーム関連
 	//背景描画
 	DrawPolygon();
-	DrawEtc();
 	DrawTime();
 	//ブロックの表示
 	DrawBlock();
 	DrawPreview();
 	//猫の表示
 	DrawCat();
+	//ゴールその他UI
+	DrawEtc();
 	//プレイヤーの描画//は下の方に！
 	DrawPlayer();
 	// バックバッファ、フロントバッファ入れ替え

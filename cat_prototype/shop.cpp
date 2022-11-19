@@ -258,25 +258,23 @@ void UpdateShop()
 		}
 
 	}
+	//マップを見るときだけ動かす
+	if (map_flag == true)
+	{
+		UpdateEtc();
+		UpdateBlock();
+	}
 		
-		
-	
-
 }
 
 void DrawShop()
 {
-
-
-
-
 	//マップ見るボタン押したらマップのdrawを呼んで表示する
 	if (map_flag == true)
 	{
 		DrawPolygon();
-		DrawEtc();
 		DrawBlock();
-		
+		DrawEtc();
 	}
 	else
 	{
@@ -487,4 +485,9 @@ void Buyblock()
 int GetHaveBlock(int i)
 {
 	return haveblock[i];
+}
+//マップボタンが押されたことを返す関数
+bool WatchMapFlag()
+{
+	return map_flag;
 }

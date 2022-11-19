@@ -25,6 +25,7 @@ struct ETC
 //初期化	HRESULTは返り値をお知らせするモノ。成功失敗連絡
 HRESULT InitEtc();
 void UnInitEtc();
+void UpdateEtc();
 void DrawEtc();
 //構造体の先頭ポインタを返す　皆が使えるように
 ETC *GetEtc();

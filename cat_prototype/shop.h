@@ -80,7 +80,7 @@ struct MONEY
 
 
 //==========================================
-//グローバル変数
+//プロトタイプ宣言
 //==========================================
 HRESULT InitShop();
 void UninitShop();
@@ -90,4 +90,6 @@ void DrawShop();
 void Buyblock();
 
 int GetHaveBlock(int i);
+//マップボタンが押されたことを返す
+bool WatchMapFlag();
 

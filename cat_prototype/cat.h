@@ -5,8 +5,8 @@
 
 //マクロ定義
 #define CAT_GOLL 2780
-#define CAT_SIZE_W 60
-#define CAT_SIZE_H 60
+#define CAT_SIZE_W 59
+#define CAT_SIZE_H 59
 #define CAT_INIT_X (CAT_SIZE_W)
 #define CAT_INIT_Y 240
 //猫の移動速度
@@ -43,6 +43,8 @@ struct CAT
 	float jump_y;
 	//ジャンプ限界高度
 	float limit_jump;
+	//中間ポイントフラグ
+	bool half_flag;
 	//ゴールフラグ
 	bool goal_flag;
 };
