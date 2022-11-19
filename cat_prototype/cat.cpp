@@ -8,11 +8,9 @@
 #include "sound.h"
 #include "collision.h"
 #include "camera.h"
-#include "timer.h"
 //グローバル変数
 //int JumpSoundNo = 0;
-//時間切れになったときのリセット処理用変数
-bool Reset = false;
+
 //プレイヤーオブジェクト
 static CAT g_Cat;
 static MOVE_BLOCK *m_block = GetMoveBlock();
@@ -56,7 +54,7 @@ void UpdateCat()
 	{
 		g_Cat.patern -= 2.0f;
 	}
-	Reset = GetReset();
+
 	//空中に浮いているときだけ重力の影響
 	if (g_Cat.jump_flag == false)
 	{
@@ -103,7 +101,11 @@ void UpdateCat()
 		//飛び上がる力を0にする
 		g_Cat.jump_y = 0;
 	}
-	
+	////中間ポイント
+	if (g_Cat.pos.x >= CAT_GOLL/2 && g_Cat.jump_flag == true)
+	{
+		g_Cat.half_flag = true;//中間ポイントフラグON
+	}
 	////ゴール//jump_flugは床ブロックと触れているかを取るので空中ゴールはしない
 	if (g_Cat.pos.x >= CAT_GOLL && g_Cat.jump_flag == true)
 	{
@@ -115,33 +117,8 @@ void UpdateCat()
 	//猫が穴に落ちてしまった場合
 	if (g_Cat.pos.y >= SCREEN_HEIGHT)
 	{
-		//テストだから初期位置に戻す
-		g_Cat.pos.x = CAT_INIT_X;
-		g_Cat.pos.y = CAT_INIT_Y;
-	}
-	//==============================================================================================================================
-	//		//時間切れ処理              ///////////////////////////////////////////////////////////////////////////////////////////
-	//==============================================================================================================================
-	if (GetLimitFrame() < 0)
-	{
-		//テストだから初期位置に戻し,jump_flugも初期設定に戻す
-		g_Cat.pos.x = CAT_INIT_X;
-		g_Cat.pos.y = CAT_INIT_Y;
-		g_Cat.jump_flag = false;
-		//時間もテストなので戻す。ゲームオーバー処理かショップに戻る処理とか決めたい
-		//リセットするとブロックは消えるが使ってしまった分は戻ってこないのでそこも直したいです
-		//11/18日
-		Reset = true;
-		//MOVEブロックも全部消す処理
-		for (int i = 0; i < MOVE_BLOCK_MAX; i++)
-		{
-			if (m_block[i].use == true)
-			{
-				m_block[i].use = false;
-				//全てをfalseにするためbreakはつけない
-			}
-		}
-		
+		//ゲームオーバーの代わり
+		SetScene(SCENE_SHOP);
 	}
 }
 void DrawCat()
@@ -212,8 +189,8 @@ void ChangeMoveFlag(CAT* c)
 		c->move_flag = true;
 	}
 }
-//時間をもとに戻すフラグ
-bool ResetTime()
+
+bool HalfWayFlag()
 {
-	return Reset;
+	return g_Cat.half_flag;
 }

@@ -43,5 +43,5 @@ void DrawTime();
 TIMER *GetTime();
 int GetLimitFrame();
 int GetTimer();
-bool GetReset();
+//bool GetReset();
 int ResultTimer();

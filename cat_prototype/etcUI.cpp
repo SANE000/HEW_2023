@@ -48,13 +48,13 @@ void UpdateEtc()
 {
 	if (WatchMapFlag() == true)
 	{
-		if (map_pos <= -SCREEN_WIDTH * 2)
+		if (map_pos <= -SCREEN_WIDTH * 5)
 		{
 			map_pos += 0;
 		}
 		else
 		{
-			map_pos -= 1.5;
+			map_pos -= WATCH;
 		}
 	}
 	else

@@ -87,7 +87,7 @@ HRESULT InitShop()
 		g_item[i].h = SHOP_ITEM_SIZE_H;
 
 		//’l’i‚Í‚¢‚Á‚½‚ñ‘S•”10
-		g_item[i].price = 10;
+		g_item[i].price = 5;
 
 		g_item[i].texNo = LoadTexture((char*)"data\\texture\\soil_block.png");
 	}

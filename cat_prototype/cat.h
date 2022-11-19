@@ -4,7 +4,7 @@
 #include "renderer.h"
 
 //マクロ定義
-#define CAT_GOLL 2780
+#define CAT_GOLL 2780*2
 #define CAT_SIZE_W 59
 #define CAT_SIZE_H 59
 #define CAT_INIT_X (CAT_SIZE_W)
@@ -68,4 +68,5 @@ void CatJump(float jumpheight);
 //
 void ChangeMoveFlag(CAT* c);
 
-bool ResetTime();
+//中間ポイントフラグを返す
+bool HalfWayFlag();

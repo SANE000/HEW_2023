@@ -6,11 +6,10 @@
 //プロトタイプ宣言
 ///////////////////////グローバル宣言
 static TIMER g_time[TIME_MAX];
-//制限時間が0になってしまった時のフラグ
-bool NotReset = true;
-int TimerFrame;
 //制限時間の設定
 //制限時間90秒に60を掛けてフレーム化しています
+bool Half = false;
+int TimerFrame;
 int TimerLimit = TIME_LIMIT * 60;
 
 TIMER InitDate[] =
@@ -42,10 +41,11 @@ void UnInitTime()
 void DrawTime()
 {
 	TimerFrame++;
-	if (ResetTime() == true)
+	//中間地点まできたら一回だけ時間を戻す
+	if (HalfWayFlag() == true && Half == false)
 	{
-		TimerFrame = 0;
-		NotReset = false;
+		TimerFrame -= TimerLimit;
+		Half = true;
 	}
 	for (int i = 0; i < TIME_MAX; i++)
 	{
@@ -103,14 +103,14 @@ TIMER *GetTime()
 	return &g_time[0];
 }
 
-//時間切れになった時のフラグcat.cppのリセット処理に続く
-bool GetReset()
-{
-	if (NotReset == false)
-	{
-		return NotReset;
-	}
-}
+////時間切れになった時のフラグcat.cppのリセット処理に続く
+//bool GetReset()
+//{
+//	if (NotReset == false)
+//	{
+//		return NotReset;
+//	}
+//}
 
 //残り制限時間を返す
 int GetLimitFrame()

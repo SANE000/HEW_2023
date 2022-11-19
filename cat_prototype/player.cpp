@@ -8,12 +8,13 @@
 #include "sprite.h"
 #include "Scene.h"
 #include "sound.h"
+#include "timer.h"
 #include "collision.h"
 #include "camera.h"
 //マクロ定義
-#define BULLET_WAIT (38)
+#define BULLET_WAIT (28)
+#define ROT_WAIT (10)
 //プロトタイプ宣言
-
 
 ///////////////////////グローバル
 static int time = 0;
@@ -111,14 +112,14 @@ void UpdatePlayer()
 	}
 
 	//プレビューブロックを回転
-	if (Keyboard_IsKeyDown(KK_Z) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_X) && time <= 0)
+	if (Keyboard_IsKeyDown(KK_Z) && g_Player.bwait == 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_X) && g_Player.bwait == 0)
 	{
 		GetPreviewBlock()->rot += 90;
 		if (GetPreviewBlock()->rot == 360)
 		{
 			GetPreviewBlock()->rot = 0;
 		}
-		time = WAIT_TIME;
+		g_Player.bwait = ROT_WAIT;
 	}
 
 	//SPACEキーでブロックをプレイヤーの下方向へ射出して
@@ -126,8 +127,8 @@ void UpdatePlayer()
 	g_Player.SetPos = g_Player.pos;
 	if (Keyboard_IsKeyDown(KK_SPACE) && g_Player.bwait == 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && g_Player.bwait == 0)
 	{
-		if(FalseExistCheck() == true)
-		SetMoveBlock();
+		if (FalseExistCheck() == true)
+			SetMoveBlock();
 		//要調整
 		g_Player.bwait = BULLET_WAIT;
 
@@ -135,7 +136,7 @@ void UpdatePlayer()
 	}
 
 	//リセットキー
-	if (Keyboard_IsKeyDown(KK_R) && time <= 0 ||IsButtonTriggered(0, XINPUT_GAMEPAD_START) &&time<=0)
+	if (Keyboard_IsKeyDown(KK_R) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0 || GetLimitFrame() < 0)
 	{
 		SetScene(SCENE_SHOP);
 		time = WAIT_TIME;
@@ -172,3 +173,4 @@ int BlockScore()
 {
 	return blockscore;
 }
+

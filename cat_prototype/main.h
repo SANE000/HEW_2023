@@ -53,7 +53,8 @@
 #define DEFO_SIZE_X		 (DRAW_SIZE/2)
 //下から
 #define DEFO_SIZE_Y		 (SCREEN_HEIGHT - DEFO_SIZE_X)
-
+//偵察速度
+#define WATCH 2.0f
 //重力
 #define GRAV 2.5f
 //連続入力防止用待機時間
