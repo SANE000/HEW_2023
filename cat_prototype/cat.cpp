@@ -18,7 +18,7 @@ static MOVE_BLOCK *m_block = GetMoveBlock();
 HRESULT InitCat()
 {
 	//テクスチャロード 画像の名前を入れよう
-	g_Cat.texNo = LoadTexture((char*)"data\\texture\\neko.png");
+	g_Cat.texNo = LoadTexture((char*)"data\\texture\\neko2.png");
 	//構造体の初期化
 	g_Cat.pos.x = DEFO_SIZE_X;
 	g_Cat.pos.y = CAT_INIT_Y;
@@ -49,12 +49,6 @@ void UnInitCat()
 //更新処理
 void UpdateCat()
 {
-	g_Cat.patern += 0.04;
-	if (g_Cat.patern >= 2.0f)
-	{
-		g_Cat.patern -= 2.0f;
-	}
-
 	//空中に浮いているときだけ重力の影響
 	if (g_Cat.jump_flag == false)
 	{
@@ -63,6 +57,12 @@ void UpdateCat()
 	//自動で移動(壁にぶつかるor初期値まで戻ったら反転)
 	if (g_Cat.move_flag == false)
 	{
+		//右に向かって歩く猫アニメ
+		g_Cat.patern += 0.04;
+		if (g_Cat.patern > 2.0f)
+		{
+			g_Cat.patern = 0.0f;
+		}
 		//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
 		if (g_Cat.nowjump_flag > 0)
 		{
@@ -75,6 +75,12 @@ void UpdateCat()
 	}
 	else
 	{
+		//左に向かって歩く猫アニメ
+		g_Cat.patern += 0.04;
+		if (g_Cat.patern > 4.0f || g_Cat.patern < 2.0f)
+		{
+			g_Cat.patern = 2.0f;
+		}
 		//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
 		if (g_Cat.nowjump_flag > 0)
 		{
@@ -137,9 +143,9 @@ void DrawCat()
 		g_Cat.rot,
 		g_Cat.col,
 		g_Cat.patern,		
-		1.0f / 2.0f,//横
+		1.0f / 4.0f,//横
 		1.0f,//縦
-		2//横のパターン枚数
+		4//横のパターン枚数
 	);
 }
 //構造体の先頭ポインタを返す　皆が使えるように

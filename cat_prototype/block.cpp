@@ -21,16 +21,7 @@ HRESULT InitBlock()
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
 		//テクスチャロード 画像の名前を入れよう
-		//ブロックによってテクスチャの変更
-		//21~29 or 33~44は表面では無い方へ変更
-		if (i >= 21 && i <= 29 || i >= 33 && i <= 44 || i >= 108 && i <= 110)
-		{
-			g_Block[i].texNo = LoadTexture((char*)"data\\texture\\under_soil_block.png");
-		}
-		else
-		{
-			g_Block[i].texNo = LoadTexture((char*)"data\\texture\\grass_block.png");
-		}
+		g_Block[i].texNo = LoadTexture((char*)"data\\texture\\block.png");
 	}
 	//足場ブロックの設置.一番最後に設定
 	InitStage11();
@@ -74,6 +65,17 @@ void DrawBlock()
 	{
 		if (g_Block[i].use == true)
 		{
+			//ブロックによってパターンの変更
+			//パターンによって効果があってもいいかも
+			//21~29 or 33~44 or 108~110は表面では無い方へ変更
+			if (i >= 21 && i <= 29 || i >= 33 && i <= 44 || i >= 108 && i <= 110)
+			{
+				g_Block[i].Patern = 1.0f;
+			}
+			else
+			{
+				g_Block[i].Patern = 0.0f;
+			}
 			//テクスチャのセット
 			GetDeviceContext()->PSSetShaderResources
 			(0, 1, GetTexture(g_Block[i].texNo));
@@ -87,9 +89,9 @@ void DrawBlock()
 			g_Block[i].rot,
 			g_Block[i].col,
 			g_Block[i].Patern,
+			1.0f/2.0f,
 			1.0f,
-			1.0f,
-			1
+			2
 			);
 		}
 	}	

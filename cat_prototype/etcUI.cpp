@@ -17,9 +17,13 @@ static ETC g_etc[ETC_MAX];
 
 ETC InitDate[] =
 {
-	{true,D3DXVECTOR2(SCREEN_WIDTH/2,100),0,0,ETC_SIZE_W,ETC_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)},//タイムUI
-	{true,D3DXVECTOR2((CAT_GOLL + DRAW_SIZE)/2,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H * 2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)},//中間ポイント
-	{true,D3DXVECTOR2(CAT_GOLL + DRAW_SIZE,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H*2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)},//ゴール表示
+	//{use,posXY,size横縦,color,patern}
+	//タイムUI
+	{true,D3DXVECTOR2(SCREEN_WIDTH/2,100),0,0,ETC_SIZE_W,ETC_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	//中間ポイント
+	{true,D3DXVECTOR2((CAT_GOLL + DRAW_SIZE)/2,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H * 2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	//ゴール表示
+	{true,D3DXVECTOR2(CAT_GOLL + DRAW_SIZE,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H*2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),1.0f},
 };
 
 HRESULT InitEtc()
@@ -34,7 +38,7 @@ HRESULT InitEtc()
 		}
 		else
 		{
-			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\goal_flag.png");
+			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\goal.png");
 		}
 	}
 	return S_OK;
@@ -104,10 +108,10 @@ void DrawEtc()
 					g_etc[i].h,
 					g_etc[i].rot,
 					g_etc[i].col,
-					0,
-					1.0f,//横
+					g_etc[i].patern,
+					1.0f/2.0f,//横
 					1.0f,//縦
-					1
+					2
 				);
 			}
 		}

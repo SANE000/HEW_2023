@@ -599,7 +599,7 @@ void BlockCollision()
 						{
 							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 							m_block[i].Speed.y = 0;
-							m_block[i].pos.y = BlockTop - 1 - SIZE / 2;
+							m_block[i].pos.y = BlockTop - DRAW_SIZE / 2;
 						}
 					}
 				}
@@ -654,12 +654,12 @@ void BlockCollision()
 								{
 									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 									m_block[n].Speed.y = 0;
-									m_block[n].pos.y = BlockBottomI + SIZE / 2;
+									m_block[n].pos.y = BlockBottomI + DRAW_SIZE / 2;
 								}
 								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 								{
 									m_block[i].Speed.y = 0;
-									m_block[i].pos.y = BlockTopN - 1 - SIZE / 2;
+									m_block[i].pos.y = BlockTopN - 1 - DRAW_SIZE / 2;
 								}
 							}
 						}
@@ -674,7 +674,7 @@ void BlockCollision()
 									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 
 									m_block[n].Speed.y = 0;
-									m_block[n].pos.x = BlockLeftI - 1 - SIZE / 2;
+									m_block[n].pos.x = BlockLeftI - DRAW_SIZE / 2;
 									m_block[n].pos.y = m_block[i].pos.y;
 
 									//block[i].Hit = true;
@@ -683,7 +683,7 @@ void BlockCollision()
 								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 								{
 									m_block[i].Speed.y = 0;
-									m_block[i].pos.x = BlockRightN + SIZE / 2;
+									m_block[i].pos.x = BlockRightN + DRAW_SIZE / 2;
 									m_block[i].pos.y = m_block[n].pos.y;
 								}
 
@@ -699,13 +699,13 @@ void BlockCollision()
 								{
 									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 									m_block[n].Speed.y = 0;
-									m_block[n].pos.x = BlockRightI + SIZE / 2;
+									m_block[n].pos.x = BlockRightI + DRAW_SIZE / 2;
 									m_block[n].pos.y = m_block[i].pos.y;
 								}
 								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 								{
 									m_block[i].Speed.y = 0;
-									m_block[i].pos.x = BlockLeftN - SIZE / 2;
+									m_block[i].pos.x = BlockLeftN - DRAW_SIZE / 2;
 									m_block[i].pos.y = m_block[n].pos.y;
 								}
 							}

@@ -19,6 +19,8 @@ struct ETC
 	float w, h;
 	//色
 	D3DXCOLOR col;
+	//パターン
+	float patern;
 };
 
 //プロトタイプ宣言

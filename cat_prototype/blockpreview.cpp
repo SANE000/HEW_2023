@@ -177,7 +177,7 @@ void UpdatePreview()
 			if (g_MoveBlock[i].pos.y > (SCREEN_HEIGHT - DRAW_SIZE / 2.0))
 			{
 				g_MoveBlock[i].Speed.y = 0.0f;
-				g_MoveBlock[i].pos.y = (SCREEN_HEIGHT - DRAW_SIZE / 2.0);
+				g_MoveBlock[i].pos.y = (SCREEN_HEIGHT - 1 - DRAW_SIZE / 2.0);
 			}
 		}
 	}

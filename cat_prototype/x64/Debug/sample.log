@@ -1,36 +1,23 @@
-﻿  camera.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\camera.cpp(73): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\camera.cpp(85): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
-  cat.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\cat.cpp(52): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\cat.cpp(176): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-  collision.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(213): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(232): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(264): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(305): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(324): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\collision.cpp(353): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  cat.cpp
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\cat.cpp(61): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\cat.cpp(79): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\cat.cpp(182): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
   etcUI.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(85): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(84): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(104): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(103): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(101): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(88): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(87): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(107): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(106): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(104): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
   game.cpp
-  main.cpp
-  player.cpp
-  result.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(88): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(87): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(102): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(101): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-  timer.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(58): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(64): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(70): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(89): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(88): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(142): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+  shop.cpp
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(71): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(103): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(295): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(292): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(291): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(315): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(314): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(334): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(333): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   コードを生成中...
   sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe
