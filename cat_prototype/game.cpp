@@ -88,7 +88,6 @@ void DrawGame()
 	////////////////ゲーム関連
 	//背景描画
 	DrawPolygon();
-	DrawTime();
 	//ブロックの表示
 	DrawBlock();
 	DrawPreview();
@@ -96,6 +95,7 @@ void DrawGame()
 	DrawCat();
 	//ゴールその他UI
 	DrawEtc();
+	DrawTime();
 	//プレイヤーの描画//は下の方に！
 	DrawPlayer();
 	// バックバッファ、フロントバッファ入れ替え
