@@ -57,33 +57,61 @@ void UpdateCamera(void)
 
 	//横に動く
 	//猫が画面の右側にいったら
-	if (pCat->pos.x >= g_Camera.pos.x + SCREEN_WIDTH - 20) {
+	if (pCat->pos.x >= g_Camera.pos.x + SCREEN_WIDTH) {
 	//ムーブフラグをturuにする
+		g_Camera.moveRight = true;
 		g_Camera.move = true;
 	}
 	//ムーブフラグがtrueなら
-	if (g_Camera.move == true)
+	if (g_Camera.moveRight == true)
 	{//一定の速度で移動
 		g_Camera.pos.x += 10;
 		//pPreviewBlock->pos.x += 10;
-		if (pCat->pos.x - 10 <= g_Camera.pos.x) {
+		if (pCat->pos.x - 70 <= g_Camera.pos.x) {
 			//猫が左端についたら移動を止め位置補正
-			pPreviewBlock->pos.x = g_Camera.pos.x;
+			g_Camera.moveRight = false;
 			g_Camera.move = false;
 			Nowpos = g_Camera.pos.x;
 		}
 	}
-	//左側に行ったら初期画面
-	if (pCat->pos.x <= g_Camera.pos.x - 20) {
+
+	//猫が画面の左側にいったら
+	if (pCat->pos.x <= g_Camera.pos.x) {
+		//ムーブフラグをturuにする
+		g_Camera.moveLeft = true;
+		g_Camera.move = true;
+
+	}
+	//ムーブフラグがtrueなら
+	if (g_Camera.moveLeft == true)
+	{//一定の速度で移動
+		g_Camera.pos.x -= 10;
+		if (pCat->pos.x + 70 >= g_Camera.pos.x + SCREEN_WIDTH) {
+			//猫が右端についたら移動を止め位置補正
+			g_Camera.moveLeft = false;
+			g_Camera.move = false;
+			Nowpos = g_Camera.pos.x;
+		}
+	}
+	////左側に行ったら初期画面
+	if (pCat->pos.x <= 100) {
 		g_Camera.pos.x = 0;
 	}
 
-	//ムーブフラグがfalse / posが9601の倍数以外
+	//ムーブフラグがfalse / posが960の倍数以外
 	if (g_Camera.move == false && Nowpos % SCREEN_WIDTH != 0)
 	{//画面に合わせ位置補正
-		g_Camera.pos.x = g_Camera.Oldpos.x + SCREEN_WIDTH;
-		Nowpos = g_Camera.pos.x;
-		pplayer->pos.x = g_Camera.Oldpos.x + SCREEN_WIDTH - 30;
+		if (pCat->pos.x < g_Camera.pos.x + SCREEN_WIDTH / 2) {
+			g_Camera.pos.x = g_Camera.Oldpos.x + SCREEN_WIDTH;
+			Nowpos = g_Camera.pos.x;
+			pplayer->pos.x += SCREEN_WIDTH;
+		}
+		//左側に移動したときの補正
+		if (pCat->pos.x > g_Camera.pos.x + SCREEN_WIDTH / 2) {
+			g_Camera.pos.x = g_Camera.Oldpos.x - SCREEN_WIDTH;
+			Nowpos = g_Camera.pos.x;
+			pplayer->pos.x -=SCREEN_WIDTH - 30;
+		}
 	}
 
 	//ムーブフラグがfalse / posが9601の倍数
@@ -92,6 +120,7 @@ void UpdateCamera(void)
 		//Oldposに今の位置を入れる
 		g_Camera.Oldpos = g_Camera.pos;
 	}
+
 
 
 	if (Keyboard_IsKeyDown(KK_V))
