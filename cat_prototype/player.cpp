@@ -21,7 +21,8 @@ static int time = 0;
 //int JumpSoundNo = 0;
 //プレイヤーオブジェクト
 static PLAYER g_Player;
-
+//スクロール中は動かさない対策
+static CAMERA_2D *g_Camera = GetCamera();
 //1ステージに何個ブロックを使ったか
 static int blockscore = 0;
 ///
@@ -88,58 +89,62 @@ void UpdatePlayer()
 	}
 
 	//操作関係
-	//上下左右矢印キーで移動する
-	if (Keyboard_IsKeyDown(KK_D) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
-	{//右
-		g_Player.pos.x += DRAW_SIZE;
-		time = WAIT_TIME;
-	}
-	else if (Keyboard_IsKeyDown(KK_A) && time <= 0 || GetThumbLeftX(0) < 0 && time <= 0)
-	{//左
-		g_Player.pos.x -= DRAW_SIZE;
-		time = WAIT_TIME;
-	}
-	//上下の移動によってバグが生じそうだから今は辞めておく
-	else if (Keyboard_IsKeyDown(KK_S) && time <= 0 || GetThumbLeftY(0) < 0 && time <= 0)
-	{//下
-		g_Player.pos.y += DRAW_SIZE;
-		time = WAIT_TIME;
-	}
-	else if (Keyboard_IsKeyDown(KK_W) && time <= 0 || GetThumbLeftY(0) > 0 && time <= 0)
-	{//上
-		g_Player.pos.y -= DRAW_SIZE;
-		time = WAIT_TIME;
-	}
-
-	//プレビューブロックを回転
-	if (Keyboard_IsKeyDown(KK_Z) && g_Player.bwait == 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_X) && g_Player.bwait == 0)
+	//画面スクロール中はプレイヤーの操作は行えないようにする
+	if (g_Camera->moveLeft == false && g_Camera->moveRight == false)
 	{
-		GetPreviewBlock()->rot += 90;
-		if (GetPreviewBlock()->rot == 360)
-		{
-			GetPreviewBlock()->rot = 0;
+		//上下左右矢印キーで移動する
+		if (Keyboard_IsKeyDown(KK_D) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
+		{//右
+			g_Player.pos.x += DRAW_SIZE;
+			time = WAIT_TIME;
 		}
-		g_Player.bwait = ROT_WAIT;
-	}
+		else if (Keyboard_IsKeyDown(KK_A) && time <= 0 || GetThumbLeftX(0) < 0 && time <= 0)
+		{//左
+			g_Player.pos.x -= DRAW_SIZE;
+			time = WAIT_TIME;
+		}
+		//上下の移動によってバグが生じそうだから今は辞めておく
+		else if (Keyboard_IsKeyDown(KK_S) && time <= 0 || GetThumbLeftY(0) < 0 && time <= 0)
+		{//下
+			g_Player.pos.y += DRAW_SIZE;
+			time = WAIT_TIME;
+		}
+		else if (Keyboard_IsKeyDown(KK_W) && time <= 0 || GetThumbLeftY(0) > 0 && time <= 0)
+		{//上
+			g_Player.pos.y -= DRAW_SIZE;
+			time = WAIT_TIME;
+		}
 
-	//SPACEキーでブロックをプレイヤーの下方向へ射出して
-	//猫の足場を形成(授業でやったバレットを参考にする)
-	g_Player.SetPos = g_Player.pos;
-	if (Keyboard_IsKeyDown(KK_SPACE) && g_Player.bwait == 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && g_Player.bwait == 0)
-	{
-		if (FalseExistCheck() == true)
-			SetMoveBlock();
-		//要調整
-		g_Player.bwait = BULLET_WAIT;
+		//プレビューブロックを回転
+		if (Keyboard_IsKeyDown(KK_Z) && g_Player.bwait == 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_X) && g_Player.bwait == 0)
+		{
+			GetPreviewBlock()->rot += 90;
+			if (GetPreviewBlock()->rot == 360)
+			{
+				GetPreviewBlock()->rot = 0;
+			}
+			g_Player.bwait = ROT_WAIT;
+		}
 
-		blockscore++;//ブロックを何個使ったか
-	}
+		//SPACEキーでブロックをプレイヤーの下方向へ射出して
+		//猫の足場を形成(授業でやったバレットを参考にする)
+		g_Player.SetPos = g_Player.pos;
+		if (Keyboard_IsKeyDown(KK_SPACE) && g_Player.bwait == 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && g_Player.bwait == 0)
+		{
+			if (FalseExistCheck() == true)
+				SetMoveBlock();
+			//要調整
+			g_Player.bwait = BULLET_WAIT;
 
-	//リセットキー
-	if (Keyboard_IsKeyDown(KK_R) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0 || GetLimitFrame() < 0)
-	{
-		SetScene(SCENE_SHOP);
-		time = WAIT_TIME;
+			blockscore++;//ブロックを何個使ったか
+		}
+
+		//リセットキー
+		if (Keyboard_IsKeyDown(KK_R) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0 || GetLimitFrame() < 0)
+		{
+			SetScene(SCENE_SHOP);
+			time = WAIT_TIME;
+		}
 	}
 }
 void DrawPlayer()
