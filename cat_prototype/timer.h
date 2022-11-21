@@ -3,15 +3,6 @@
 #include "main.h"
 #include "renderer.h"
 
-//タイマー関連
-#define TIME_MAX 3
-#define TIME_POS_X 530
-#define TIME_POS_Y 50
-#define TIME_SIZE_W 50
-#define TIME_SIZE_H 50
-//制限時間
-#define TIME_LIMIT 90
-
 //構造体定義//敵の情報はすべて構造体に入れる！
 struct TIMER
 {

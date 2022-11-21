@@ -1,3 +1,11 @@
-﻿  block.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(132): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+﻿  etcUI.cpp
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(88): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(89): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(105): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(104): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(124): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(123): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(143): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(142): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(140): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
   sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe

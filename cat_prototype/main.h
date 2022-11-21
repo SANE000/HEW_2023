@@ -59,6 +59,14 @@
 #define GRAV 2.5f
 //連続入力防止用待機時間
 #define WAIT_TIME 10;
+//タイマー関連
+#define TIME_MAX 3
+#define TIME_POS_X 530
+#define TIME_POS_Y 50
+#define TIME_SIZE_W 50
+#define TIME_SIZE_H 50
+//制限時間
+#define TIME_LIMIT 90
 
 
 //*****************************************************************************
