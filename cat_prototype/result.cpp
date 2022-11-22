@@ -46,16 +46,16 @@ void UninitResult()
 void UpdateResult()
 {
 	//スコア計算//ココプランナーに決めてもらうの忘れてた
-	if (BlockScore() <= 4 && ResultTimer() >= TIME_LIMIT - 20)
-	{
+	if (BlockScore() <= 10 && ResultTimer() <= 120)
+	{//Sランク
 		Score = SCORE::SCORE_S;
 	}
-	else if (BlockScore() <= 5 && ResultTimer() >= TIME_LIMIT - 35)
-	{
+	else if (BlockScore() <= 13 && ResultTimer() <= 130)
+	{//Aランク
 		Score = SCORE::SCORE_A;
 	}
-	else
-	{
+	else														
+	{//Bランク
 		Score = SCORE::SCORE_B;
 	}
 	if (Keyboard_IsKeyDown(KK_ENTER))//ENTERキー押したら
