@@ -58,7 +58,7 @@ void UpdateResult()
 	{
 		Score = SCORE::SCORE_B;
 	}
-	if (Keyboard_IsKeyDown(KK_SPACE))
+	if (Keyboard_IsKeyDown(KK_ENTER))//ENTERキー押したら
 	{
 		//ショップシーンに遷移//ステージ選択が反映したらそっちにシーン遷移
 		SetScene(SCENE_SHOP);
