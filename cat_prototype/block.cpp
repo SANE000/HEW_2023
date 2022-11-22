@@ -78,13 +78,7 @@ void UpdateBlock()
 		//マップボタンが押されてないなら0にする
 		map_pos = 0;
 	}
-	for (int i = 0; i < BLOCK_MAX; i++)
-	{
-		if (g_Block[i].Patern == 2.0f && pCat->pos.x == g_Block[i].pos.x/* - 5 && pCat->pos.x <= g_Block[5].pos.x + 5*/)
-		{
-			ChangeMoveFlag(pCat);
-		}
-	}
+
 
 }
 //描画処理

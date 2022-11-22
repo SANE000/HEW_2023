@@ -88,6 +88,11 @@ void UpdateCollision()
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.y = BlockTop - GRAV - SIZE / 2;
 					temp = BLOCK_MAX;
+
+					if (block[i].Patern == 2.0f)
+					{
+						ChangeMoveFlag(cat);
+					}
 				}
 				//床ブロックより下
 				else if (CatTop <= BlockBottom &&

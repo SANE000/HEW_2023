@@ -64,6 +64,7 @@ void UpdateScene()
 		UpdateGame();
 		break;
 	case SCENE::SCENE_SCORE:
+		UpdateResult();
 		break;
 	}
 }

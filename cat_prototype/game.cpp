@@ -79,7 +79,7 @@ void UpdateGame()
 	UpdateBlock();
 	UpdatePreview();
 	UpdateCollision();
-	UpdateResult();
+	
 	////////////////ƒQ[ƒ€ŠÖ˜A
 }
 //•`‰æˆ—
