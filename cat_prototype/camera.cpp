@@ -13,6 +13,8 @@
 #include "cat.h"
 #include "blockpreview.h"
 #include "player.h"
+#include "block.h"
+
 
 //*****************************************************************************
 // ƒ}ƒNƒ’è‹`
@@ -104,13 +106,13 @@ void UpdateCamera(void)
 		if (pCat->pos.x < g_Camera.pos.x + SCREEN_WIDTH / 2) {
 			g_Camera.pos.x = g_Camera.Oldpos.x + SCREEN_WIDTH;
 			Nowpos = g_Camera.pos.x;
-			pplayer->pos.x += SCREEN_WIDTH;
+			pplayer->pos.x = g_Camera.pos.x + (DRAW_SIZE / 2) * 9;
 		}
 		//¶‘¤‚ÉˆÚ“®‚µ‚½‚Æ‚«‚Ì•â³
 		if (pCat->pos.x > g_Camera.pos.x + SCREEN_WIDTH / 2) {
 			g_Camera.pos.x = g_Camera.Oldpos.x - SCREEN_WIDTH;
 			Nowpos = g_Camera.pos.x;
-			pplayer->pos.x -=SCREEN_WIDTH - 30;
+			pplayer->pos.x = g_Camera.pos.x + (DRAW_SIZE / 2) * 9;
 		}
 	}
 

@@ -27,6 +27,8 @@ struct CAT
 	D3DXVECTOR2 pos;
 	//回転角度
 	float rot;
+	//進行方向
+	D3DXVECTOR2 dir;
 	//テクスチャ番号
 	int texNo;
 	//アニメ番号

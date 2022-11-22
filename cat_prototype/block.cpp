@@ -4,6 +4,8 @@
 #include "texture.h"
 #include "sprite.h"
 #include "camera.h"
+#include "cat.h"
+
 
 //プロトタイプ宣言
 void InitStage11();
@@ -56,6 +58,8 @@ void UnInitBlock()
 //更新処理
 void UpdateBlock()
 {
+	CAT* pCat = GetCat();
+
 	//マップボタンが押されたら
 	if (WatchMapFlag() == true)
 	{//画面端になるまで座標を引いていく
@@ -74,6 +78,14 @@ void UpdateBlock()
 		//マップボタンが押されてないなら0にする
 		map_pos = 0;
 	}
+	for (int i = 0; i < BLOCK_MAX; i++)
+	{
+		if (g_Block[i].Patern == 2.0f && pCat->pos.x == g_Block[i].pos.x/* - 5 && pCat->pos.x <= g_Block[5].pos.x + 5*/)
+		{
+			ChangeMoveFlag(pCat);
+		}
+	}
+
 }
 //描画処理
 void DrawBlock()
@@ -110,7 +122,7 @@ void DrawBlock()
 					//草がないタイプの床ブロック
 					g_Block[i].Patern = 1.0f;
 				}
-				else if(i == 73 || i == 86)
+				else if(i == 5 || i == 86)
 				{
 					//反転ブロック
 					g_Block[i].Patern = 2.0f;

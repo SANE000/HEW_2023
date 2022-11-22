@@ -22,6 +22,7 @@ HRESULT InitCat()
 	//構造体の初期化
 	g_Cat.pos.x = DEFO_SIZE_X;
 	g_Cat.pos.y = CAT_INIT_Y;
+	g_Cat.dir.x = WALK;
 	g_Cat.move_flag = false;
 	g_Cat.jump_flag = false;
 	g_Cat.jump_y = 0.0f;
@@ -66,11 +67,11 @@ void UpdateCat()
 		//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
 		if (g_Cat.nowjump_flag > 0)
 		{
-			g_Cat.pos.x += WALK / g_Cat.nowjump_flag;
+			g_Cat.pos.x += g_Cat.dir.x / g_Cat.nowjump_flag;
 		}
 		else
 		{
-			g_Cat.pos.x += WALK;
+			g_Cat.pos.x += g_Cat.dir.x;
 		}
 	}
 	else
@@ -84,11 +85,11 @@ void UpdateCat()
 		//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
 		if (g_Cat.nowjump_flag > 0)
 		{
-			g_Cat.pos.x -= WALK / g_Cat.nowjump_flag;
+			g_Cat.pos.x += g_Cat.dir.x / g_Cat.nowjump_flag;
 		}
 		else
 		{
-			g_Cat.pos.x -= WALK;
+			g_Cat.pos.x += g_Cat.dir.x;
 		}
 	}
 	//画面外へはいかないようにする
@@ -189,10 +190,13 @@ void ChangeMoveFlag(CAT* c)
 	if (c->move_flag == true)
 	{
 		c->move_flag = false;
+		g_Cat.dir *= -1;
+
 	}
 	else if (c->move_flag == false)
 	{
 		c->move_flag = true;
+		g_Cat.dir *= -1;
 	}
 }
 
