@@ -143,9 +143,10 @@ int GetTimer()
 }
 
 //ステージごとに設定された制限時間から残り時間引く
+//つまりは経過した時間です
 int ResultTimer()
 {
-	int num = GetTimer();
+	int num = 180 - GetTimer();
 
 	return num;
 }

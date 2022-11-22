@@ -86,7 +86,7 @@ void DrawResult()
 
 		int time = g_Time;
 
-		for (int i = 0; i < TIME_MAX - 1; i++)
+		for (int i = 0; i < TIME_MAX; i++)
 		{
 			//1‚ÌˆÊ‚Ì”’l‚ðŽæ‚èo‚·
 			int suuji = time % 10;;
