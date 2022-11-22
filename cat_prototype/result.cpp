@@ -6,6 +6,9 @@
 #include "timer.h"
 #include "result.h"
 #include "main.h"
+#include "inputx.h"
+#include "keyboard.h"
+#include "scene.h"
 
 
 //==========================================
@@ -54,6 +57,11 @@ void UpdateResult()
 	else
 	{
 		Score = SCORE::SCORE_B;
+	}
+	if (Keyboard_IsKeyDown(KK_SPACE))
+	{
+		//ショップシーンに遷移//ステージ選択が反映したらそっちにシーン遷移
+		SetScene(SCENE_SHOP);
 	}
 }
 
