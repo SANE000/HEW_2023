@@ -4,17 +4,17 @@
 #include "renderer.h"
 
 //マクロ定義
-#define CAT_GOLL 280*2//2780*2
+#define CAT_GOLL 2780*2//2780*2
 #define CAT_SIZE_W 59
 #define CAT_SIZE_H 59
 #define CAT_INIT_X (CAT_SIZE_W)
 #define CAT_INIT_Y 240
 //猫の移動速度
-#define WALK (0.75f)
+#define WALK (1.00f)
 //ジャンプ力
 #define JUMP (7.0f)
 //ジャンプセンサーの横サイズ
-#define SENSOR_SIZE	(12.5f)		
+#define SENSOR_SIZE	(17.5f)		
 
 
 //構造体定義

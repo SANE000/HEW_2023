@@ -58,7 +58,7 @@ void UpdateResult()
 	{//Bランク
 		Score = SCORE::SCORE_B;
 	}
-	if (Keyboard_IsKeyDown(KK_ENTER))//ENTERキー押したら
+	if (Keyboard_IsKeyDown(KK_ENTER) || IsButtonTriggered(0, XINPUT_GAMEPAD_B))//ENTERキー押したら
 	{
 		//ショップシーンに遷移//ステージ選択が反映したらそっちにシーン遷移
 		SetScene(SCENE_SHOP);
@@ -92,7 +92,7 @@ void DrawResult()
 			int suuji = time % 10;;
 
 			GetDeviceContext()->PSSetShaderResources(0, 1, GetTexture(g_TextureNo));//&time.png);
-			DrawSpriteColorRotate(480.0f - (32.0f*i), 220.0f, 32.0f, 32.0f, 0, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
+			DrawSpriteColorRotate(560.0f - (50.0f*i), 220.0f, 50.0f, 50.0f, 0, D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f),
 				suuji, 0.1f, 1.0f, 10);
 
 			//数値全体を10で割る
@@ -106,7 +106,7 @@ void DrawResult()
 			//1の位の数値を取り出す
 			int num = block % 10;;
 
-			DrawSpriteColorRotate(480.0f - (32.0f*i), 355.0f, 32.0f, 32.0f, 0, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
+			DrawSpriteColorRotate(560.0f - (50.0f*i), 355.0f, 50.0f, 50.0f, 0, D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f),
 				num, 0.1f, 1.0f, 10);
 
 			//数値全体を10で割る

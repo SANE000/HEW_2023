@@ -7,7 +7,7 @@
 #include "cat.h"
 
 //その他のUI関係のマクロやこれから追加するかも用
-#define ETC_MAX 6
+#define ETC_MAX 7
 #define ETC_SIZE_W 100
 #define ETC_SIZE_H 50
 //プロトタイプ宣言
@@ -20,13 +20,15 @@ ETC InitDate[] =
 {
 	//{use,posXY,size横縦,color,patern}
 	//タイムUI
-	{true,D3DXVECTOR2(SCREEN_WIDTH/2,100),0,0,ETC_SIZE_W,ETC_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	{true,D3DXVECTOR2(SCREEN_WIDTH/2,90),0,0,ETC_SIZE_W,ETC_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
 	//発射したブロックUI
 	{true,D3DXVECTOR2(SCREEN_WIDTH - 200,50),0,0,ETC_SIZE_W,ETC_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
 	//発射したブロック数1の位UI
 	{true,D3DXVECTOR2(SCREEN_WIDTH - 50,50),0,0,TIME_SIZE_W,TIME_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
 	//発射したブロック数10の位UI
 	{true,D3DXVECTOR2(SCREEN_WIDTH - 100,50),0,0,TIME_SIZE_W,TIME_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	//偵察猫
+	{false,D3DXVECTOR2(SCREEN_WIDTH / 2,SCREEN_HEIGHT/2),0,0,SCREEN_HEIGHT,SCREEN_HEIGHT,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
 	//中間ポイント
 	{true,D3DXVECTOR2((CAT_GOLL + DRAW_SIZE)/2,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H * 2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
 	//ゴール表示
@@ -51,6 +53,10 @@ HRESULT InitEtc()
 		{
 			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\time.png");
 		}
+		else if (i == 4)
+		{
+			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\scout_neko.png");
+		}
 		else
 		{
 			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\goal.png");
@@ -65,20 +71,46 @@ void UnInitEtc()
 }
 void UpdateEtc()
 {
+	D3DXVECTOR2 basePos = GetBase();
+	//マップボタンが押されたら
 	if (WatchMapFlag() == true)
-	{
-		if (map_pos <= -SCREEN_WIDTH * 5)
+	{//画面端になるまで座標を引いていく
+		if (map_pos <= -SCREEN_WIDTH * 5 + (-basePos.x))
 		{
+			//画面端になったら止める
 			map_pos += 0;
 		}
 		else
 		{
 			map_pos -= WATCH;
 		}
+		//偵察用のUIへ変更
+		g_etc[0].patern = 1.0f;
+		g_etc[1].patern = 1.0f;
+		g_etc[2].use = false;
+		g_etc[3].use = false;
+		g_etc[4].use = true;
+		//偵察猫アニメーション
+		if (g_etc[4].patern <= 10.0f)
+		{
+			g_etc[4].patern += 0.04f;
+		}
+		else
+		{
+			g_etc[4].patern -= 10.0f;
+		}
 	}
 	else
 	{
+		//マップボタンが押されてないなら0にする
 		map_pos = 0;
+		//普通の表示に戻す
+		g_etc[0].patern = 0.0f;
+		g_etc[1].patern = 0.0f;
+		g_etc[4].patern = 0.0f;
+		g_etc[2].use = true;
+		g_etc[3].use = true;
+		g_etc[4].use = false;
 	}
 }
 //描画処理
@@ -105,13 +137,13 @@ void DrawEtc()
 					g_etc[i].h,
 					g_etc[i].rot,
 					g_etc[i].col,
-					0,//動かないから0
-					1.0f,//横
+					g_etc[i].patern,//動かないから0
+					1.0f/2.0f,//横
 					1.0f,//縦
-					1
+					2
 				);
 			}
-			else if (i == 2 || i == 3)
+			else if (i >= 2 && i <= 4)
 			{
 				//テクスチャのセット
 				GetDeviceContext()->PSSetShaderResources

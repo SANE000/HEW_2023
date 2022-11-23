@@ -273,8 +273,8 @@ void DrawShop()
 	if (map_flag == true)
 	{
 		DrawPolygon();
-		DrawBlock();
 		DrawEtc();
+		DrawBlock();
 	}
 	else
 	{
