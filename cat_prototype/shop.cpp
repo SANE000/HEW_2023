@@ -18,6 +18,9 @@
 //==========================================
 //キーボード入力用連続入力防止時間
 static int time = 0;
+static float start_con = 0.0f;
+static float shop_con = 0.0f;
+
 //お金
 int g_money;
 MONEY money[MONEY_MAX];
@@ -224,17 +227,37 @@ void UpdateShop()
 
 			//購入ボタン　->　確認ボタン
 
-			if (Keyboard_IsKeyDown(KK_SPACE) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
+			if (Keyboard_IsKeyDown(KK_SPACE) && time <= 0)
 			{
 				//購入確認
 				confirmation_flag = true;
+				//キーボード用の案内表示
+				shop_con = 0.0f;
+				time = WAIT_TIME;
+			}
+			else if (IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
+			{
+				//購入確認
+				confirmation_flag = true;
+				//コントローラー用の案内表示
+				shop_con = 1.0f;
 				time = WAIT_TIME;
 			}
 
-			if (Keyboard_IsKeyDown(KK_S) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
+			if (Keyboard_IsKeyDown(KK_S) && time <= 0)
 			{
 				//スタート確認
 				start_flag = true;
+				//キーボード用の案内表示
+				start_con = 0.0f;
+				time = WAIT_TIME;
+			}
+			else if (IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
+			{
+				//スタート確認
+				start_flag = true;
+				//コントローラー用の案内表示
+				start_con = 1.0f;
 				time = WAIT_TIME;
 
 			}
@@ -354,10 +377,10 @@ void DrawShop()
 				CONFIRM_WINDOW_SIZE_H,
 				0,
 				D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
-				0,
-				1.0f,//横
+				start_con,
+				1.0f/2.0f,//横
 				1.0f,//縦
-				1//横のパターン枚数
+				2//横のパターン枚数
 			);
 
 		}
@@ -375,10 +398,10 @@ void DrawShop()
 				CONFIRM_WINDOW_SIZE_H,
 				0,
 				D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
-				0,
-				1.0f,//横
+				shop_con,
+				1.0f/2.0f,//横
 				1.0f,//縦
-				1//横のパターン枚数
+				2//横のパターン枚数
 			);
 
 		}

@@ -14,6 +14,7 @@
 ///////////////////////グローバル宣言
 //偵察用
 static double map_pos = 0;
+static double ofset = 1.0;
 static ETC g_etc[ETC_MAX];
 
 ETC InitDate[] =
@@ -28,7 +29,7 @@ ETC InitDate[] =
 	//発射したブロック数10の位UI
 	{true,D3DXVECTOR2(SCREEN_WIDTH - 100,50),0,0,TIME_SIZE_W,TIME_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
 	//偵察猫
-	{false,D3DXVECTOR2(SCREEN_WIDTH / 2,SCREEN_HEIGHT/2),0,0,SCREEN_HEIGHT,SCREEN_HEIGHT,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	{false,D3DXVECTOR2(SCREEN_WIDTH / 2,40),0,0,DRAW_SIZE,DRAW_SIZE,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
 	//中間ポイント
 	{true,D3DXVECTOR2((CAT_GOLL + DRAW_SIZE)/2,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H * 2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
 	//ゴール表示
@@ -90,6 +91,16 @@ void UpdateEtc()
 		g_etc[2].use = false;
 		g_etc[3].use = false;
 		g_etc[4].use = true;
+		//UI点滅
+		
+			if (ofset >= 0.25f)
+			{
+				ofset -= 0.01f;
+			}
+			else
+			{
+				ofset += 1.5f;
+			}
 		//偵察猫アニメーション
 		if (g_etc[4].patern <= 10.0f)
 		{
@@ -99,11 +110,13 @@ void UpdateEtc()
 		{
 			g_etc[4].patern -= 10.0f;
 		}
+
 	}
 	else
 	{
 		//マップボタンが押されてないなら0にする
 		map_pos = 0;
+		ofset = 1.0;
 		//普通の表示に戻す
 		g_etc[0].patern = 0.0f;
 		g_etc[1].patern = 0.0f;
@@ -112,6 +125,7 @@ void UpdateEtc()
 		g_etc[3].use = true;
 		g_etc[4].use = false;
 	}
+	g_etc[1].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, ofset);
 }
 //描画処理
 void DrawEtc()
