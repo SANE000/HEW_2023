@@ -11,6 +11,8 @@ struct BLOCK
 {
 	//構造体使用中フラグ
 	bool use = true;
+	//ボタンオンフラグ
+	bool button;
 	//表示座標
 	D3DXVECTOR2 pos;
 	//回転角度
@@ -31,3 +33,8 @@ void UpdateBlock();
 void DrawBlock();
 //構造体の先頭ポインタを返す
 BLOCK *GetBlock();
+
+
+double GetMapPos();
+
+int GetStage();

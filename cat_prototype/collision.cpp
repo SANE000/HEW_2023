@@ -7,6 +7,7 @@
 #include "blockpreview.h"
 #include "Scene.h"
 #include "sound.h"
+#include "gimmick_wall.h"
 //==========================================
 //グローバル変数
 //==========================================
@@ -18,6 +19,8 @@ CAT *cat = GetCat();
 PLAYER* player = GetPlayer();
 BLOCK *block = GetBlock();
 MOVE_BLOCK *m_block = GetMoveBlock();
+BLOCK* gimmickwall = GetGimmickWall();
+
 
 //ブロックとネコがぶつかった際、
 //そのブロックの１個上、２個上のブロックが存在するかどうかをいれる変数
@@ -93,6 +96,16 @@ void UpdateCollision()
 					{
 						ChangeMoveFlag(cat);
 					}
+
+					if (block[i].button == true)
+					{
+						//触れた瞬間falseにならないように中心あたりでfalseにする
+						if (block[i].pos.x - 10.0f < cat->pos.x && block[i].pos.x + 10.0f > cat->pos.x)
+						{
+							block[i].button = false;
+						}
+
+					}
 				}
 				//床ブロックより下
 				else if (CatTop <= BlockBottom &&
@@ -107,7 +120,7 @@ void UpdateCollision()
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.x = BlockRight + SIZE / 2;
 					//壁にぶつかったら反転。右へ
-					cat->move_flag = false;
+					ChangeMoveFlag(cat);
 				}
 				//床ブロックより左
 				else if (CatRight >= BlockLeft && cat->pos.x < block[i].pos.x)
@@ -115,7 +128,7 @@ void UpdateCollision()
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.x = BlockLeft - SIZE / 2;
 					//壁にぶつかったら反転。左へ
-					cat->move_flag = true;
+					ChangeMoveFlag(cat);
 				}
 			}
 			else
@@ -187,6 +200,55 @@ void UpdateCollision()
 				}
 			}
 		}
+
+		//==============================================================================================================================
+		//			//ギミックウォールと猫の当たり判定//////////////////////////////////////////////////////////////////////////////////////
+		//==============================================================================================================================
+		for (int i = 0; i < WALL_MAX; i++)
+		{
+
+			//もし構造体を使ってなかったらスキップ
+			if (gimmickwall[i].use != true)
+			{
+				continue;
+			}
+
+			float GimmickWallTopM = gimmickwall[i].pos.y - SIZE / 2;
+			float GimmickWallBottomM = gimmickwall[i].pos.y + SIZE / 2;
+			float GimmickWallLeftM = gimmickwall[i].pos.x - SIZE / 2;
+			float GimmickWallRightM = gimmickwall[i].pos.x + SIZE / 2;
+
+			//当たり判定を行う
+			bool hit = CollisionBB(
+				cat->pos, gimmickwall[i].pos,
+				D3DXVECTOR2(SIZE, SIZE),
+				D3DXVECTOR2(SIZE, SIZE)
+			);
+			//ブロックに触れていて
+			if (hit == true)
+			{
+				//猫がブロックより右
+				if (CatLeft <= GimmickWallRightM && cat->pos.x > GimmickWallRightM)
+				{
+					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+					cat->pos.x = GimmickWallRightM + SIZE / 2;
+
+					//壁にぶつかったら反転。右へ
+					ChangeMoveFlag(cat);
+				}
+				//猫がブロックより左 
+				else if (CatRight >= GimmickWallLeftM && CatRight < gimmickwall[i].pos.x)
+				{//左
+					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+					cat->pos.x = GimmickWallLeftM - SIZE / 2;
+
+					//壁にぶつかったら反転。左へ
+					ChangeMoveFlag(cat);
+
+				}
+			}
+		}
+
 		//==============================================================================================================================
 		//		//ブロックジャンプセンサーと猫の当たり判定//////////////////////////////////////////////////////////////////////////////
 		//==============================================================================================================================

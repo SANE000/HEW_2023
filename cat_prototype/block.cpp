@@ -5,6 +5,7 @@
 #include "sprite.h"
 #include "camera.h"
 #include "cat.h"
+#include "gimmick_wall.h"
 
 
 //プロトタイプ宣言
@@ -23,7 +24,7 @@ static BLOCK g_Block[BLOCK_MAX];
 
 //ステージ選択テスト用なので手動で選ぶ。
 //ステージ選択画面ができたら消しちゃってください
-static int stage = 0;
+static int stage = 1;
 //stage = 0 が stage11(), それ以外がstage12()が選ばれるようになっています
 
 //ブロックもガワだけ変えたボタンと反転ブロックは設置しましたが中身の機能は
@@ -46,6 +47,20 @@ HRESULT InitBlock()
 	else
 	{
 		InitStage12();
+		for (int i = 0; i < 125; i++)
+		{
+			//ボタンだけtrue
+			if (i == 54)
+			{
+				g_Block[i].button = true;
+			}
+			else
+			{
+				g_Block[i].button = false;
+			}
+
+		}
+		InitGimmickWall();
 	}
 	//
 	return S_OK;
@@ -53,6 +68,7 @@ HRESULT InitBlock()
 //終了処理
 void UnInitBlock()
 {
+	UninitGimmickWall();
 
 }
 //更新処理
@@ -77,6 +93,10 @@ void UpdateBlock()
 		//マップボタンが押されてないなら0にする
 		map_pos = 0;
 	}
+
+	//ボタンを押した後の処理
+	UpdateGimmickWall();
+
 }
 //描画処理
 void DrawBlock()
@@ -121,7 +141,15 @@ void DrawBlock()
 				else if (i == 54)
 				{
 					//ボタンブロック
-					g_Block[i].Patern = 3.0f;
+					if (g_Block[i].button == true)
+					{
+						
+						g_Block[i].Patern = 3.0f;
+					}
+					else
+					{
+						g_Block[i].Patern = 4.0f;
+					}
 				}
 				else
 				{
@@ -147,6 +175,9 @@ void DrawBlock()
 			7//総枚数
 			);
 		}
+
+		DrawGimmickWall();
+
 	}	
 }
 //構造体の先頭ポインタを返す　皆が使えるように
@@ -154,6 +185,18 @@ BLOCK *GetBlock()
 {
 	return &g_Block[0];
 }
+
+double GetMapPos()
+{
+	return map_pos;
+}
+
+int GetStage()
+{
+	return stage;
+}
+
+
 void InitStage12()
 {
 	//足場に関しては,ザーッと並べる感じにしてみました
