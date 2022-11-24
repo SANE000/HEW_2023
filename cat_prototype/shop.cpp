@@ -42,6 +42,16 @@ bool start_flag;
 int shopconfirmtexNo;
 int startconfirmtexNo;
 
+SHOP_ETC InitDate[] =
+{
+	//{posXY,size横縦,texNo,patern}
+	{D3DXVECTOR2(168, SCREEN_HEIGHT - 168), 366,366,0,0.0f},
+	{D3DXVECTOR2(SCREEN_WIDTH - 168, SCREEN_HEIGHT - 168), 366,366,0,0.0f},
+	{D3DXVECTOR2(SCREEN_WIDTH - 168, SCREEN_HEIGHT - 118), 96*2,96*2,0,0.0f},
+	{D3DXVECTOR2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), SCREEN_WIDTH,SCREEN_HEIGHT,0,1.0f},
+	{D3DXVECTOR2(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 110),SCREEN_WIDTH + 75,SCREEN_WIDTH + 75,0,0.0f},
+};
+
 HRESULT InitShop()
 {
 	InitBlock();
@@ -115,10 +125,16 @@ HRESULT InitShop()
 		money[i].patern = 0;
 	}
 
-	g_Setc[0].texNo = LoadTexture((char*)"data\\texture\\neko_hand.png");
-	g_Setc[1].texNo = LoadTexture((char*)"data\\texture\\usiro.png");
-	
-	g_Setc[0].patern = 1.0f;
+
+	for (int i = 0; i < SHOP_ETC_MAX; i++)
+	{
+		g_Setc[i] = InitDate[i];
+	}
+	g_Setc[0].texNo = LoadTexture((char*)"data\\texture\\HowToPlay.png");
+	g_Setc[1].texNo = LoadTexture((char*)"data\\texture\\go_scout.png");
+	g_Setc[2].texNo = LoadTexture((char*)"data\\texture\\night_cat.png");
+	g_Setc[3].texNo = LoadTexture((char*)"data\\texture\\neko_hand.png");
+	g_Setc[4].texNo = LoadTexture((char*)"data\\texture\\usiro.png");
 
 	return S_OK;
 }
@@ -203,7 +219,7 @@ void UpdateShop()
 				if (cursor.pos.x != CURSOR_X_04)
 				{
 					cursor.pos.x += CURSOR_MOVE_X;
-					g_Setc[0].patern += 1.0f;
+					g_Setc[3].patern += 1.0f;
 					//ETCパターンを分ける
 				}
 				time = WAIT_TIME;
@@ -214,7 +230,7 @@ void UpdateShop()
 				if (cursor.pos.x != CURSOR_X_00)
 				{
 					cursor.pos.x -= CURSOR_MOVE_X;
-					g_Setc[0].patern -= 1.0f;
+					g_Setc[3].patern -= 1.0f;
 				}
 				time = WAIT_TIME;
 			}
@@ -291,6 +307,15 @@ void UpdateShop()
 			}
 		}
 
+	}
+	//偵察猫が動くアニメーション
+	if (g_Setc[2].patern <= 6.0f)
+	{
+		g_Setc[2].patern += 0.04f;
+	}
+	else
+	{
+		g_Setc[2].patern -= 6.0f;
 	}
 	//マップを見るときだけ動かす
 	if (map_flag == true)
@@ -376,20 +401,21 @@ void DrawShop()
 			1.0f,//縦
 			1//横のパターン枚数
 		);
-		//猫飾り
+		//猫飾りとか説明UIとか
+		//336.336
 		for (int i = 0; i < SHOP_ETC_MAX; i++)
 		{
 			GetDeviceContext()->PSSetShaderResources
 			(0, 1, GetTexture(g_Setc[i].texNo));
 
-			if (i == 0)
+			if (i == 2 || i== 3)
 			{
 				//スプライトの描画
 				DrawSpriteColorRotate(
-					SCREEN_WIDTH / 2,
-					SCREEN_HEIGHT / 2+100,
-					SCREEN_WIDTH,
-					SCREEN_HEIGHT,
+					g_Setc[i].pos.x,
+					g_Setc[i].pos.y,
+					g_Setc[i].w,
+					g_Setc[i].h,
 					0,
 					D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
 					g_Setc[i].patern,
@@ -402,10 +428,10 @@ void DrawShop()
 			{
 				//スプライトの描画
 				DrawSpriteColorRotate(
-					SCREEN_WIDTH / 2,
-					SCREEN_HEIGHT+175,
-					SCREEN_WIDTH,
-					SCREEN_WIDTH,
+					g_Setc[i].pos.x,
+					g_Setc[i].pos.y,
+					g_Setc[i].w,
+					g_Setc[i].h,
 					0,
 					D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
 					g_Setc[i].patern,

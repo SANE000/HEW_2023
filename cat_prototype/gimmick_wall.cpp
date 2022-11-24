@@ -45,7 +45,7 @@ HRESULT InitGimmickWall()
 	{
 		g_wall[i].use = false;
 		g_wall[i].texNo = LoadTexture((char*)"data\\texture\\block.png");
-		g_wall[i].Patern = 1.0f;
+		g_wall[i].Patern = 7.0f;
 
 	}
 
@@ -152,9 +152,9 @@ void DrawGimmickWall()
 					g_wall[i].rot,
 					g_wall[i].col,
 					g_wall[i].Patern,
-					1.0f / 7.0f,//â°
-					1.0f,//èc
-					7//ëçñáêî
+					1.0f / 8.0f,//â°
+					8.0f,//èc
+					8//ëçñáêî
 				);
 
 			}

@@ -102,7 +102,7 @@ void UpdatePreview()
 
 	if (FalseExistCheck() == true)
 	{
-		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_RIGHT_SHOULDER) && time <= 0)
+		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || IsButtonPressed(0, XINPUT_GAMEPAD_Y) && time <= 0)
 		{//右
 			//コメント書くのムズイので処理の内容が分からない場合實吉まで聞きに来てください。申し訳ない分かりづれぇ
 
@@ -135,7 +135,7 @@ void UpdatePreview()
 			//}
 			time = WAIT_TIME;
 		}
-		else if (Keyboard_IsKeyDown(KK_LEFT) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_LEFT_SHOULDER) && time <= 0)
+		else if (Keyboard_IsKeyDown(KK_LEFT) && time <= 0 || IsButtonPressed(0, XINPUT_GAMEPAD_A) && time <= 0)
 		{//左
 			//使うブロックを変える　配列の一個前のブロックを使う
 			//もし前のブロックがすでに使用済みだったら使用済みじゃなくなるまで戻る
@@ -177,7 +177,7 @@ void UpdatePreview()
 			if (g_MoveBlock[i].pos.y > (SCREEN_HEIGHT - DRAW_SIZE / 2.0))
 			{
 				g_MoveBlock[i].Speed.y = 0.0f;
-				g_MoveBlock[i].pos.y = (SCREEN_HEIGHT - 1 - DRAW_SIZE / 2.0);
+				g_MoveBlock[i].pos.y = (SCREEN_HEIGHT - DRAW_SIZE / 2.0);
 			}
 		}
 	}

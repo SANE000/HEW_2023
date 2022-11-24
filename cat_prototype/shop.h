@@ -45,7 +45,7 @@
 //お金の桁数
 #define MONEY_MAX		(3)
 //ショップの飾り
-#define SHOP_ETC_MAX	(2)
+#define SHOP_ETC_MAX	(5)
 
 
 //確認メッセージウィンドウのサイズや位置
@@ -73,6 +73,8 @@ struct SHOP_ITEM
 
 struct SHOP_ETC
 {
+	D3DXVECTOR2 pos;
+	float w, h;
 	int	texNo;
 	float patern = 0.0f;
 };

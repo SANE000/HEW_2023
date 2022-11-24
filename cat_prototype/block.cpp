@@ -22,13 +22,13 @@ static BLOCK g_Block[BLOCK_MAX];
 //ステージ選ぶ変数
 //==========================================
 
-//ステージ選択テスト用なので手動で選ぶ。
+//ステージ選択テスト用なので手動でInitで選んでます。
 //ステージ選択画面ができたら消しちゃってください
-static int stage = 1;
-//stage = 0 が stage11(), それ以外がstage12()が選ばれるようになっています
-
-//ブロックもガワだけ変えたボタンと反転ブロックは設置しましたが中身の機能は
-//なにもやってないので担当者さん機能実装よろしくお願いします！
+static int world;
+static int stage;
+//world = 0なら一面の
+//stage = 0ならステージ1
+//あわせて1-1が選ばれる仕組み
 
 HRESULT InitBlock()
 {
@@ -38,29 +38,42 @@ HRESULT InitBlock()
 		//テクスチャロード 画像の名前を入れよう
 		g_Block[i].texNo = LoadTexture((char*)"data\\texture\\block.png");
 	}
+	/////////////ここでステージセレクトのセッターゲットしたらいけるかな
+	world = 0;
+	stage = 1;
+	////////////////////////////////////////////////////////////////////
 	//ステージテスト
-	if (stage == 0)
+	//増えてきたらswitch構文でつくってもいいかも
+	if (world == 0)
 	{
-		//足場ブロックの設置.一番最後に設定
-		InitStage11();
+		if (stage == 0)
+		{
+			//足場ブロックの設置.一番最後に設定
+			InitStage11();
+		}
+		else if (stage == 1)
+		{
+			InitStage12();
+			for (int i = 0; i < 125; i++)
+			{
+				//ボタンだけtrue
+				if (i == 54)
+				{
+					g_Block[i].button = true;
+				}
+				else
+				{
+					g_Block[i].button = false;
+				}
+
+			}
+			InitGimmickWall();
+		}
 	}
 	else
 	{
-		InitStage12();
-		for (int i = 0; i < 125; i++)
-		{
-			//ボタンだけtrue
-			if (i == 54)
-			{
-				g_Block[i].button = true;
-			}
-			else
-			{
-				g_Block[i].button = false;
-			}
-
-		}
-		InitGimmickWall();
+		//違うワールドのとき用
+		exit(1);
 	}
 	//
 	return S_OK;
@@ -170,9 +183,9 @@ void DrawBlock()
 			g_Block[i].rot,
 			g_Block[i].col,
 			g_Block[i].Patern,
-			1.0f/7.0f,//横
+			1.0f/8.0f,//横
 			1.0f,//縦
-			7//総枚数
+			8//総枚数
 			);
 		}
 
