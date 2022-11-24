@@ -31,6 +31,8 @@ SHOP_CURSOR cursor;
 
 SHOP_ITEM g_item[SHOP_ITEM_MAX];
 
+SHOP_ETC g_Setc[SHOP_ETC_MAX];
+
 //マップを見るボタンを押しているかどうか
 bool map_flag;
 bool confirmation_flag;
@@ -111,12 +113,16 @@ HRESULT InitShop()
 		money[i].patern = 0;
 	}
 
+	g_Setc[0].texNo = LoadTexture((char*)"data\\texture\\neko_hand.png");
+	g_Setc[1].texNo = LoadTexture((char*)"data\\texture\\usiro.png");
+	
+	g_Setc[0].patern = 1.0f;
+
 	return S_OK;
 }
 
 void UninitShop()
 {
-
 
 }
 
@@ -195,6 +201,8 @@ void UpdateShop()
 				if (cursor.pos.x != CURSOR_X_04)
 				{
 					cursor.pos.x += CURSOR_MOVE_X;
+					g_Setc[0].patern += 1.0f;
+					//ETCパターンを分ける
 				}
 				time = WAIT_TIME;
 
@@ -204,6 +212,7 @@ void UpdateShop()
 				if (cursor.pos.x != CURSOR_X_00)
 				{
 					cursor.pos.x -= CURSOR_MOVE_X;
+					g_Setc[0].patern -= 1.0f;
 				}
 				time = WAIT_TIME;
 			}
@@ -301,6 +310,7 @@ void DrawShop()
 	}
 	else
 	{
+
 		//お金描画
 		for (int i = 0; i < MONEY_MAX; i++)
 		{
@@ -362,7 +372,45 @@ void DrawShop()
 			1.0f,//縦
 			1//横のパターン枚数
 		);
+		//猫飾り
+		for (int i = 0; i < SHOP_ETC_MAX; i++)
+		{
+			GetDeviceContext()->PSSetShaderResources
+			(0, 1, GetTexture(g_Setc[i].texNo));
 
+			if (i == 0)
+			{
+				//スプライトの描画
+				DrawSpriteColorRotate(
+					SCREEN_WIDTH / 2,
+					SCREEN_HEIGHT / 2+100,
+					SCREEN_WIDTH,
+					SCREEN_HEIGHT,
+					0,
+					D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
+					g_Setc[i].patern,
+					1.0f / 6.0f,//横
+					1.0f,//縦
+					6//横のパターン枚数
+				);
+			}
+			else
+			{
+				//スプライトの描画
+				DrawSpriteColorRotate(
+					SCREEN_WIDTH / 2,
+					SCREEN_HEIGHT+175,
+					SCREEN_WIDTH,
+					SCREEN_WIDTH,
+					0,
+					D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
+					g_Setc[i].patern,
+					1.0f,//横
+					1.0f,//縦
+					1//横のパターン枚数
+				);
+			}
+		}
 		//スタート確認フラグがtrueだったら
 		if (start_flag == true)
 		{
@@ -405,6 +453,9 @@ void DrawShop()
 			);
 
 		}
+		//アイテム描画
+		//テクスチャのセット
+
 
 	}
 
