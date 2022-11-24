@@ -11,6 +11,7 @@
 #include "block.h"
 #include "polygon.h"
 #include "etcUI.h"
+#include "dog.h"
 
 
 //==========================================
@@ -46,6 +47,7 @@ HRESULT InitShop()
 	InitBlock();
 	InitPolygon();
 	InitEtc();
+	//InitDog();
 
 	shopconfirmtexNo = LoadTexture((char*)"data\\texture\\shop_confirm.png");;
 	startconfirmtexNo = LoadTexture((char*)"data\\texture\\start_confirm.png");;
@@ -307,6 +309,8 @@ void DrawShop()
 		DrawPolygon();
 		DrawEtc();
 		DrawBlock();
+		//DrawDog();
+
 	}
 	else
 	{

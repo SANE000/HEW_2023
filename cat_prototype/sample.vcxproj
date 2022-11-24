@@ -142,6 +142,8 @@
     <ClCompile Include="cat.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="dog.cpp" />
+    <ClCompile Include="dogCollision.cpp" />
     <ClCompile Include="etcUI.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gimmick_wall.cpp" />
@@ -171,6 +173,8 @@
     <ClInclude Include="cat.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="cursor.h" />
+    <ClInclude Include="dog.h" />
+    <ClInclude Include="dogCollision.h" />
     <ClInclude Include="etcUI.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gimmick_wall.h" />

@@ -4,11 +4,13 @@
 #include "polygon.h"
 #include "player.h"
 #include "cat.h"
+#include "dog.h"
 #include "block.h"
 #include "blockpreview.h"
 #include "timer.h"
 #include "etcUI.h"
 #include "collision.h"
+#include "dogcollision.h"
 #include "sound.h"
 #include "blocktype.h"
 #include "camera.h"
@@ -40,6 +42,7 @@ void InitGame()
 	InitCamera();
 	InitPlayer();
 	InitCat();
+	InitDog();
 	InitBlock();
 	InitPreview();
 	InitCollsion();
@@ -57,6 +60,7 @@ void UninitGame()
 	UnInitBlock();
 	UnInitPreview();
 	UnInitCat();
+	UnInitDog();
 	UnInitPlayer();
 	UninitCamera();
 	UnInitTime();
@@ -75,10 +79,12 @@ void UpdateGame()
 	//ステージの更新
 	UpdatePlayer();
 	UpdateCat();
+	UpdateDog();
 	UpdateCamera();
 	UpdateBlock();
 	UpdatePreview();
 	UpdateCollision();
+	UpdateDogCollision();
 	
 	////////////////ゲーム関連
 }
@@ -93,6 +99,8 @@ void DrawGame()
 	DrawPreview();
 	//猫の表示
 	DrawCat();
+	//犬の表示
+	DrawDog();
 	//ゴールその他UI
 	DrawEtc();
 	DrawTime();
