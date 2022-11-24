@@ -85,9 +85,14 @@ void UpdateCollision()
 			//ブロックに触れていて
 			if (hit == true)
 			{
+
 				//床ブロックより上(重力GRAVの影響も排除する)
 				if (CatBottom - GRAV <= BlockTop && cat->pos.y < block[i].pos.y)
 				{
+					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+					cat->pos.y = BlockTop - GRAV - SIZE / 2;
+					temp = BLOCK_MAX;
+
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.y = BlockTop - GRAV - SIZE / 2;
 					temp = BLOCK_MAX;
@@ -111,8 +116,10 @@ void UpdateCollision()
 				else if (CatTop <= BlockBottom &&
 					cat->pos.y - (SIZE / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
 				{
-					//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
-					cat->jump_y = 0;
+						//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
+						cat->jump_y = 0;
+
+					
 				}
 				//床ブロックより右
 				else if (CatLeft <= BlockRight && cat->pos.x > BlockRight)
@@ -121,6 +128,7 @@ void UpdateCollision()
 					cat->pos.x = BlockRight + SIZE / 2;
 					//壁にぶつかったら反転。右へ
 					ChangeMoveFlag(cat);
+					
 				}
 				//床ブロックより左
 				else if (CatRight >= BlockLeft && cat->pos.x < block[i].pos.x)
@@ -129,6 +137,7 @@ void UpdateCollision()
 					cat->pos.x = BlockLeft - SIZE / 2;
 					//壁にぶつかったら反転。左へ
 					ChangeMoveFlag(cat);
+					
 				}
 			}
 			else
@@ -145,6 +154,8 @@ void UpdateCollision()
 			{
 				cat->jump_flag = false;
 			}
+			
+			
 		}
 		//==============================================================================================================================
 		//			//MOVEブロックと猫の当たり判定//////////////////////////////////////////////////////////////////////////////////////
@@ -231,7 +242,7 @@ void UpdateCollision()
 				if (CatLeft <= GimmickWallRightM && cat->pos.x > GimmickWallRightM)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = GimmickWallRightM + SIZE / 2;
+					cat->pos.x = GimmickWallRightM + SIZE / 2 + cat->dir.x + 1;
 
 					//壁にぶつかったら反転。右へ
 					ChangeMoveFlag(cat);
@@ -240,7 +251,7 @@ void UpdateCollision()
 				else if (CatRight >= GimmickWallLeftM && CatRight < gimmickwall[i].pos.x)
 				{//左
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = GimmickWallLeftM - SIZE / 2;
+					cat->pos.x = GimmickWallLeftM - SIZE / 2 - cat->dir.x -1;
 
 					//壁にぶつかったら反転。左へ
 					ChangeMoveFlag(cat);
@@ -260,6 +271,7 @@ void UpdateCollision()
 			{
 				continue;
 			}
+			
 
 			float JumpSensorTopM = block[i].pos.y - SIZE / 2;
 			float JumpSensorBottomM = block[i].pos.y + SIZE / 2;
