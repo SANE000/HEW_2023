@@ -6,7 +6,7 @@
 //------------------------
 //É}ÉNÉçíËã`
 //------------------------
-#define DOG_MAX	  (2)
+#define DOG_MAX	  (3)
 #define DOG_SPEED (2.0f)
 
 #define DOG_SIZE_W (60)

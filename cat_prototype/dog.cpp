@@ -4,14 +4,18 @@
 #include "sprite.h"
 #include "camera.h"
 #include "shop.h"
+#include "stageselect.h"
 //------------------------
 //グローバル変数
 //------------------------
+static int field;
+static int stage;
 static DOG g_Dog[DOG_MAX];
 
 DOG InitData[] = 
 {
 	{true,false,false,D3DXVECTOR2(580,210),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,0,0},
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 59, DEFO_SIZE_Y - DRAW_SIZE * 6),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,0,0},
 	{true,false,false,D3DXVECTOR2(5200,210),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,0,0}
 };
 
@@ -20,11 +24,21 @@ DOG InitData[] =
 //------------------------
 HRESULT InitDog()
 {
-	for (int i = 0; i < DOG_MAX; i++)
+	//ステージを把握して
+	field = SetField();
+	stage = SetStage();
+	//1-2だけ犬を表示
+	if (field == 0)
 	{
-		g_Dog[i] = InitData[i];
+		if (stage == 1)
+		{
+			for (int i = 0; i < DOG_MAX; i++)
+			{
+				g_Dog[i] = InitData[i];
 
-		g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\dog_sample.png");
+				g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\dog_sample.png");
+			}
+		}
 	}
 	return S_OK;
 }
@@ -42,6 +56,7 @@ void UnInitDog()
 //------------------------
 void UpdateDog()
 {
+
 	for (int i = 0; i < DOG_MAX; i++)
 	{
 		if (g_Dog[i].jump_flag == false)

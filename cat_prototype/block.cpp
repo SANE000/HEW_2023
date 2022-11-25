@@ -24,7 +24,7 @@ static BLOCK g_Block[BLOCK_MAX];
 
 //ステージ選択テスト用なので手動でInitで選んでます。
 //ステージ選択画面ができたら消しちゃってください
-static int world;
+static int field;
 static int stage;
 //world = 0なら一面の
 //stage = 0ならステージ1
@@ -39,12 +39,12 @@ HRESULT InitBlock()
 		g_Block[i].texNo = LoadTexture((char*)"data\\texture\\block.png");
 	}
 	/////////////ここでステージセレクトのセッターゲットしたらいけるかな
-	world = SetField();
+	field = SetField();
 	stage = SetStage();
 	////////////////////////////////////////////////////////////////////
 	//ステージテスト
 	//増えてきたらswitch構文でつくってもいいかも
-	if (world == 0)
+	if (field == 0)
 	{
 		if (stage == 0)
 		{
@@ -141,7 +141,7 @@ void DrawBlock()
 			}
 			else
 			{
-				if (i >= 9 && i <= 14 || i >= 67 && i <= 69 || i >= 102 && i <= 106)
+				if (i >= 10 && i <= 14 || i >= 67 && i <= 69 || i >= 102 && i <= 106)
 				{
 					//草がないタイプの床ブロック
 					g_Block[i].Patern = 1.0f;
@@ -227,7 +227,6 @@ void InitStage12()
 	g_Block[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[8].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	//土
-	g_Block[9].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 4);
 	g_Block[10].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 4);
 	g_Block[11].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 5);
 	g_Block[12].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 6);
@@ -366,7 +365,8 @@ void InitStage12()
 	g_Block[123].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 94, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[124].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	//ブロック余り自由に使ってください
-	g_Block[125].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[9].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 63, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_Block[125].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 64, DEFO_SIZE_Y - DRAW_SIZE * 5);
 }
 
 void InitStage11()
