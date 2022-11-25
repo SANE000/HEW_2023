@@ -1,3 +1,8 @@
-﻿  block.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(179): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+﻿  timer.cpp
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(59): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(65): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(71): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(90): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(89): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\timer.cpp(143): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
   sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe

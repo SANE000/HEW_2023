@@ -8,7 +8,7 @@
 static TIMER g_time[TIME_MAX];
 //制限時間の設定
 //制限時間90秒に60を掛けてフレーム化しています
-bool Half = false;
+bool Half;
 int TimerFrame;
 int TimerLimit = TIME_LIMIT * 60;
 
@@ -29,6 +29,7 @@ HRESULT InitTime()
 		g_time[i].texNo = LoadTexture((char*)"data\\texture\\time.png");
 	}
 	//タイマーの初期化
+	Half = false;
 	TimerFrame = 0;
 	return S_OK;
 }

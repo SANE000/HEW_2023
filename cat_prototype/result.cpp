@@ -61,7 +61,7 @@ void UpdateResult()
 	if (Keyboard_IsKeyDown(KK_ENTER) || IsButtonTriggered(0, XINPUT_GAMEPAD_B))//ENTERキー押したら
 	{
 		//ショップシーンに遷移//ステージ選択が反映したらそっちにシーン遷移
-		SetScene(SCENE_SHOP);
+		SetScene(SCENE_SELECT);
 	}
 }
 

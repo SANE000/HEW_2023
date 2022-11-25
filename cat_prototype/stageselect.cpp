@@ -83,7 +83,9 @@ HRESULT InitStageSelect()
 
 void UnInitStageSelect()
 {
-	UninitTexture();
+	//スコアから戻ってきたときに表示されなくなるため
+	//仮でコメントアウトしておきました
+	//UninitTexture();
 }
 
 void UpdateStageSelect()

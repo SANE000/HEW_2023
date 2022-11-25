@@ -19,7 +19,7 @@
 //------------------------
 struct DOG
 {
-	bool		  use;			//使用中フラグ
+	bool		  use = false;			//使用中フラグ
 	bool          move_flag;	//猫近づいてきたフラグ
 	bool          jump_flag;
 	D3DXVECTOR2   pos;			//表示座標

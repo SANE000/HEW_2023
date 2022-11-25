@@ -7,6 +7,8 @@
 #include "cat.h"
 #include "gimmick_wall.h"
 #include "stageselect.h"
+#include "inputx.h"
+#include "keyboard.h"
 
 //プロトタイプ宣言
 void InitStage11();
@@ -15,6 +17,7 @@ void InitStage12();
 //グローバル変数
 //==========================================
 //偵察用
+static int time = 0;
 static double map_pos = 0;
 //地面や足場の判定に使う
 static BLOCK g_Block[BLOCK_MAX];
@@ -91,14 +94,27 @@ void UpdateBlock()
 	//マップボタンが押されたら
 	if (WatchMapFlag() == true)
 	{//画面端になるまで座標を引いていく
-		if (map_pos <= -SCREEN_WIDTH * 5 + (-basePos.x))
+		if (time > 0)
 		{
-			//画面端になったら止める
-			map_pos += 0;
+			time -= 1;
 		}
-		else
+		//自動スクロールから,分かりやすいように自分で動かせるようにした
+		if (Keyboard_IsKeyDown(KK_D) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
 		{
-			map_pos -= WATCH;
+			if (map_pos > -SCREEN_WIDTH * 5 + (-basePos.x))
+			{
+				//画面端になったら止める
+				map_pos -= SCREEN_WIDTH;
+				time = 20;
+			}
+		}
+		else if(Keyboard_IsKeyDown(KK_A) && time <= 0 || GetThumbLeftX(0) < 0 && time <= 0)
+		{
+			if (map_pos < 0 - (basePos.x))
+			{
+				map_pos += SCREEN_WIDTH;
+				time = 20;
+			}
 		}
 	}
 	else

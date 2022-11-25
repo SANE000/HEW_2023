@@ -5,6 +5,8 @@
 #include "player.h"
 #include "camera.h"
 #include "cat.h"
+#include "inputx.h"
+#include "keyboard.h"
 
 //その他のUI関係のマクロやこれから追加するかも用
 #define ETC_MAX 7
@@ -13,6 +15,7 @@
 //プロトタイプ宣言
 ///////////////////////グローバル宣言
 //偵察用
+static int time = 0;
 static double map_pos = 0;
 static double ofset = 1.0;
 static ETC g_etc[ETC_MAX];
@@ -76,14 +79,27 @@ void UpdateEtc()
 	//マップボタンが押されたら
 	if (WatchMapFlag() == true)
 	{//画面端になるまで座標を引いていく
-		if (map_pos <= -SCREEN_WIDTH * 5 + (-basePos.x))
+		if (time > 0)
 		{
-			//画面端になったら止める
-			map_pos += 0;
+			time -= 1;
 		}
-		else
+
+		if (Keyboard_IsKeyDown(KK_D) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
 		{
-			map_pos -= WATCH;
+			if (map_pos > -SCREEN_WIDTH * 5 + (-basePos.x))
+			{
+				//画面端になったら止める
+				map_pos -= SCREEN_WIDTH;
+				time = 20;
+			}
+		}
+		else if (Keyboard_IsKeyDown(KK_A) && time <= 0 || GetThumbLeftX(0) < 0 && time <= 0)
+		{
+			if (map_pos < 0 - (basePos.x))
+			{
+				map_pos += SCREEN_WIDTH;
+				time = 20;
+			}
 		}
 		//偵察用のUIへ変更
 		g_etc[0].patern = 1.0f;
@@ -151,7 +167,7 @@ void DrawEtc()
 					g_etc[i].h,
 					g_etc[i].rot,
 					g_etc[i].col,
-					g_etc[i].patern,//動かないから0
+					g_etc[i].patern,
 					1.0f/2.0f,//横
 					1.0f,//縦
 					2
