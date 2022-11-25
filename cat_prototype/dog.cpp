@@ -5,6 +5,8 @@
 #include "camera.h"
 #include "shop.h"
 #include "stageselect.h"
+#include "block.h"
+
 //------------------------
 //グローバル変数
 //------------------------
@@ -48,7 +50,10 @@ HRESULT InitDog()
 //------------------------
 void UnInitDog()
 {
-
+	for (int i = 0; i < DOG_MAX; i++)
+	{
+		g_Dog[i].use = false;
+	}
 }
 
 //------------------------
@@ -84,14 +89,16 @@ void DrawDog()
 	for (int i = 0; i < DOG_MAX; i++)
 	{
 		D3DXVECTOR2 basePos = GetBase();
-		if (g_Dog[i].use = true)
+		double mappos = GetMapPos();
+
+		if (g_Dog[i].use == true)
 		{
 			GetDeviceContext()->PSSetShaderResources(0, 1, GetTexture(g_Dog[i].texNo));
 
 			//スプライト描画
 			//SetBlendState(BLEND_MODE_ADD);  //透明になる
 			DrawSpriteColorRotate(
-				basePos.x + g_Dog[i].pos.x,
+				mappos + basePos.x + g_Dog[i].pos.x,
 				basePos.y + g_Dog[i].pos.y,
 				g_Dog[i].w,
 				g_Dog[i].h,

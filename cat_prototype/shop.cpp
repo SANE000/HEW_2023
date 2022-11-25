@@ -12,6 +12,7 @@
 #include "polygon.h"
 #include "etcUI.h"
 #include "dog.h"
+#include "gimmick_wall.h"
 
 
 //==========================================
@@ -57,7 +58,8 @@ HRESULT InitShop()
 	InitBlock();
 	InitPolygon();
 	InitEtc();
-	//InitDog();
+	InitDog();
+	InitGimmickWall();
 
 	shopconfirmtexNo = LoadTexture((char*)"data\\texture\\shop_confirm.png");;
 	startconfirmtexNo = LoadTexture((char*)"data\\texture\\start_confirm.png");;
@@ -141,7 +143,8 @@ HRESULT InitShop()
 
 void UninitShop()
 {
-
+	UninitGimmickWall();
+	UnInitDog();
 }
 
 void UpdateShop()
@@ -334,7 +337,8 @@ void DrawShop()
 		DrawPolygon();
 		DrawEtc();
 		DrawBlock();
-		//DrawDog();
+		DrawDog();
+		DrawGimmickWall();
 
 	}
 	else
