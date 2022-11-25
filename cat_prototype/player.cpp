@@ -103,7 +103,7 @@ void UpdatePlayer()
 			g_Player.pos.x -= DRAW_SIZE;
 			time = WAIT_TIME;
 		}
-		//ã‰º‚ÌˆÚ“®‚É‚æ‚Á‚ÄƒoƒO‚ª¶‚¶‚»‚¤‚¾‚©‚ç¡‚Í«‚ß‚Ä‚¨‚­
+		//ã‰º‚ÌˆÚ“®
 		else if (Keyboard_IsKeyDown(KK_S) && time <= 0 || GetThumbLeftY(0) < 0 && time <= 0)
 		{//‰º
 			g_Player.pos.y += DRAW_SIZE;

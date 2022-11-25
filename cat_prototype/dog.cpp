@@ -4,7 +4,6 @@
 #include "sprite.h"
 #include "camera.h"
 #include "shop.h"
-
 //------------------------
 //ƒOƒ[ƒoƒ‹•Ï”
 //------------------------

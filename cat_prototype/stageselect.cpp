@@ -96,7 +96,7 @@ void UpdateStageSelect()
 		//右矢印で一つ右に移動
 		//選択中のステージを透明度を0.5
 		//次のステージの透明度を1.0
-		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0) {
+		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0) {
 			g_Field[FieldNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 			FieldNum++;
 			if (FieldNum > 5) {
@@ -106,7 +106,7 @@ void UpdateStageSelect()
 
 			time = 10;
 		}
-		if (Keyboard_IsKeyDown(KK_LEFT) && time <= 0) {
+		if (Keyboard_IsKeyDown(KK_LEFT) && time <= 0 || GetThumbLeftX(0) < 0 && time <= 0) {
 			//←矢印で一つ右に移動
 			//選択中のステージを透明度を0.5
 			//次のステージの透明度を1.0
@@ -121,7 +121,7 @@ void UpdateStageSelect()
 		}
 
 
-		if (Keyboard_IsKeyDown(KK_SPACE) && time <= 0) {
+		if (Keyboard_IsKeyDown(KK_SPACE) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0) {
 			for (int i = 0; i < FIELD_MAX; i++) {
 				g_Field[i].use = false;
 			}
@@ -135,7 +135,7 @@ void UpdateStageSelect()
 		//右矢印で一つ右に移動
 		//選択中のステージを透明度を0.5
 		//次のステージの透明度を1.0
-		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0) {
+		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0) {
 			g_InStage[StageNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 			StageNum++;
 			if (StageNum > 2) {
@@ -145,7 +145,7 @@ void UpdateStageSelect()
 
 			time = 10;
 		}
-		if (Keyboard_IsKeyDown(KK_LEFT) && time <= 0) {
+		if (Keyboard_IsKeyDown(KK_LEFT) && time <= 0 || GetThumbLeftX(0) < 0 && time <= 0) {
 			//←矢印で一つ右に移動
 			//選択中のステージを透明度を0.5
 			//次のステージの透明度を1.0
@@ -159,21 +159,21 @@ void UpdateStageSelect()
 			time = 10;
 		}
 
-		if (Keyboard_IsKeyDown(KK_ENTER) && time <= 0) {
+		if (Keyboard_IsKeyDown(KK_ENTER) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0) {
 			//Enterでショップへ	
 			SetScene(SCENE_SHOP);
 			time = 20;
 		}
 		
 		//上下の矢印で面を変更
-		if (Keyboard_IsKeyDown(KK_UP) && time <= 0) {
+		if (Keyboard_IsKeyDown(KK_UP) && time <= 0 || GetThumbLeftY(0) > 0 && time <= 0) {
 			time = 20;
 			FieldNum--;
 			if (FieldNum < 0) {
 				FieldNum = 5;
 			}
 		}
-		else if (Keyboard_IsKeyDown(KK_DOWN) && time <= 0) {
+		else if (Keyboard_IsKeyDown(KK_DOWN) && time <= 0 || GetThumbLeftY(0) < 0 && time <= 0) {
 			time = 20;
 			FieldNum++;
 			if (FieldNum > 5) {
