@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "shop.h"
 #include "result.h"
-
+#include "Select.h"
 
 //グローバル変数
 //現在実行中のシーン番号
@@ -18,6 +18,9 @@ void InitScene(SCENE no)
 	switch (g_SceneIndex)
 	{
 	case SCENE::SCENE_NONE:
+		break;
+	case SCENE::SCENE_SELECT:
+		InitSelect();
 		break;
 	case SCENE::SCENE_SHOP:
 		InitShop();
@@ -36,7 +39,11 @@ void UninitScene()
 	{
 	case SCENE::SCENE_NONE:
 		break;
-
+	
+	case SCENE::SCENE_SELECT:
+		UninitSelect();
+		break;
+	
 	case SCENE::SCENE_SHOP:
 		UninitShop();
 
@@ -55,7 +62,9 @@ void UpdateScene()
 	{
 	case SCENE::SCENE_NONE:
 		break;
-
+	case SCENE::SCENE_SELECT:
+		UpdateSelect();
+		break;
 	case SCENE::SCENE_SHOP:
 		UpdateShop();
 		break;
@@ -74,7 +83,9 @@ void DrawScene()
 	{
 	case SCENE::SCENE_NONE:
 		break;
-
+	case SCENE::SCENE_SELECT:
+		DrawSelect();
+		break;
 	case SCENE::SCENE_SHOP:
 		DrawShop();
 

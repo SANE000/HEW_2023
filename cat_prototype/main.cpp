@@ -19,6 +19,7 @@
 #include "Game.h"
 #include "Scene.h"
 #include "sound.h"
+#include "select.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -211,7 +212,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	//サウンドはシーンが始まる前に置いておく
 	InitSound(hWnd);
 	InitSptite();
-	InitScene(SCENE::SCENE_SHOP);
+	InitScene(SCENE::SCENE_SELECT);
 
 	return S_OK;
 }

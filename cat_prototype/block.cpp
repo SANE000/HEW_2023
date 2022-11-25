@@ -6,7 +6,7 @@
 #include "camera.h"
 #include "cat.h"
 #include "gimmick_wall.h"
-
+#include "stageselect.h"
 
 //プロトタイプ宣言
 void InitStage11();
@@ -39,8 +39,8 @@ HRESULT InitBlock()
 		g_Block[i].texNo = LoadTexture((char*)"data\\texture\\block.png");
 	}
 	/////////////ここでステージセレクトのセッターゲットしたらいけるかな
-	world = 0;
-	stage = 1;
+	world = SetField();
+	stage = SetStage();
 	////////////////////////////////////////////////////////////////////
 	//ステージテスト
 	//増えてきたらswitch構文でつくってもいいかも
