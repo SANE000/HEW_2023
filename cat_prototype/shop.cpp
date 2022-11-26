@@ -335,10 +335,10 @@ void DrawShop()
 	if (map_flag == true)
 	{
 		DrawPolygon();
-		DrawEtc();
 		DrawBlock();
 		DrawDog();
 		DrawGimmickWall();
+		DrawEtc();
 
 	}
 	else

@@ -22,21 +22,23 @@ static ETC g_etc[ETC_MAX];
 
 ETC InitDate[] =
 {
-	//{use,posXY,size横縦,color,patern}
 	//タイムUI
-	{true,D3DXVECTOR2(SCREEN_WIDTH/2,90),0,0,ETC_SIZE_W,ETC_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	{true,D3DXVECTOR2(SCREEN_WIDTH/2,90),0,0,ETC_SIZE_W,ETC_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f/2.0f,1.0f,2},
 	//発射したブロックUI
-	{true,D3DXVECTOR2(SCREEN_WIDTH - 200,50),0,0,ETC_SIZE_W,ETC_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	{true,D3DXVECTOR2(SCREEN_WIDTH - 200,50),0,0,ETC_SIZE_W,ETC_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f/2.0f,1.0f,2},
 	//発射したブロック数1の位UI
-	{true,D3DXVECTOR2(SCREEN_WIDTH - 50,50),0,0,TIME_SIZE_W,TIME_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	{true,D3DXVECTOR2(SCREEN_WIDTH - 50,50),0,0,TIME_SIZE_W,TIME_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f/10.0f,1.0f,10},
 	//発射したブロック数10の位UI
-	{true,D3DXVECTOR2(SCREEN_WIDTH - 100,50),0,0,TIME_SIZE_W,TIME_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	{true,D3DXVECTOR2(SCREEN_WIDTH - 100,50),0,0,TIME_SIZE_W,TIME_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f,10},
 	//偵察猫
-	{false,D3DXVECTOR2(SCREEN_WIDTH / 2,40),0,0,DRAW_SIZE,DRAW_SIZE,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	{false,D3DXVECTOR2(SCREEN_WIDTH / 2,40),0,0,60,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 6.0f,1.0f,6},
+	////
+	//ここより下はスクロールするもの
+	////
 	//中間ポイント
-	{true,D3DXVECTOR2((CAT_GOLL + DRAW_SIZE)/2,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H * 2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f},
+	{true,D3DXVECTOR2((CAT_GOLL + DRAW_SIZE)/2,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H * 2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 2.0f,1.0f,2 },
 	//ゴール表示
-	{true,D3DXVECTOR2(CAT_GOLL + DRAW_SIZE,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H*2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),1.0f},
+	{true,D3DXVECTOR2(CAT_GOLL + DRAW_SIZE,SCREEN_HEIGHT / 2 + 150),0,0,ETC_SIZE_W,ETC_SIZE_H*2,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),1.0f,1.0f / 2.0f,1.0f,2},
 };
 
 HRESULT InitEtc()
@@ -44,7 +46,10 @@ HRESULT InitEtc()
 	//構造体の初期化
 	for (int i = 0; i < ETC_MAX; i++)
 	{
+		//上で設定したモノがここに入る
 		g_etc[i] = InitDate[i];
+
+		//テクスチャは個別に設定する
 		if (i == 0)
 		{
 			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\timeUI.png");
@@ -59,7 +64,7 @@ HRESULT InitEtc()
 		}
 		else if (i == 4)
 		{
-			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\scout_neko.png");
+			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\night_cat.png");
 		}
 		else
 		{
@@ -102,10 +107,14 @@ void UpdateEtc()
 			}
 		}
 		//偵察用のUIへ変更
+		//タイムをテイサツへ
 		g_etc[0].patern = 1.0f;
+		//SHOTをPUSH STARTへ変更
 		g_etc[1].patern = 1.0f;
+		//ブロック数UIは表示しない
 		g_etc[2].use = false;
 		g_etc[3].use = false;
+		//テイサツ猫を出現させる
 		g_etc[4].use = true;
 		//UI点滅
 		
@@ -151,10 +160,9 @@ void DrawEtc()
 	g_etc[3].patern = (BlockScore()/10) % 10;
 	for (int i = 0; i < ETC_MAX; i++)
 	{
-		//画面上を動かないUI描画
 		if (g_etc[i].use == true)
-		{
-			if (i == 0 || i == 1)
+		{		//画面上を動かないUI描画
+			if (i >= 0 && i <= 4)
 			{
 				//テクスチャのセット
 				GetDeviceContext()->PSSetShaderResources
@@ -168,28 +176,9 @@ void DrawEtc()
 					g_etc[i].rot,
 					g_etc[i].col,
 					g_etc[i].patern,
-					1.0f/2.0f,//横
-					1.0f,//縦
-					2
-				);
-			}
-			else if (i >= 2 && i <= 4)
-			{
-				//テクスチャのセット
-				GetDeviceContext()->PSSetShaderResources
-				(0, 1, GetTexture(g_etc[i].texNo));
-				//スプライトの描画
-				DrawSpriteColorRotate(
-					g_etc[i].pos.x,
-					g_etc[i].pos.y,
-					g_etc[i].w,
-					g_etc[i].h,
-					g_etc[i].rot,
-					g_etc[i].col,
-					g_etc[i].patern,
-					1.0f/10,//横
-					1.0f,//縦
-					10
+					g_etc[i].uv_w,//横
+					g_etc[i].uv_h,//縦
+					g_etc[i].uv_num//総枚数
 				);
 			}
 			else
@@ -206,9 +195,9 @@ void DrawEtc()
 					g_etc[i].rot,
 					g_etc[i].col,
 					g_etc[i].patern,
-					1.0f/2.0f,//横
-					1.0f,//縦
-					2
+					g_etc[i].uv_w,//横
+					g_etc[i].uv_h,//縦
+					g_etc[i].uv_num//総枚数
 				);
 			}
 		}

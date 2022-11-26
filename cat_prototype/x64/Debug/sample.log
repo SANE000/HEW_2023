@@ -1,1 +1,3 @@
-﻿  sample.vcxproj -> C:\Users\實吉　貴大　学校用\Desktop\新しいフォルダー\HEW_2023\cat_prototype\x64\Debug\sample.exe
+﻿  block.cpp
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(195): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe

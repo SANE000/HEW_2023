@@ -21,6 +21,12 @@ struct ETC
 	D3DXCOLOR col;
 	//パターン
 	float patern;
+	//uv_w アニメ横
+	float uv_w;
+	//uv_h アニメ縦
+	float uv_h;
+	//uv_num 総枚数
+	int uv_num;
 };
 
 //プロトタイプ宣言
