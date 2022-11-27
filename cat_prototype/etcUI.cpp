@@ -9,7 +9,7 @@
 #include "keyboard.h"
 
 //その他のUI関係のマクロやこれから追加するかも用
-#define ETC_MAX 7
+#define ETC_MAX 8
 #define ETC_SIZE_W 100
 #define ETC_SIZE_H 50
 //プロトタイプ宣言
@@ -32,6 +32,8 @@ ETC InitDate[] =
 	{true,D3DXVECTOR2(SCREEN_WIDTH - 100,50),0,0,TIME_SIZE_W,TIME_SIZE_H,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f,10},
 	//偵察猫
 	{false,D3DXVECTOR2(SCREEN_WIDTH / 2,40),0,0,60,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 6.0f,1.0f,6},
+	//プレイ中操作説明UI
+	{true,D3DXVECTOR2(200,60),0,0,300,100,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),1.0f,1.0f / 4.0f,1.0f,4},
 	////
 	//ここより下はスクロールするもの
 	////
@@ -65,6 +67,10 @@ HRESULT InitEtc()
 		else if (i == 4)
 		{
 			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\night_cat.png");
+		}
+		else if (i == 5)
+		{
+			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\sousaUI.png");
 		}
 		else
 		{
@@ -111,6 +117,8 @@ void UpdateEtc()
 		g_etc[0].patern = 1.0f;
 		//SHOTをPUSH STARTへ変更
 		g_etc[1].patern = 1.0f;
+		//偵察用操作説明
+		g_etc[5].patern = 0.0f;
 		//ブロック数UIは表示しない
 		g_etc[2].use = false;
 		g_etc[3].use = false;
@@ -146,6 +154,11 @@ void UpdateEtc()
 		g_etc[0].patern = 0.0f;
 		g_etc[1].patern = 0.0f;
 		g_etc[4].patern = 0.0f;
+		g_etc[5].patern += 0.002;
+		if (g_etc[5].patern > 4.0f || g_etc[5].patern < 1.0f)
+		{
+			g_etc[5].patern = 1.0f;
+		}
 		g_etc[2].use = true;
 		g_etc[3].use = true;
 		g_etc[4].use = false;
@@ -162,7 +175,7 @@ void DrawEtc()
 	{
 		if (g_etc[i].use == true)
 		{		//画面上を動かないUI描画
-			if (i >= 0 && i <= 4)
+			if (i >= 0 && i <= 5)
 			{
 				//テクスチャのセット
 				GetDeviceContext()->PSSetShaderResources
