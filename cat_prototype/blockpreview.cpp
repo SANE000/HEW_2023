@@ -23,6 +23,9 @@ int use_haveblock_number = 0;
 int before_use_haveblock_number = 0;
 //設置するブロックの数　blocktypeに応じて変化
 int previewblocknum = 0;
+
+//いくつ買ったかを保持する変数
+int haveblocknum;
 //==========================================
 //初期化処理
 //==========================================
@@ -59,6 +62,12 @@ HRESULT InitPreview()
 	//ブロックタイプの処理の初期化
 	for (int i = 0; i < BLOCKTYPE_MAX; i++)
 	{
+		//何かブロックを買ってたらプラス１する
+		if (GetHaveBlock(i) != -1)
+		{
+			//何個買ってるかを保持する変数
+			haveblocknum++;
+		}
 		blocktype[i].SetType(GetHaveBlock(i));
 		//blocktype[i].InitBlocktype();
 	}
@@ -100,6 +109,9 @@ void UpdatePreview()
 		time -= 1;
 	}
 
+	//今現在のブロックタイプを貰う
+	int nowblock = blocktype[use_haveblock_number].Gettype();
+
 	if (FalseExistCheck() == true)
 	{
 		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_Y) && time <= 0)
@@ -111,12 +123,14 @@ void UpdatePreview()
 			do
 			{
 				use_haveblock_number++;
-				//255番目まで調べたら次は0に戻る
-				if (use_haveblock_number == BLOCKTYPE_MAX)
+
+				//買ったブロックの個数番目まで調べたら次は0に戻る
+				if (use_haveblock_number == haveblocknum)
 				{
 					use_haveblock_number = 0;
 				}
-			} while (blocktype[use_haveblock_number].GetUse() == true);
+			} while (blocktype[use_haveblock_number].GetUse() == true ||
+				blocktype[use_haveblock_number].Gettype() == nowblock);	//未使用で現在のブロックと違う種類になるまで進める
 
 			////-1の場合はブロックを買ってないため、先頭に戻る
 			//if (blocktype[use_haveblock_number].Gettype() == -1)
@@ -145,9 +159,10 @@ void UpdatePreview()
 				//0番目から戻ると一番後ろに進む
 				if (use_haveblock_number < 0)
 				{
-					use_haveblock_number = (BLOCKTYPE_MAX - 1);
+					use_haveblock_number = (haveblocknum - 1);
 				}
-			} while (blocktype[use_haveblock_number].GetUse() == true);
+			} while (blocktype[use_haveblock_number].GetUse() == true ||
+				blocktype[use_haveblock_number].Gettype() == nowblock);	//未使用で現在のブロックと違う種類になるまで進める
 
 
 			time = WAIT_TIME;
@@ -268,7 +283,7 @@ void FalsePreviewBlock()
 //falseが存在するかどうかチェックする	全部trueの時は買ったブロックを使い切ったということになる
 bool FalseExistCheck()
 {
-	for (int i = 0; i < BLOCKTYPE_MAX; i++)
+	for (int i = 0; i < haveblocknum; i++)
 	{
 		if (blocktype[i].GetUse() == false)
 		{
@@ -313,8 +328,8 @@ void SetMoveBlock()
 		do
 		{
 			use_haveblock_number++;
-			//255番目まで調べたら次は0に戻る
-			if (use_haveblock_number == BLOCKTYPE_MAX)
+			//買ったブロック個数番目まで調べたら次は0に戻る
+			if (use_haveblock_number == haveblocknum)
 			{
 				use_haveblock_number = 0;
 			}

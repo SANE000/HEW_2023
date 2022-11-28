@@ -1,11 +1,103 @@
-﻿  etcUI.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(157): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(166): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(172): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(173): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(188): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(187): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(207): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(206): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(204): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe
+﻿  BG.cpp
+  Line.cpp
+  Linecircle.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\linecircle.cpp(105): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\linecircle.cpp(106): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  block.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\block.cpp(195): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  blockpreview.cpp
+  blocktype.cpp
+  camera.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\camera.cpp(76): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\camera.cpp(95): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\camera.cpp(108): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\camera.cpp(114): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+  cat.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\cat.cpp(62): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\cat.cpp(80): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\cat.cpp(183): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+  collision.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\collision.cpp(292): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\collision.cpp(311): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\collision.cpp(343): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\collision.cpp(384): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\collision.cpp(403): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\collision.cpp(432): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  cursor.cpp
+  dog.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\dog.cpp(107): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\dog.cpp(104): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\dog.cpp(103): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\dog.cpp(101): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  dogCollision.cpp
+  etcUI.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\etcui.cpp(157): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\etcui.cpp(166): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\etcui.cpp(172): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\etcui.cpp(173): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\etcui.cpp(188): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\etcui.cpp(187): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\etcui.cpp(207): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\etcui.cpp(206): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\etcui.cpp(204): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  game.cpp
+  gimmick_wall.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\gimmick_wall.cpp(411): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  inputx.cpp
+  keyboard.cpp
+  main.cpp
+  player.cpp
+  polygon.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\polygon.cpp(109): warning C4244: '引数': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\polygon.cpp(108): warning C4244: '引数': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+  コードを生成中...
+  コンパイル中...
+  renderer.cpp
+  result.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\result.cpp(96): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\result.cpp(95): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\result.cpp(110): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\result.cpp(109): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  scene.cpp
+  select.cpp
+  shop.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(90): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(122): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(361): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(358): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(357): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(381): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(380): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(400): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(399): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(422): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(421): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(438): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\shop.cpp(437): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  sound.cpp
+  sprite.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\sprite.cpp(26): warning C4244: '引数': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\sprite.cpp(30): warning C4244: '引数': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\sprite.cpp(34): warning C4244: '引数': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\sprite.cpp(38): warning C4244: '引数': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\sprite.cpp(62): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+  stageselect.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\stageselect.cpp(203): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\stageselect.cpp(221): warning C4244: '引数': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\stageselect.cpp(220): warning C4244: '引数': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\stageselect.cpp(243): warning C4244: '引数': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\stageselect.cpp(242): warning C4244: '引数': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+  texture.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\texture.cpp(26): warning C4018: '>=': signed と unsigned の数値を比較しようとしました。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\texture.cpp(37): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\texture.cpp(52): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  timer.cpp
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\timer.cpp(59): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\timer.cpp(65): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\timer.cpp(71): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\timer.cpp(90): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\timer.cpp(89): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\實吉　貴大　学校用\desktop\新しいフォルダー\hew_2023\cat_prototype\timer.cpp(143): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+  title.cpp
+  コードを生成中...
+  sample.vcxproj -> C:\Users\實吉　貴大　学校用\Desktop\新しいフォルダー\HEW_2023\cat_prototype\x64\Debug\sample.exe
