@@ -111,6 +111,7 @@ void UpdatePreview()
 
 	//今現在のブロックタイプを貰う
 	int nowblock = blocktype[use_haveblock_number].Gettype();
+	int before_use_haveblock_number = use_haveblock_number;
 
 	if (FalseExistCheck() == true)
 	{
@@ -129,6 +130,13 @@ void UpdatePreview()
 				{
 					use_haveblock_number = 0;
 				}
+
+				//一番最初のブロックに戻ってきたら終わる
+				if (before_use_haveblock_number == use_haveblock_number)
+				{
+					break;
+				}
+
 			} while (blocktype[use_haveblock_number].GetUse() == true ||
 				blocktype[use_haveblock_number].Gettype() == nowblock);	//未使用で現在のブロックと違う種類になるまで進める
 
@@ -161,6 +169,14 @@ void UpdatePreview()
 				{
 					use_haveblock_number = (haveblocknum - 1);
 				}
+
+				//一番最初のブロックに戻ってきたら終わる
+				if (before_use_haveblock_number == use_haveblock_number)
+				{
+					break;
+				}
+
+
 			} while (blocktype[use_haveblock_number].GetUse() == true ||
 				blocktype[use_haveblock_number].Gettype() == nowblock);	//未使用で現在のブロックと違う種類になるまで進める
 
