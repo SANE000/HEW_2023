@@ -135,8 +135,6 @@ void DrawBlock()
 	//動かないステージブロック
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
-		if (g_Block[i].use == true)
-		{
 			//ブロックによってパターンの変更
 			//パターンによって効果があってもいいかも
 			//stage11では
@@ -203,7 +201,6 @@ void DrawBlock()
 			1.0f,//縦
 			8//総枚数
 			);
-		}
 
 		DrawGimmickWall();
 

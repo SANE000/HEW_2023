@@ -5,8 +5,8 @@
 
 //マクロ定義
 #define CAT_GOLL 2780*2//2780*2
-#define CAT_SIZE_W 59
-#define CAT_SIZE_H 59
+#define CAT_SIZE_W 52
+#define CAT_SIZE_H 57
 #define CAT_INIT_X (CAT_SIZE_W)
 #define CAT_INIT_Y 240
 //猫の移動速度

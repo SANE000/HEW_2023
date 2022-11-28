@@ -14,7 +14,7 @@
 
 //猫のジャンプフラグ用
 int temp = BLOCK_MAX;
-
+static int m_temp = MOVE_BLOCK_MAX;
 CAT *cat = GetCat();
 PLAYER* player = GetPlayer();
 BLOCK *block = GetBlock();
@@ -54,14 +54,15 @@ HRESULT InitCollsion()
 //更新処理　当たり判定を一気に行う
 void UpdateCollision()
 {
-	float CatTop = cat->pos.y - SIZE / 2;
-	float CatBottom = cat->pos.y + SIZE / 2;
-	float CatLeft = cat->pos.x - SIZE / 2;
-	float CatRight = cat->pos.x + SIZE / 2;
+	float CatTop = cat->pos.y - CAT_SIZE_H / 2;
+	float CatBottom = cat->pos.y + CAT_SIZE_H / 2;
+	float CatLeft = cat->pos.x - CAT_SIZE_W / 2;
+	float CatRight = cat->pos.x + CAT_SIZE_W / 2;
 
 	if (cat->use == true)
 	{
 		temp = BLOCK_MAX;
+		m_temp = MOVE_BLOCK_MAX;
 		//==============================================================================================================================
 		//		//動かないブロックと猫の当たり判定//////////////////////////////////////////////////////////////////////////////////////
 		//==============================================================================================================================
@@ -74,12 +75,13 @@ void UpdateCollision()
 			//もし構造体を使ってなかったらスキップ
 			if (block[i].use != true)
 			{
+				temp -= 1;
 				continue;
 			}
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, block[i].pos,
-				D3DXVECTOR2(SIZE, SIZE),
+				D3DXVECTOR2(CAT_SIZE_W, CAT_SIZE_H),
 				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
@@ -108,13 +110,14 @@ void UpdateCollision()
 						if (block[i].pos.x - 10.0f < cat->pos.x && block[i].pos.x + 10.0f > cat->pos.x)
 						{
 							block[i].button = false;
+							block[i].use = false;
 						}
 
 					}
 				}
 				//床ブロックより下
 				else if (CatTop <= BlockBottom &&
-					cat->pos.y - (SIZE / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
+					cat->pos.y - (CAT_SIZE_H / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
 				{
 						//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
 						cat->jump_y = 0;
@@ -143,19 +146,7 @@ void UpdateCollision()
 			else
 			{
 				temp -= 1;
-			}
-
-			if (temp > 0)
-			{
-				cat->jump_flag = true;
-				cat->nowjump_flag = 0;
-			}
-			else
-			{
-				cat->jump_flag = false;
-			}
-			
-			
+			}			
 		}
 		//==============================================================================================================================
 		//			//MOVEブロックと猫の当たり判定//////////////////////////////////////////////////////////////////////////////////////
@@ -166,6 +157,7 @@ void UpdateCollision()
 			//もし構造体を使ってなかったらスキップ
 			if (m_block[i].use != true)
 			{
+				m_temp -= 1;
 				continue;
 			}
 
@@ -177,7 +169,7 @@ void UpdateCollision()
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, m_block[i].pos,
-				D3DXVECTOR2(SIZE, SIZE),
+				D3DXVECTOR2(CAT_SIZE_W, CAT_SIZE_H),
 				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
@@ -188,8 +180,7 @@ void UpdateCollision()
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.y = BlockTopM - GRAV - SIZE / 2;
-					cat->jump_flag = true;
-					cat->nowjump_flag = 0;
+					m_temp = MOVE_BLOCK_MAX;
 				}
 				//猫がブロックより右
 				else if (CatLeft <= BlockRightM && cat->pos.x > BlockRightM)
@@ -210,6 +201,19 @@ void UpdateCollision()
 
 				}
 			}
+			else
+			{
+				m_temp -= 1;
+			}
+		}
+		if (m_temp > 0 || temp > 2)
+		{
+			cat->jump_flag = true;
+			cat->nowjump_flag = 0;
+		}
+		else
+		{
+			cat->jump_flag = false;
 		}
 
 		//==============================================================================================================================
@@ -678,7 +682,7 @@ void BlockCollision()
 						{
 							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 							m_block[i].Speed.y = 0;
-							m_block[i].pos.y = BlockTop - DRAW_SIZE / 2;
+							m_block[i].pos.y = BlockTop - 1 - DRAW_SIZE / 2;
 						}
 					}
 				}

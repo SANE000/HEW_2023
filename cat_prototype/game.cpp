@@ -95,8 +95,8 @@ void DrawGame()
 	//背景描画
 	DrawPolygon();
 	//ブロックの表示
-	DrawBlock();
 	DrawPreview();
+	DrawBlock();
 	//猫の表示
 	DrawCat();
 	//犬の表示
