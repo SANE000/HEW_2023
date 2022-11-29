@@ -5,6 +5,7 @@
 #include "shop.h"
 #include "result.h"
 #include "Select.h"
+#include "gameover.h"
 
 //グローバル変数
 //現在実行中のシーン番号
@@ -27,6 +28,9 @@ void InitScene(SCENE no)
 		break;
 	case SCENE::SCENE_GAME:
 		InitGame();
+		break;
+	case SCENE::SCENE_GAMEOVER:
+		InitGameOver();
 		break;
 	case SCENE::SCENE_SCORE:
 		break;
@@ -51,6 +55,9 @@ void UninitScene()
 	case SCENE::SCENE_GAME:
 		UninitGame();
 		break;
+	case SCENE::SCENE_GAMEOVER:
+	    UninitGameOver();
+	    break;
 	case SCENE::SCENE_SCORE:
 		UninitResult();
 		break;
@@ -71,6 +78,9 @@ void UpdateScene()
 
 	case SCENE::SCENE_GAME:
 		UpdateGame();
+		break;
+	case SCENE::SCENE_GAMEOVER:
+		UpdateGameOver();
 		break;
 	case SCENE::SCENE_SCORE:
 		UpdateResult();
@@ -94,6 +104,9 @@ void DrawScene()
 	case SCENE::SCENE_GAME:
 		DrawGame();
 		break;
+	case SCENE::SCENE_GAMEOVER:
+		DrawGameOver();
+		break;
 	case SCENE::SCENE_SCORE:
 		DrawResult();
 		break;
@@ -103,6 +116,7 @@ void DrawScene()
 void SetScene(SCENE no)
 {
 	g_SceneNextIndex = no;
+	
 }
 
 void CheckScene()

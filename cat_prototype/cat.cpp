@@ -125,7 +125,7 @@ void UpdateCat()
 	if (g_Cat.pos.y >= SCREEN_HEIGHT)
 	{
 		//ゲームオーバーの代わり
-		SetScene(SCENE_SHOP);
+		SetScene(SCENE_GAMEOVER);
 	}
 }
 void DrawCat()

@@ -146,6 +146,7 @@
     <ClCompile Include="dogCollision.cpp" />
     <ClCompile Include="etcUI.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="gameover.cpp" />
     <ClCompile Include="gimmick_wall.cpp" />
     <ClCompile Include="inputx.cpp" />
     <ClCompile Include="keyboard.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="dogCollision.h" />
     <ClInclude Include="etcUI.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="gameover.h" />
     <ClInclude Include="gimmick_wall.h" />
     <ClInclude Include="inputx.h" />
     <ClInclude Include="keyboard.h" />
