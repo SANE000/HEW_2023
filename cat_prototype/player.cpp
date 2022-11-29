@@ -140,10 +140,15 @@ void UpdatePlayer()
 		}
 
 		//リセットキー
-		if (Keyboard_IsKeyDown(KK_R) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0 || GetLimitFrame() < 0)
+		if (Keyboard_IsKeyDown(KK_R) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0)
+		{
+			SetScene(SCENE_SHOP);
+			time = WAIT_TIME;
+		}
+		//時間切れゲームオーバー
+		if (GetLimitFrame() < 0)
 		{
 			SetScene(SCENE_GAMEOVER);
-			time = WAIT_TIME;
 		}
 	}
 }
