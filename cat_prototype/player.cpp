@@ -68,11 +68,11 @@ void UpdatePlayer()
 	{
 		g_Player.pos.x = DEFO_SIZE_X;
 	}
-	//終端値から右へもいかないようにする
-	//else if (g_Player.pos.x >= SCREEN_WIDTH - PLAYER_INIT_X)
-	//{
-	//	g_Player.pos.x = SCREEN_WIDTH - PLAYER_INIT_X;
-	//}
+	else if (g_Player.pos.x >= SCREEN_WIDTH * 6 - DEFO_SIZE_X)
+	{
+		g_Player.pos.x = SCREEN_WIDTH * 6 - DEFO_SIZE_X;
+	}
+
 	if (g_Player.bwait > 0)
 	{
 		g_Player.bwait -= 1;
@@ -142,7 +142,7 @@ void UpdatePlayer()
 		//リセットキー
 		if (Keyboard_IsKeyDown(KK_R) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0 || GetLimitFrame() < 0)
 		{
-			SetScene(SCENE_SHOP);
+			SetScene(SCENE_GAMEOVER);
 			time = WAIT_TIME;
 		}
 	}

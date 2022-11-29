@@ -36,7 +36,7 @@ void UpdateDogCollision()
 				if (hit == true)
 				{
 					//ChangeMoveFlag(cat);
-					SetScene(SCENE_SHOP);
+					SetScene(SCENE_GAMEOVER);
 					//cat->use = false;
 					//cat->move_flag = false;
 					//cat->jump_flag = false;
@@ -184,7 +184,8 @@ void UpdateDogCollision()
 					{
 						if (dog[i].framewait <= 0.0)
 						{
-							dog[i].pos.x += DOG_SPEED * 0.6f;
+							//要調整　バネや壁をすり抜けるためバグ修正が必要
+							dog[i].pos.x += DOG_SPEED * 0.16f;
 						}
 						else
 						{

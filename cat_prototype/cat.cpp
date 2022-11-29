@@ -99,6 +99,12 @@ void UpdateCat()
 		//初期値まで戻ってきたら反転する
 		ChangeMoveFlag(&g_Cat);
 	}
+	else if (g_Cat.pos.x >= SCREEN_WIDTH * 6 - CAT_SIZE_W/2)
+	{
+		g_Cat.pos.x = SCREEN_WIDTH * 6 - CAT_SIZE_W / 2;
+		//終端値まで行ってしまったらきたら反転する
+		ChangeMoveFlag(&g_Cat);
+	}
 	//ジャンプパワー
 	g_Cat.pos.y -= g_Cat.jump_y;
 
@@ -124,7 +130,7 @@ void UpdateCat()
 	//猫が穴に落ちてしまった場合
 	if (g_Cat.pos.y >= SCREEN_HEIGHT)
 	{
-		//ゲームオーバーの代わり
+		//ゲームオーバー
 		SetScene(SCENE_GAMEOVER);
 	}
 }

@@ -3,6 +3,7 @@
 #include "gameover.h"
 #include "texture.h"
 #include "scene.h"
+#include "inputx.h"
 #include "keyboard.h"
 #include "sprite.h"
 
@@ -10,7 +11,7 @@
 //ƒOƒ[ƒoƒ‹
 //====================
 static    GAMEOVER  g_GameOver;
-
+static int time = 0;
 HRESULT InitGameOver()
 {
 	g_GameOver.texNo = LoadTexture((char*)"data/TEXTURE/gameover.png");
@@ -25,9 +26,15 @@ void UninitGameOver()
 
 void UpdateGameOver()
 {
-	if (Keyboard_IsKeyDown(KK_A))
+	if (time > 0)
+	{
+		time -= 1;
+	}
+
+	if (Keyboard_IsKeyDown(KK_A) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
 	{
 		SetScene(SCENE_SELECT);
+		time = WAIT_TIME;
 	}
 }
 

@@ -33,6 +33,7 @@ BLOCK g_wall[WALL_MAX];
 //プロトタイプ宣言
 //==========================================
 void InitWall_12();
+void InitWall_13();
 
 
 HRESULT InitGimmickWall()
@@ -63,7 +64,7 @@ HRESULT InitGimmickWall()
 		}
 		else if (stage_gw == 2)
 		{
-
+			InitWall_13();
 		}
 
 		break;
@@ -170,15 +171,25 @@ void UninitGimmickWall()
 		{
 			for (int i = 0; i < WALL_MAX; i++)
 			{
+				if (g_wall[i].use == false)
+				{
+					continue;
+				}
+				//trueのやつだけ設定する
 				g_wall[i].use = false;
-
 			}
-
-
 		}
 		else if (stage_gw == 2)
 		{
-
+			for (int i = 0; i < WALL_MAX; i++)
+			{
+				if (g_wall[i].use == false)
+				{
+					continue;
+				}
+				//trueのやつだけ設定する
+				g_wall[i].use = false;
+			}
 		}
 
 		break;
@@ -288,21 +299,23 @@ void UpdateGimmickWall()
 			//ボタンが押されたら全部falseにする
 			if (pb[54].button == false)
 			{
-				g_wall[0].use = false;
-				g_wall[1].use = false;
-				g_wall[2].use = false;
-				g_wall[3].use = false;
-				g_wall[4].use = false;
-				g_wall[5].use = false;
-				g_wall[6].use = false;
-				g_wall[7].use = false;
-
+				for (int i = 0; i < 8; i++)
+				{
+					g_wall[i].use = false;
+				}
 			}
 
 		}
 		else if (stage_gw == 2)
 		{
-
+			//ボタンが押されたら全部falseにする
+			if (pb[112].button == false)
+			{
+				for (int i = 0; i < 18; i++)
+				{
+					g_wall[i].use = false;
+				}
+			}
 		}
 
 		break;
@@ -421,11 +434,6 @@ void DrawGimmickWall()
 			);
 
 		}
-		else
-		{
-			break;
-		}
-
 	}
 
 }
@@ -447,13 +455,41 @@ void InitWall_12()
 	g_wall[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 7);
 	g_wall[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 8);
 
-	g_wall[0].use = true;
-	g_wall[1].use = true;
-	g_wall[2].use = true;
-	g_wall[3].use = true;
-	g_wall[4].use = true;
-	g_wall[5].use = true;
-	g_wall[6].use = true;
-	g_wall[7].use = true;
 
+	for (int i = 0; i < 8; i++)
+	{
+		g_wall[i].use = true;
+	}
+}
+
+void InitWall_13()
+{
+	g_wall[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 75, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_wall[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 76, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_wall[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 77, DEFO_SIZE_Y - DRAW_SIZE * 1);
+
+	g_wall[3].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 78, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_wall[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 79, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_wall[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 80, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_wall[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 81, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_wall[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 82, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_wall[8].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 83, DEFO_SIZE_Y - DRAW_SIZE * 3);
+
+	g_wall[9].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 84, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[10].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 85, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[11].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 86, DEFO_SIZE_Y - DRAW_SIZE * 4);
+
+	g_wall[12].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 87, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[13].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 88, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[14].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 89, DEFO_SIZE_Y - DRAW_SIZE * 4);
+
+	g_wall[15].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 90, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[16].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 91, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[17].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 92, DEFO_SIZE_Y - DRAW_SIZE * 4);
+
+	for (int i = 0; i < 18; i++)
+	{
+		g_wall[i].use = true;
+	}
 }

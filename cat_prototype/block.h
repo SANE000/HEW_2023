@@ -12,7 +12,7 @@ struct BLOCK
 	//構造体使用中フラグ
 	bool use = true;
 	//ボタンオンフラグ
-	bool button;
+	bool button = false;
 	//表示座標
 	D3DXVECTOR2 pos;
 	//回転角度
@@ -24,7 +24,8 @@ struct BLOCK
 	//スクロール用ブロック移動ベクトル
 	D3DXVECTOR2 Speed = D3DXVECTOR2(0, 0);
 	//種類用のアニメ番号
-	float Patern = 0;
+	//デフォルトは草あり地面ブロック
+	float Patern = 0.0f;
 };
 //プロトタイプ宣言
 HRESULT InitBlock();

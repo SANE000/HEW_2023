@@ -33,7 +33,7 @@ ETC InitDate[] =
 	//偵察猫
 	{false,D3DXVECTOR2(SCREEN_WIDTH / 2,40),0,0,60,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 6.0f,1.0f,6},
 	//プレイ中操作説明UI
-	{true,D3DXVECTOR2(200,60),0,0,300,100,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),1.0f,1.0f / 4.0f,1.0f,4},
+	{true,D3DXVECTOR2(150,60),0,0,300,100,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),1.0f,1.0f / 4.0f,1.0f,4},
 	////
 	//ここより下はスクロールするもの
 	////

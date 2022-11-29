@@ -58,24 +58,26 @@ HRESULT InitBlock()
 		else if (stage == 1)
 		{
 			InitStage12();
-			for (int i = 0; i < 125; i++)
-			{
-				//ボタンだけtrue
-				if (i == 54)
-				{
-					g_Block[i].button = true;
-				}
-				else
-				{
-					g_Block[i].button = false;
-				}
+			//InitStage12()のなかとヘッダーのほうのデフォルトでボタン以外はfalseにしておきました。
+			//for (int i = 0; i < 125; i++)
+			//{
+			//	//ボタンだけtrue
+			//	if (i == 54)
+			//	{
+			//		g_Block[i].button = true;
+			//	}
+			//	else
+			//	{
+			//		g_Block[i].button = false;
+			//	}
 
-			}
+			//}
 			InitGimmickWall();
 		}
 		else if (stage == 2)
 		{
 			InitStage13();
+			InitGimmickWall();
 		}
 	}
 	else
@@ -90,7 +92,6 @@ HRESULT InitBlock()
 void UnInitBlock()
 {
 	UninitGimmickWall();
-
 }
 //更新処理
 void UpdateBlock()
@@ -145,37 +146,16 @@ void DrawBlock()
 			//stage11では
 			//21~29 or 33~44 or 108~110は表面では無い方へ変更
 			//stage12では
-			if (stage == 0)
+		if (field == 0)
+		{
+			if (stage == 1)
 			{
-				if (i >= 21 && i <= 29 || i >= 33 && i <= 44 || i >= 108 && i <= 110)
-				{
-					//草がないタイプの床ブロック
-					g_Block[i].Patern = 1.0f;
-				}
-				else
-				{
-					//草あり
-					g_Block[i].Patern = 0.0f;
-				}
-			}
-			else
-			{
-				if (i >= 10 && i <= 14 || i >= 67 && i <= 69 || i >= 102 && i <= 106)
-				{
-					//草がないタイプの床ブロック
-					g_Block[i].Patern = 1.0f;
-				}
-				else if(i == 5 || i == 86)
-				{
-					//反転ブロック
-					g_Block[i].Patern = 2.0f;
-				}
-				else if (i == 54)
+				if (i == 54)
 				{
 					//ボタンブロック
 					if (g_Block[i].button == true)
 					{
-						
+
 						g_Block[i].Patern = 3.0f;
 					}
 					else
@@ -183,12 +163,24 @@ void DrawBlock()
 						g_Block[i].Patern = 4.0f;
 					}
 				}
-				else
+			}
+			else if(stage == 2)
+			{
+				if (i == 112)
 				{
-					//草あり
-					g_Block[i].Patern = 0.0f;
+					//ボタンブロック
+					if (g_Block[i].button == true)
+					{
+
+						g_Block[i].Patern = 3.0f;
+					}
+					else
+					{
+						g_Block[i].Patern = 4.0f;
+					}
 				}
 			}
+		}
 			//テクスチャのセット
 			GetDeviceContext()->PSSetShaderResources
 			(0, 1, GetTexture(g_Block[i].texNo));
@@ -234,6 +226,14 @@ void InitStage13()
 	// X方向　画面左端から右に * 数字(マス)
 	// Y方向　画面下端から上に * 数字(マス)
 	//大きな形ごとに分けるとわかりやすいかも
+	for (int i = 0; i < BLOCK_MAX; i++)
+	{
+		if (i >= 64 && i <= 66 || i >= 91 && i <= 94)
+		{
+			//草がないタイプの床ブロック
+			g_Block[i].Patern = 1.0f;
+		}
+	}
 	g_Block[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 1, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 2, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -264,6 +264,7 @@ void InitStage13()
 	g_Block[20].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 20, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	//ここにバネブロック
 	g_Block[21].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 20, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[21].Patern = 9.0f;
 
 	g_Block[22].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 21, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[23].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 22, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -348,6 +349,7 @@ void InitStage13()
 	g_Block[87].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 56, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	//反転ブロック
 	g_Block[88].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 54, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[88].Patern = 2.0f;
 	//ここから普通
 	g_Block[89].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 55, DEFO_SIZE_Y - DRAW_SIZE * 4);
 	g_Block[90].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 56, DEFO_SIZE_Y - DRAW_SIZE * 4);
@@ -379,18 +381,18 @@ void InitStage13()
 	g_Block[109].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 72, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[110].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 73, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[111].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 74, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	//ここからギミック壁
 	//ボタンブロック
 	g_Block[112].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 88, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_Block[112].button = true;
 	//ここから普通
 	g_Block[113].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 93, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[114].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 94, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[115].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[116].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 57, DEFO_SIZE_Y - DRAW_SIZE * 4);
 	//ブロック余り自由に使ってください
-	g_Block[116].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[117].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[118].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[119].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[117].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 66, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[118].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 67, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[119].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 68, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[120].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[121].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[122].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -406,6 +408,15 @@ void InitStage12()
 	// X方向　画面左端から右に * 数字(マス)
 	// Y方向　画面下端から上に * 数字(マス)
 	//大きな形ごとに分けるとわかりやすいかも
+	for (int i = 0; i < BLOCK_MAX; i++)
+	{
+		if (i >= 10 && i <= 14 || i >= 67 && i <= 69 || i >= 102 && i <= 106)
+		{
+			//草がないタイプの床ブロック
+			g_Block[i].Patern = 1.0f;
+		}
+	}
+
 	g_Block[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 1, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 2, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -413,6 +424,8 @@ void InitStage12()
 	g_Block[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	//反転ブロック
 	g_Block[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 5, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[5].Patern = 2.0f;
+
 	g_Block[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 6, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[8].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -469,6 +482,7 @@ void InitStage12()
 	g_Block[53].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 41, DEFO_SIZE_Y - DRAW_SIZE * 2);
 	//ボタン
 	g_Block[54].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 40, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[54].button = true;
 	//ここから普通
 	g_Block[55].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[56].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 46, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -510,6 +524,7 @@ void InitStage12()
 	g_Block[85].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 68, DEFO_SIZE_Y - DRAW_SIZE * 2);
 	//反転ブロック
 	g_Block[86].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 69, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[86].Patern = 2.0f;
 	//ここから普通
 	g_Block[87].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 69, DEFO_SIZE_Y - DRAW_SIZE * 5);
 	g_Block[88].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 70, DEFO_SIZE_Y - DRAW_SIZE * 5);
@@ -566,6 +581,14 @@ void InitStage11()
 	// X方向　画面左端から右に * 数字(マス)
 	// Y方向　画面下端から上に * 数字(マス)
 	//大きな形ごとに分けるとわかりやすいかも
+	for (int i = 0; i < BLOCK_MAX; i++)
+	{
+		if (i >= 21 && i <= 29 || i >= 33 && i <= 44 || i >= 108 && i <= 110)
+		{
+			//草がないタイプの床ブロック
+			g_Block[i].Patern = 1.0f;
+		}
+	}
 	g_Block[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 1, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 2, DEFO_SIZE_Y - DRAW_SIZE * 0);
