@@ -415,9 +415,9 @@ void DrawGimmickWall()
 				g_wall[i].rot,
 				g_wall[i].col,
 				g_wall[i].Patern,
-				1.0f / 8.0f,//â°
-				8.0f,//èc
-				8//ëçñáêî
+				1.0f / 12.0f,//â°
+				1.0f,//èc
+				12//ëçñáêî
 			);
 
 		}
