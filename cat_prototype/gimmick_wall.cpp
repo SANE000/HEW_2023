@@ -22,7 +22,7 @@
 //グローバル変数
 //==========================================
 //壁の配列変数
-BLOCK g_wall[WALL_MAX];
+G_WALL g_wall[WALL_MAX];
 
 
 //現在のステージを入れる
@@ -438,7 +438,7 @@ void DrawGimmickWall()
 
 }
 
-BLOCK* GetGimmickWall()
+G_WALL* GetGimmickWall()
 {
 	return g_wall;
 }

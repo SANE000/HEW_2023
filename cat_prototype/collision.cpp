@@ -13,13 +13,14 @@
 //==========================================
 
 //猫のジャンプフラグ用
-int temp = BLOCK_MAX;
-static int m_temp = MOVE_BLOCK_MAX;
+int temp = 0;
+int m_temp = 0;
+int g_temp = 0;
 CAT *cat = GetCat();
 PLAYER* player = GetPlayer();
 BLOCK *block = GetBlock();
 MOVE_BLOCK *m_block = GetMoveBlock();
-BLOCK* gimmickwall = GetGimmickWall();
+G_WALL* gimmickwall = GetGimmickWall();
 
 
 //ブロックとネコがぶつかった際、
@@ -75,7 +76,10 @@ void UpdateCollision()
 			//もし構造体を使ってなかったらスキップ
 			if (block[i].use != true)
 			{
-				temp -= 1;
+				if (temp > 0)
+				{
+					temp -= 1;
+				}
 				continue;
 			}
 			//当たり判定を行う
@@ -91,10 +95,6 @@ void UpdateCollision()
 				//床ブロックより上(重力GRAVの影響も排除する)
 				if (CatBottom - GRAV <= BlockTop && cat->pos.y < block[i].pos.y)
 				{
-					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.y = BlockTop - GRAV - SIZE / 2;
-					temp = BLOCK_MAX;
-
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.y = BlockTop - GRAV - SIZE / 2;
 					temp = BLOCK_MAX;
@@ -117,7 +117,7 @@ void UpdateCollision()
 				}
 				//床ブロックより下
 				else if (CatTop <= BlockBottom &&
-					cat->pos.y - (CAT_SIZE_H / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
+					cat->pos.y - (SIZE / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
 				{
 						//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
 						cat->jump_y = 0;
@@ -145,7 +145,10 @@ void UpdateCollision()
 			}
 			else
 			{
-				temp -= 1;
+				if (temp > 0)
+				{
+					temp -= 1;
+				}
 			}			
 		}
 		//==============================================================================================================================
@@ -157,7 +160,10 @@ void UpdateCollision()
 			//もし構造体を使ってなかったらスキップ
 			if (m_block[i].use != true)
 			{
-				m_temp -= 1;
+				if (m_temp > 0)
+				{
+					m_temp -= 1;
+				}
 				continue;
 			}
 
@@ -203,21 +209,12 @@ void UpdateCollision()
 			}
 			else
 			{
-				m_temp -= 1;
+				if (m_temp > 0)
+				{
+					m_temp -= 1;
+				}
 			}
 		}
-		//全てのブロックを見た後にジャンプフラグを設定する
-		//ギミックウォールの方もよろしくお願いします
-		if (m_temp > 0 || temp > 2)
-		{
-			cat->jump_flag = true;
-			cat->nowjump_flag = 0;
-		}
-		else
-		{
-			cat->jump_flag = false;
-		}
-
 		//==============================================================================================================================
 		//			//ギミックウォールと猫の当たり判定/////////////////////////////////////////////////////////////////////////////////
 		//==============================================================================================================================
@@ -227,45 +224,78 @@ void UpdateCollision()
 			//もし構造体を使ってなかったらスキップ
 			if (gimmickwall[i].use != true)
 			{
+				if (g_temp > 0)
+				{
+					g_temp -= 1;
+				}
 				continue;
 			}
 
-			float GimmickWallTopM = gimmickwall[i].pos.y - SIZE / 2;
-			float GimmickWallBottomM = gimmickwall[i].pos.y + SIZE / 2;
-			float GimmickWallLeftM = gimmickwall[i].pos.x - SIZE / 2;
-			float GimmickWallRightM = gimmickwall[i].pos.x + SIZE / 2;
+			float GimmickWallTop = gimmickwall[i].pos.y - SIZE / 2;
+			float GimmickWallBottom = gimmickwall[i].pos.y + SIZE / 2;
+			float GimmickWallLeft = gimmickwall[i].pos.x - SIZE / 2;
+			float GimmickWallRight = gimmickwall[i].pos.x + SIZE / 2;
 
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, gimmickwall[i].pos,
-				D3DXVECTOR2(SIZE, SIZE),
+				D3DXVECTOR2(CAT_SIZE_W, CAT_SIZE_H),
 				D3DXVECTOR2(SIZE, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
 			{
-				//猫がブロックより右
-				if (CatLeft <= GimmickWallRightM && cat->pos.x > GimmickWallRightM)
+				//ブロックより上(重力GRAVの影響も排除する)
+				if (CatBottom - GRAV <= GimmickWallTop && cat->pos.y < gimmickwall[i].pos.y)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = GimmickWallRightM + SIZE / 2 + cat->dir.x + 1;
+					cat->pos.y = GimmickWallTop - GRAV - SIZE / 2;
+					g_temp = WALL_MAX;
+				}
+				//ブロックより下
+				else if (CatTop <= GimmickWallBottom &&
+					cat->pos.y - (CAT_SIZE_H / 2 - GRAV) > gimmickwall[i].pos.y + (SIZE / 2 - GRAV))
+				{
+					//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
+					cat->jump_y = 0;
+				}
+				//猫がブロックより右
+				else if (CatLeft <= GimmickWallRight && cat->pos.x > GimmickWallRight)
+				{
+					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+					cat->pos.x = GimmickWallRight + SIZE / 2 + cat->dir.x + 1;
 
 					//壁にぶつかったら反転。右へ
 					ChangeMoveFlag(cat);
 				}
 				//猫がブロックより左 
-				else if (CatRight >= GimmickWallLeftM && CatRight < gimmickwall[i].pos.x)
+				else if (CatRight >= GimmickWallLeft && CatRight < gimmickwall[i].pos.x)
 				{//左
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = GimmickWallLeftM - SIZE / 2 - cat->dir.x -1;
+					cat->pos.x = GimmickWallLeft - SIZE / 2 - cat->dir.x -1;
 
 					//壁にぶつかったら反転。左へ
 					ChangeMoveFlag(cat);
-
+				}
+			}
+			else
+			{
+				if (g_temp > 0)
+				{
+					g_temp -= 1;
 				}
 			}
 		}
-
+		//全てのブロックを見た後にジャンプフラグを設定する
+		if (g_temp > 0 || m_temp > 0 || temp > 2)
+		{
+			cat->jump_flag = true;
+			cat->nowjump_flag = 0;
+		}
+		else
+		{
+			cat->jump_flag = false;
+		}
 		//==============================================================================================================================
 		//		//ブロックジャンプセンサーと猫の当たり判定//////////////////////////////////////////////////////////////////////////////
 		//==============================================================================================================================
@@ -278,12 +308,10 @@ void UpdateCollision()
 				continue;
 			}
 			
-
 			float JumpSensorTopM = block[i].pos.y - SIZE / 2;
 			float JumpSensorBottomM = block[i].pos.y + SIZE / 2;
 			float JumpSensorLeftM = block[i].pos.x - SIZE / 2 - SENSOR_SIZE;
 			float JumpSensorRightM = block[i].pos.x + SIZE / 2 + SENSOR_SIZE;
-
 
 			//当たり判定を行う
 			bool hit = CollisionBB(
@@ -419,6 +447,92 @@ void UpdateCollision()
 				}
 				//猫が床ブロックより左
 				else if (CatRight >= JumpSensorLeftM && CatRight < m_block[i].pos.x)
+				{//左
+
+					if (cat->move_flag == false)
+					{
+						//ブロックとぶつかったとき飛べる高さか調べる関数
+						//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
+						//下で作成
+
+						//ジャンプする段数が0以上2未満かどうか
+						//0は何かしらのエラー　2は飛ばずに引き返す
+						if (jumpheight > 0 &&
+							jumpheight < 2)
+						{
+							//地面についているか
+							if (cat->jump_flag == true)
+							{
+								CatJump(jumpheight);
+							}
+						}
+						else
+						{
+							//引き返す
+							ChangeMoveFlag(cat);
+						}
+					}
+				}
+			}
+		}
+//==============================================================================================================================
+//		//ギミック壁ジャンプセンサーと猫の当たり判定//////////////////////////////////////////////////////////////////////////
+//==============================================================================================================================
+		for (int i = 0; i < WALL_MAX; i++)
+		{
+
+			//もし構造体を使ってなかったらスキップ
+			if (gimmickwall[i].use != true)
+			{
+				continue;
+			}
+
+			float JumpSensorTopM = gimmickwall[i].pos.y - SIZE / 2;
+			float JumpSensorBottomM = gimmickwall[i].pos.y + SIZE / 2;
+			float JumpSensorLeftM = gimmickwall[i].pos.x - SIZE / 2 - SENSOR_SIZE;
+			float JumpSensorRightM = gimmickwall[i].pos.x + SIZE / 2 + SENSOR_SIZE;
+			//当たり判定を行う
+			bool hit = CollisionBB(
+				cat->pos, gimmickwall[i].pos,
+				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2, 1.0f),
+				D3DXVECTOR2(SIZE, SIZE)
+			);
+			//ブロックに触れていて
+			if (hit == true)
+			{
+				//目の前のブロックの高さをとる
+				int jumpheight = SearchJumpHeightG(gimmickwall, cat, i);
+
+				//猫が床ブロックより右
+				if (CatLeft <= JumpSensorRightM && cat->pos.x > JumpSensorRightM)
+				{
+					if (cat->move_flag == true)
+					{
+						//ブロックとぶつかったとき飛べる高さか調べる関数
+						//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
+						//下で作成
+
+						//ジャンプする段数が0以上2未満かどうか
+						//0は何かしらのエラー　2は飛ばずに引き返す
+						if (jumpheight > 0 &&
+							jumpheight < 2)
+						{
+							//地面についているか
+							if (cat->jump_flag == true)
+							{
+								CatJump(jumpheight);
+							}
+						}
+						else
+						{
+							//引き返す
+							ChangeMoveFlag(cat);
+						}
+
+					}
+				}
+				//猫が床ブロックより左
+				else if (CatRight >= JumpSensorLeftM && CatRight < gimmickwall[i].pos.x)
 				{//左
 
 					if (cat->move_flag == false)
@@ -644,6 +758,85 @@ float SearchJumpHeightB(BLOCK* b, CAT* c, int i)
 	return catjump_height;
 }
 
+//ギミックブロックとぶつかったとき飛べる高さか調べる関数 床ブロックとぶつかったとき
+//引数:g_wallのポインタ,猫ポインタ,ぶつかったブロックの添え字
+float SearchJumpHeightG(G_WALL* g, CAT* c, int i)
+{
+	//ジャンプフラグがtrueだったら
+					//床についていたら
+	if (GetJumpFlag() == true)
+	{
+
+		//全ブロックを探知
+		//ぶつかったブロックと同じx座標で一個上の高さのブロックを探す
+		//それがあったら二個上の高さのブロックを探す
+		//全部あれば三個分ジャンプ　ジャンプの高さを決める
+		for (int a = 0; a < BLOCK_MAX; a++)
+		{
+			//全部のブロックが見つかったら終了
+			if (blockexist1 == true)
+			{
+				break;
+			}
+
+			//x座標が同じなら
+			if (g[a].pos.x == g[i].pos.x)
+			{
+				//y軸が一個上なら
+				if (g[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
+					g[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
+				{
+					blockexist1 = true;
+				}
+			}
+
+		}
+
+		for (int a = 0; a < BLOCK_MAX; a++)
+		{
+			//全部のブロックが見つかったら終了
+			if (blockexist1 == true)
+			{
+				break;
+			}
+
+			//x座標が同じなら
+			if (g[a].pos.x == g[i].pos.x)
+			{
+				//y軸が一個上なら
+				if (g[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
+					g[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
+				{
+					blockexist1 = true;
+				}
+			}
+
+		}
+
+		//何段飛べるという変数を渡す
+		//blockexisitをfalseにする
+
+		//どっちも見つからなかった時
+		if (blockexist1 == false)
+		{
+			catjump_height = 1;
+			enablejump = true;
+		}
+		//一個上だけ存在する
+		else if (blockexist1 == true)
+		{
+			catjump_height = 2;
+			enablejump = false;
+		}
+	}
+
+	//二個上のブロックだけ存在した際どうするかは今後考える
+	//else if (blockexist1 == false && blockexist2 == true)
+
+	blockexist1 = false;
+	return catjump_height;
+}
+
 
 int GetBlockNum()
 {
@@ -685,6 +878,45 @@ void BlockCollision()
 							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 							m_block[i].Speed.y = 0;
 							m_block[i].pos.y = BlockTop - 1 - DRAW_SIZE / 2;
+						}
+					}
+				}
+			}
+		}
+	}
+	//==============================================================================================================================
+	//		//ギミック壁とMOVEブロック同士の当たり判定//////////////////////////////////////////////////////////////////////////////
+	//==============================================================================================================================
+		//動くブロックと動かないブロックの当たり判定
+	for (int i = 0; i < MOVE_BLOCK_MAX; i++)
+	{
+		//動くブロックは存在する？
+		if (m_block[i].use == true)
+		{
+			float BlockTopI = m_block[i].pos.y - SIZE / 2;
+			float BlockBottomI = m_block[i].pos.y + SIZE / 2;
+			//もう一つの構造体を全て調べる
+			for (int n = 0; n < WALL_MAX; n++)
+			{
+				//ギミック壁は実在する？
+				if (gimmickwall[n].use == true)
+				{
+					float G_Top = gimmickwall[n].pos.y - SIZE / 2;
+					float G_Bottom = gimmickwall[n].pos.y + SIZE / 2;
+					//当たり判定
+					bool hit = CollisionBB(
+						m_block[i].pos, gimmickwall[n].pos,
+						D3DXVECTOR2(SIZE, SIZE),
+						D3DXVECTOR2(SIZE, SIZE)
+					);
+					if (hit == true)
+					{
+						//Nブロックより上(重力GRAVの影響も排除する)
+						if (BlockBottomI - GRAV <= G_Top && m_block[i].pos.y < gimmickwall[n].pos.y)
+						{
+							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+							m_block[i].Speed.y = 0;
+							m_block[i].pos.y = G_Top - 1 - DRAW_SIZE / 2;
 						}
 					}
 				}
