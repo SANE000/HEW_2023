@@ -19,6 +19,7 @@ static STAGE  g_InStage[STAGE_MAX];
 static int	g_TextureNo;		// テクスチャ識別子
 static int	StageNum = 0;		// テクスチャ識別子
 static int  FieldNum = 0;
+static int	ClearNum = 0;
 static int time = 0;
 
 static float num;
@@ -76,7 +77,6 @@ HRESULT InitStageSelect()
 		g_InStage[i] = InitData1[i];
 		g_InStage[i].texNo = LoadTexture((char*)"data/TEXTURE/stage.png");
 	}
-
 
 	return S_OK;
 }
@@ -184,7 +184,6 @@ void UpdateStageSelect()
 		}
 
 	}
-
 	num += 0.1f;
 }
 

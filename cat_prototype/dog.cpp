@@ -6,12 +6,14 @@
 #include "shop.h"
 #include "stageselect.h"
 #include "block.h"
+#include "result.h"
 
 //------------------------
 //グローバル変数
 //------------------------
 static int field;
 static int stage;
+static int clear;
 static DOG g_Dog[DOG_MAX];
 
 DOG InitData12[] = 
@@ -36,10 +38,11 @@ HRESULT InitDog()
 	//ステージを把握して
 	field = SetField();
 	stage = SetStage();
+	clear = SetClear();
 	//1-2だけ犬を表示
 	if (field == 0)
 	{
-		if (stage == 1)
+		if (stage == 1 && clear >= 1)
 		{
 			for (int i = 0; i < DOG_MAX; i++)
 			{
@@ -48,7 +51,7 @@ HRESULT InitDog()
 				g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\dog_sample.png");
 			}
 		}
-		else if (stage == 2)
+		else if (stage == 2 && clear >= 2)
 		{
 			for (int i = 0; i < DOG_MAX; i++)
 			{

@@ -11,6 +11,7 @@
 #include "camera.h"
 #include "gimmick_wall.h"
 #include "stageselect.h"
+#include "result.h"
 
 //==========================================
 //
@@ -40,6 +41,7 @@ HRESULT InitGimmickWall()
 {
 	int field_gw = SetField();
 	int stage_gw = SetStage();
+    int clear_gw = SetClear();
 
 	for (int i = 0; i < WALL_MAX; i++)
 	{
@@ -57,12 +59,12 @@ HRESULT InitGimmickWall()
 		{
 
 		}
-		else if (stage_gw == 1)
+		else if (stage_gw == 1 && clear_gw >= 1)
 		{
 			InitWall_12();
 
 		}
-		else if (stage_gw == 2)
+		else if (stage_gw == 2 && clear_gw >= 2)
 		{
 			InitWall_13();
 		}
@@ -158,6 +160,7 @@ void UninitGimmickWall()
 {
 	int field_gw = SetField();
 	int stage_gw = SetStage();
+	int clear_gw = SetClear();
 
 	switch (field_gw)
 	{
@@ -167,7 +170,7 @@ void UninitGimmickWall()
 		{
 
 		}
-		else if (stage_gw == 1)
+		else if (stage_gw == 1 && clear_gw >= 1)
 		{
 			for (int i = 0; i < WALL_MAX; i++)
 			{
@@ -179,7 +182,7 @@ void UninitGimmickWall()
 				g_wall[i].use = false;
 			}
 		}
-		else if (stage_gw == 2)
+		else if (stage_gw == 2 && clear_gw >= 2)
 		{
 			for (int i = 0; i < WALL_MAX; i++)
 			{
@@ -285,6 +288,7 @@ void UpdateGimmickWall()
 
 	int field_gw = SetField();
 	int stage_gw = SetStage();
+	int clear_gw = SetClear();
 
 	switch (field_gw)
 	{
@@ -294,7 +298,7 @@ void UpdateGimmickWall()
 		{
 
 		}
-		else if (stage_gw == 1)
+		else if (stage_gw == 1 && clear_gw >= 1)
 		{
 			//ボタンが押されたら全部falseにする
 			if (pb[54].button == false)
@@ -306,7 +310,7 @@ void UpdateGimmickWall()
 			}
 
 		}
-		else if (stage_gw == 2)
+		else if (stage_gw == 2 && clear_gw >= 2)
 		{
 			//ボタンが押されたら全部falseにする
 			if (pb[112].button == false)

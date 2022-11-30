@@ -9,6 +9,7 @@
 #include "stageselect.h"
 #include "inputx.h"
 #include "keyboard.h"
+#include "result.h"
 
 //プロトタイプ宣言
 void InitStage11();
@@ -28,6 +29,7 @@ static BLOCK g_Block[BLOCK_MAX];
 
 //ステージ選択テスト用なので手動でInitで選んでます。
 //ステージ選択画面ができたら消しちゃってください
+static int clear;
 static int field;
 static int stage;
 //world = 0なら一面の
@@ -41,21 +43,24 @@ HRESULT InitBlock()
 	{
 		//テクスチャロード 画像の名前を入れよう
 		g_Block[i].texNo = LoadTexture((char*)"data\\texture\\block.png");
+		//ブロックのリセット
+		g_Block[i].Patern = 0.0f;
 	}
 	/////////////ここでステージセレクトのセッターゲットしたらいけるかな
 	field = SetField();
 	stage = SetStage();
+	clear = SetClear();
 	////////////////////////////////////////////////////////////////////
 	//ステージテスト
 	//増えてきたらswitch構文でつくってもいいかも
 	if (field == 0)
 	{
-		if (stage == 0)
+		if (stage == 0 && clear >= 0)
 		{
 			//足場ブロックの設置.一番最後に設定
 			InitStage11();
 		}
-		else if (stage == 1)
+		else if (stage == 1 && clear >= 1)
 		{
 			InitStage12();
 			//InitStage12()のなかとヘッダーのほうのデフォルトでボタン以外はfalseにしておきました。
@@ -74,7 +79,7 @@ HRESULT InitBlock()
 			//}
 			InitGimmickWall();
 		}
-		else if (stage == 2)
+		else if (stage == 2 && clear >= 2)
 		{
 			InitStage13();
 			InitGimmickWall();

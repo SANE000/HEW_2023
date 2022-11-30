@@ -31,3 +31,6 @@ void SetTime(int time);
 
 void SetBlock(int block);
 
+//クリアの値のセット
+int SetClear();
+
