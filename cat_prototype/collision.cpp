@@ -877,7 +877,6 @@ void BlockCollision()
 						if (BlockBottomI - GRAV <= G_Top && m_block[i].pos.y < gimmickwall[n].pos.y)
 						{
 							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-							m_block[i].Speed.y = 0;
 							m_block[i].pos.y = G_Top - 1 - DRAW_SIZE / 2;
 						}
 					}
