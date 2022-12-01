@@ -11,6 +11,8 @@
 #include "timer.h"
 #include "collision.h"
 #include "camera.h"
+#include "preview_collision.h"
+
 //マクロ定義
 #define BULLET_WAIT (28)
 #define ROT_WAIT (10)
@@ -59,6 +61,9 @@ void UnInitPlayer()
 //更新処理
 void UpdatePlayer()
 {
+	//今現在のプレイヤーの座標を記憶しておく
+	D3DXVECTOR2 now_playerpos = g_Player.pos;
+
 	if (time > 0)
 	{
 		time -= 1;
@@ -132,11 +137,15 @@ void UpdatePlayer()
 		if (Keyboard_IsKeyDown(KK_SPACE) && g_Player.bwait == 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && g_Player.bwait == 0)
 		{
 			if (FalseExistCheck() == true)
+			{
+				blockscore++;//ブロックを何個使ったか
+
 				SetMoveBlock();
+
+			}
 			//要調整
 			g_Player.bwait = BULLET_WAIT;
 
-			blockscore++;//ブロックを何個使ったか
 		}
 
 		//リセットキー
@@ -150,6 +159,21 @@ void UpdatePlayer()
 		{
 			SetScene(SCENE_GAMEOVER);
 		}
+
+		//ブロックプレビュー更新
+		UpdateBlockPreview(g_Player.pos);
+
+		//プレビューブロックがブロックにめりこんでいたら
+		if (PreviewCollisionCheck() == true)
+		{
+			//プレイヤーの座標を最初の状態に戻して
+			g_Player.pos = now_playerpos;
+
+			//ブロックプレビュー更新
+			UpdateBlockPreview(g_Player.pos);
+		}
+
+
 	}
 }
 void DrawPlayer()

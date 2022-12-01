@@ -25,6 +25,11 @@ struct MOVE_BLOCK
 	D3DXVECTOR2 Speed;
 	//ブロックの種類判別用変数
 	int type;
+
+	//ブロックを設置する際に値を入れる。
+	//次ブロックを設置するときは前とは違う値が入る。　一度に置くブロックをグループととらえて判別するための変数
+	int group;
+
 };
 
 struct PREVIEW_BLOCK

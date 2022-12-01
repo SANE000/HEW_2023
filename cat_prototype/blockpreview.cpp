@@ -47,6 +47,7 @@ HRESULT InitPreview()
 		g_MoveBlock[i].type = 1;
 		g_MoveBlock[i].Speed.x = 0.0f;
 		g_MoveBlock[i].Speed.y = 0.0f;
+		g_MoveBlock[i].group = 0;
 	}
 
 	//プレビューブロック初期化
@@ -190,8 +191,6 @@ void UpdatePreview()
 			FalsePreviewBlock();
 			BlockPreview(GetPlayer()->pos);
 		}
-
-		UpdateBlockPreview(GetPlayer()->pos);
 	}
 
 	//今回のこの変数の値を覚えておく　
@@ -327,6 +326,7 @@ void SetMoveBlock()
 				//フラグを使用中にして
 				g_MoveBlock[i].use = true;
 				g_MoveBlock[i].Speed.y = GRAV;
+				g_MoveBlock[i].group = BlockScore();
 				////サウンド再生
 				//PlaySound(BulletSoundNo, 0);
 				//1つ作ったら終わり！
@@ -357,6 +357,11 @@ void SetMoveBlock()
 		BlockPreview(GetPlayer()->pos);
 
 	}
+	else
+	{
+		//使い切ったら当たり判定が残らないように消す
+		FalsePreviewBlock();
+	}
 	/*previewblocknum = 0;
 	FalsePreviewBlock();
 	BlockPreview(GetPlayer()->pos);*/
@@ -380,9 +385,9 @@ void BlockPreview(D3DXVECTOR2 pos)
 		//中心が一番最初　左のほうが優先　上のほうが優先
 
 	case 0:
-		//■■■
-		//　　■
-		previewblocknum = 4;
+		//　■
+		//■□
+		previewblocknum = 3;
 		for (int i = 0; i < previewblocknum; i++)
 		{
 			g_PreviewBlock[i].use = true;
@@ -390,9 +395,8 @@ void BlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y + SIZE + GRAV);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y);
 
 		break;
 
@@ -400,10 +404,8 @@ void BlockPreview(D3DXVECTOR2 pos)
 		//■
 		//■
 		//■
-		//■
-		//■
 
-		previewblocknum = 5;
+		previewblocknum = 3;
 		for (int i = 0; i < previewblocknum; i++)
 		{
 			g_PreviewBlock[i].use = true;
@@ -411,10 +413,8 @@ void BlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE * 2 - 5);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
-		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x, pos.y + SIZE * 2 + 5);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + DRAW_SIZE);
 
 		break;
 
@@ -431,10 +431,10 @@ void BlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
-		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + DRAW_SIZE);
+		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y);
+		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + DRAW_SIZE, pos.y);
 
 		break;
 
@@ -450,9 +450,9 @@ void BlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y - SIZE - 1);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y - DRAW_SIZE);
+		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y);
 
 		break;
 
@@ -472,76 +472,66 @@ void BlockPreview(D3DXVECTOR2 pos)
 void UpdateBlockPreview(D3DXVECTOR2 pos)
 {
 	//中心のブロックは□で書いておく
-	//空中でブロックとブロックがぶつかると当たり判定が発動して止まるためｙ座標は少し放しておくこと
+	//空中でブロックとブロックがぶつかると当たり判定が発動して止まるためｙ座標は少し放しておくこと <-もう大丈夫！くっつけても動きます
 	switch (nexttype)
 	{
 		//ブロックの順番の優先度
 		//中心が一番最初　左のほうが優先　上のほうが優先
 
 	case 0:
-		//■□■
-		//　　■
+
 
 		g_PreviewBlock[0].pos = pos;
 
+
+		//　■
+		//■□
 		if (g_PreviewBlock[0].rot == 0)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y + SIZE + GRAV);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
 		}
-		//　■
-		//　□
-		//■■
+		//■
+		//□■
 		if (g_PreviewBlock[0].rot == 90)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y + SIZE + GRAV);
-		}
-		//■
-		//■□■
-		if (g_PreviewBlock[0].rot == 180)
-		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - SIZE, pos.y - SIZE - GRAV);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + DRAW_SIZE, pos.y);
 
 		}
-		//■■
-		//□
+		//□■
 		//■
+		if (g_PreviewBlock[0].rot == 180)
+		{
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y + DRAW_SIZE);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + DRAW_SIZE, pos.y);
+		}
+		//■□
+		//　■
 		if (g_PreviewBlock[0].rot == 270)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y - SIZE - GRAV);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + DRAW_SIZE);
 		}
 		break;
 
 	case 1:
 		//■
-		//■
 		//□
-		//■
 		//■
 
 		g_PreviewBlock[0].pos = pos;
 
 		if (g_PreviewBlock[0].rot == 0 || g_PreviewBlock[0].rot == 180)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE * 2 - 5);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
-			g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x, pos.y + SIZE * 2 + 5);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + DRAW_SIZE);
 		}
-		//■■□■■
+		//■□■
 		else if (g_PreviewBlock[0].rot == 90 || g_PreviewBlock[0].rot == 270)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - SIZE * 2, pos.y);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
-			g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + SIZE * 2, pos.y);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + DRAW_SIZE, pos.y);
 		}
 
 		break;
@@ -550,10 +540,10 @@ void UpdateBlockPreview(D3DXVECTOR2 pos)
 		//どの角度でも一緒
 		g_PreviewBlock[0].pos = pos;
 
-		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
-		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
-		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
-		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
+		g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
+		g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x, pos.y + DRAW_SIZE);
+		g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y);
+		g_PreviewBlock[4].pos = D3DXVECTOR2(pos.x + DRAW_SIZE, pos.y);
 
 		break;
 
@@ -566,34 +556,34 @@ void UpdateBlockPreview(D3DXVECTOR2 pos)
 
 		if (g_PreviewBlock[0].rot == 0)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y - SIZE - GRAV);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y - DRAW_SIZE);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y);
 		}
 		//■■
 		//□■
 		if (g_PreviewBlock[0].rot == 90)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - SIZE - GRAV);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + SIZE, pos.y - SIZE - GRAV);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - DRAW_SIZE);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + DRAW_SIZE, pos.y - DRAW_SIZE);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + DRAW_SIZE, pos.y);
 		}
 		//□■
 		//■■
 		if (g_PreviewBlock[0].rot == 180)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + SIZE, pos.y);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + SIZE, pos.y + SIZE + GRAV);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y + DRAW_SIZE);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x + DRAW_SIZE, pos.y);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x + DRAW_SIZE, pos.y + DRAW_SIZE);
 
 		}
 		//■□
 		//■■
 		if (g_PreviewBlock[0].rot == 270)
 		{
-			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y + SIZE + GRAV);
-			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - SIZE, pos.y);
-			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - SIZE, pos.y + SIZE + GRAV);
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y + DRAW_SIZE);
+			g_PreviewBlock[2].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y);
+			g_PreviewBlock[3].pos = D3DXVECTOR2(pos.x - DRAW_SIZE, pos.y + DRAW_SIZE);
 		}
 		break;
 

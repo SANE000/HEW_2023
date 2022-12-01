@@ -934,8 +934,8 @@ void BlockCollision()
 	}
 
 	//==============================================================================================================================
-	//		//MOVEブロック同士の当たり判定//////////////////////////////////////////////////////////////////////////////////////////
-	//==============================================================================================================================
+//		//MOVEブロック同士の当たり判定//////////////////////////////////////////////////////////////////////////////////////////
+//==============================================================================================================================
 	for (int i = 0; i < MOVE_BLOCK_MAX; i++)
 	{
 		//ブロックは存在する？
@@ -964,8 +964,8 @@ void BlockCollision()
 					//当たり判定
 					bool hit = CollisionBB(
 						m_block[i].pos, m_block[n].pos,
-						D3DXVECTOR2(DRAW_SIZE, SIZE),
-						D3DXVECTOR2(DRAW_SIZE, SIZE)
+						D3DXVECTOR2(DRAW_SIZE, SIZE + GRAV * 2),
+						D3DXVECTOR2(DRAW_SIZE, SIZE + GRAV * 2)
 					);
 					if (hit == true)
 					{
@@ -986,33 +986,62 @@ void BlockCollision()
 								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 								{
 									m_block[i].Speed.y = 0;
-									m_block[i].pos.y = BlockTopN - 1 - DRAW_SIZE / 2;
+									m_block[i].pos.y = BlockTopN - DRAW_SIZE / 2;
 								}
 							}
 						}
+						//Nブロックより下(重力GRAVの影響も排除する)
+						if (m_block[i].pos.y > m_block[n].pos.y)
+						{
+							//BlockBottomI - GRAV  <= BlockTopN &&
+
+							//下にあるブロックが地面に触れているブロックなのか確かめてそうなら当たり判定で止まる処理の追加の必要があるかも
+							if (m_block[i].pos.x - DRAW_SIZE / 2 <= m_block[n].pos.x && m_block[i].pos.x + DRAW_SIZE / 2 >= m_block[n].pos.x)
+							{
+								if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
+								{
+									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+									m_block[n].Speed.y = 0;
+									m_block[n].pos.y = BlockTopI - DRAW_SIZE / 2;
+
+								}
+								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
+								{
+									m_block[i].Speed.y = 0;
+									m_block[i].pos.y = BlockBottomN + DRAW_SIZE / 2;
+
+								}
+							}
+						}
+
 						//Nブロックより右
 						if (BlockLeftI <= BlockRightN && m_block[i].pos.x > BlockRightN)
 						{
 							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 							if (m_block[i].pos.y - SIZE / 2 <= m_block[n].pos.y && m_block[i].pos.y + SIZE / 2 >= m_block[n].pos.y)
 							{
-								if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
+								//同じグループのブロックか
+								if (m_block[i].group == m_block[n].group)
 								{
-									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+									if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
+									{
+										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 
-									m_block[n].Speed.y = 0;
-									m_block[n].pos.x = BlockLeftI - DRAW_SIZE / 2;
-									m_block[n].pos.y = m_block[i].pos.y;
+										m_block[n].Speed.y = 0;
+										m_block[n].pos.x = BlockLeftI - DRAW_SIZE / 2;
+										m_block[n].pos.y = m_block[i].pos.y;
 
-									//block[i].Hit = true;
-									//temp = BLOCK_MAX;
+										//block[i].Hit = true;
+										//temp = BLOCK_MAX;
+									}
+									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
+									{
+										m_block[i].Speed.y = 0;
+										m_block[i].pos.x = BlockRightN + DRAW_SIZE / 2;
+										m_block[i].pos.y = m_block[n].pos.y;
+									}
 								}
-								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
-								{
-									m_block[i].Speed.y = 0;
-									m_block[i].pos.x = BlockRightN + DRAW_SIZE / 2;
-									m_block[i].pos.y = m_block[n].pos.y;
-								}
+
 
 							}
 						}
@@ -1022,19 +1051,23 @@ void BlockCollision()
 
 							if (m_block[i].pos.y - SIZE / 2 <= m_block[n].pos.y && m_block[i].pos.y + SIZE / 2 >= m_block[n].pos.y)
 							{
-								if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
+								if (m_block[i].group == m_block[n].group)
 								{
-									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-									m_block[n].Speed.y = 0;
-									m_block[n].pos.x = BlockRightI + DRAW_SIZE / 2;
-									m_block[n].pos.y = m_block[i].pos.y;
+									if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
+									{
+										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+										m_block[n].Speed.y = 0;
+										m_block[n].pos.x = BlockRightI + DRAW_SIZE / 2;
+										m_block[n].pos.y = m_block[i].pos.y;
+									}
+									else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
+									{
+										m_block[i].Speed.y = 0;
+										m_block[i].pos.x = BlockLeftN - DRAW_SIZE / 2;
+										m_block[i].pos.y = m_block[n].pos.y;
+									}
 								}
-								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
-								{
-									m_block[i].Speed.y = 0;
-									m_block[i].pos.x = BlockLeftN - DRAW_SIZE / 2;
-									m_block[i].pos.y = m_block[n].pos.y;
-								}
+
 							}
 
 						}
@@ -1043,6 +1076,7 @@ void BlockCollision()
 			}
 		}
 	}
+
 }
 
 //==============================================================================================================================
