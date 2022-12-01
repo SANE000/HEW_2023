@@ -103,6 +103,16 @@ void UpdateCollision()
 					{
 						ChangeMoveFlag(cat);
 					}
+					//else 
+					//	バネブロックで中心あたりに乗った時跳ねる処理
+					//if(m_block[i].patern == )
+					//{
+					//	if (block[i].pos.x - 10.0f < cat->pos.x && block[i].pos.x + 10.0f > cat->pos.x)
+					//	{
+					//		//とりあえず三段	
+					//		CatJump(3.0f);
+					//	}
+					//}
 
 					if (block[i].button == true)
 					{
@@ -934,8 +944,8 @@ void BlockCollision()
 			//存在が分かってから入れる
 			float BlockTopI = m_block[i].pos.y - SIZE / 2;
 			float BlockBottomI = m_block[i].pos.y + SIZE / 2;
-			float BlockLeftI = m_block[i].pos.x - SIZE / 2;
-			float BlockRightI = m_block[i].pos.x + SIZE / 2;
+			float BlockLeftI = m_block[i].pos.x - DRAW_SIZE / 2;
+			float BlockRightI = m_block[i].pos.x + DRAW_SIZE / 2;
 			//もう一つの構造体を全て調べる
 			for (int n = 0; n < MOVE_BLOCK_MAX; n++)
 			{
@@ -949,13 +959,13 @@ void BlockCollision()
 					//存在が分かり自分以外だったら入れる
 					float BlockTopN = m_block[n].pos.y - SIZE / 2;
 					float BlockBottomN = m_block[n].pos.y + SIZE / 2;
-					float BlockLeftN = m_block[n].pos.x - SIZE / 2;
-					float BlockRightN = m_block[n].pos.x + SIZE / 2;
+					float BlockLeftN = m_block[n].pos.x - DRAW_SIZE / 2;
+					float BlockRightN = m_block[n].pos.x + DRAW_SIZE / 2;
 					//当たり判定
 					bool hit = CollisionBB(
 						m_block[i].pos, m_block[n].pos,
-						D3DXVECTOR2(SIZE, SIZE),
-						D3DXVECTOR2(SIZE, SIZE)
+						D3DXVECTOR2(DRAW_SIZE, SIZE),
+						D3DXVECTOR2(DRAW_SIZE, SIZE)
 					);
 					if (hit == true)
 					{
@@ -965,7 +975,7 @@ void BlockCollision()
 							//BlockBottomI - GRAV  <= BlockTopN &&
 
 							//下にあるブロックが地面に触れているブロックなのか確かめてそうなら当たり判定で止まる処理の追加の必要があるかも
-							if (m_block[i].pos.x - SIZE / 2 <= m_block[n].pos.x && m_block[i].pos.x + SIZE / 2 >= m_block[n].pos.x)
+							if (m_block[i].pos.x - DRAW_SIZE / 2 <= m_block[n].pos.x && m_block[i].pos.x + DRAW_SIZE / 2 >= m_block[n].pos.x)
 							{
 								if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 								{
