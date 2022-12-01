@@ -35,11 +35,7 @@ void UpdateDogCollision()
 				bool hit = DogCollisionBB(cat->pos, dog[i].pos, D3DXVECTOR2(SIZE, SIZE), D3DXVECTOR2(dog[i].w, dog[i].h));
 				if (hit == true)
 				{
-					//ChangeMoveFlag(cat);
 					SetScene(SCENE_GAMEOVER);
-					//cat->use = false;
-					//cat->move_flag = false;
-					//cat->jump_flag = false;
 				}
 			}
 		}
@@ -100,16 +96,12 @@ void UpdateDogCollision()
 					{
 						//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 						dog[i].pos.x = BlockRight + SIZE / 2;
-						//壁にぶつかったら反転。右へ
-						//ChangeMoveFlag(cat);
 					}
 					//床ブロックより左
 					else if (DogRight >= BlockLeft && dog[i].pos.x < block[i].pos.x)
 					{//左
 						//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 						dog[i].pos.x = BlockLeft - SIZE / 2;
-						//壁にぶつかったら反転。左へ
-						//ChangeMoveFlag(cat);
 					}
 				}
 			}
@@ -164,37 +156,28 @@ void UpdateDogCollision()
 			}
 		}
 
-		//close to dog
-		if (cat->use == true)
-		{
-			for (int i = 0; i < DOG_MAX; i++)
-			{
-				if (dog[i].use == true)
-				{
-					//if (cat->pos.x > (dog[i].pos.x - cat->pos.x) - 30)
-					//{
-					//	dog[i].pos.x += -DOG_SPEED * 0.1f;
-					//	if (dog[i].pos.x < cat->pos.x)
-					//	{
-					//		dog[i].pos.x = cat->pos.x;
-
-					//	}
-					//}
-					if (dog[i].pos.x < cat->pos.x)
-					{
-						if (dog[i].framewait <= 0.0)
-						{
-							//要調整　バネや壁をすり抜けるためバグ修正が必要
-							dog[i].pos.x += DOG_SPEED * 0.16f;
-						}
-						else
-						{
-							dog[i].framewait--;
-						}
-					}
-				}
-			}
-		}
+		////close to dog
+		//if (cat->use == true)
+		//{
+		//	for (int i = 0; i < DOG_MAX; i++)
+		//	{
+		//		if (dog[i].use == true)
+		//		{
+		//			if (dog[i].pos.x < cat->pos.x)
+		//			{
+		//				if (dog[i].framewait <= 0.0)
+		//				{
+		//					//要調整　バネや壁をすり抜けるためバグ修正が必要
+		//					dog[i].pos.x += DOG_SPEED * 0.16f;
+		//				}
+		//				else
+		//				{
+		//					dog[i].framewait--;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
 
 	}
 }

@@ -1,5 +1,6 @@
 #include "main.h"
 #include "dog.h"
+#include "cat.h"
 #include "texture.h"
 #include "sprite.h"
 #include "camera.h"
@@ -18,16 +19,16 @@ static DOG g_Dog[DOG_MAX];
 
 DOG InitData12[] = 
 {
-	{true,false,false,D3DXVECTOR2(580,210),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,0,0},
-	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 59, DEFO_SIZE_Y - DRAW_SIZE * 6),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,0,0},
-	{true,false,false,D3DXVECTOR2(5200,210),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,0,0}
+	{true,false,false,D3DXVECTOR2(580,210),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 59, DEFO_SIZE_Y - DRAW_SIZE * 6),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{true,false,false,D3DXVECTOR2(5200,210),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0}
 };
 
 DOG InitData13[] =
 {
-	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 1),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,0,0},
-	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 36, DEFO_SIZE_Y - DRAW_SIZE * 7),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,0,0},
-	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 66, DEFO_SIZE_Y - DRAW_SIZE * 7),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,0,0}
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 1),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 36, DEFO_SIZE_Y - DRAW_SIZE * 7),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 66, DEFO_SIZE_Y - DRAW_SIZE * 7),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0}
 };
 
 //------------------------
@@ -88,15 +89,31 @@ void UpdateDog()
 			g_Dog[i].pos.y += GRAV;
 		}
 
-		//if (g_Dog[i].move_flag == false)
-		//{
-		//	g_Dog[i].pos.x += g_Dog[i].dir.x;
-		//}
-		
-		//if (g_Dog[i].move_flag == false)
-		//{
-		//	g_Dog[i].pos.x += DOG_SPEED;
-		//}
+		if (g_Dog[i].use == true)
+		{
+			D3DXVECTOR2 CloseToDog;
+			CloseToDog.x = 300.0f;
+			D3DXVECTOR2 temp;
+			CAT* cat = GetCat();
+			temp = g_Dog[i].pos - cat->pos;
+			if (temp.x <= CloseToDog.x)
+			{
+				if (g_Dog[i].framewait <= 0.0)
+				{
+					if (g_Dog[i].ugoki == 1)
+					{
+						D3DXVec2Normalize(&temp, &temp);
+						temp *= 2.0f;
+						g_Dog[i].move = temp;
+						g_Dog[i].pos += -g_Dog[i].move;
+					}
+				}
+				else
+				{
+					g_Dog[i].framewait--;
+				}
+			}
+		}
 	}
 }
 
