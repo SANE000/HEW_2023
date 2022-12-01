@@ -1,11 +1,1 @@
-﻿  collision.cpp
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\collision.cpp(336): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\collision.cpp(355): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\collision.cpp(387): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\collision.cpp(428): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\collision.cpp(447): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\collision.cpp(476): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\collision.cpp(514): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\collision.cpp(533): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\collision.cpp(562): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  sample.vcxproj -> C:\Users\實吉　貴大　学校用\Desktop\HEW_\HEW_2023\cat_prototype\x64\Debug\sample.exe
+﻿  sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe

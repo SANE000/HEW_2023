@@ -41,7 +41,7 @@ HRESULT InitGimmickWall()
 {
 	int field_gw = SetField();
 	int stage_gw = SetStage();
-    int clear_gw = SetClear();
+	int clear_gw = SetClear();
 
 	for (int i = 0; i < WALL_MAX; i++)
 	{
@@ -433,7 +433,7 @@ void DrawGimmickWall()
 				g_wall[i].col,
 				g_wall[i].Patern,
 				1.0f / 12.0f,//‰¡
-				1.0f,//c
+				1.0f / 2.0f,//c
 				12//‘–‡”
 			);
 
