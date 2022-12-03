@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "sound.h"
 #include "gimmick_wall.h"
+#include "Scene.h"
 //==========================================
 //グローバル変数
 //==========================================
@@ -101,18 +102,59 @@ void UpdateCollision()
 
 					if (block[i].Patern == 2.0f)
 					{
-						ChangeMoveFlag(cat);
+						if (block[i].pos.x - 10.0f < cat->pos.x && block[i].pos.x + 10.0f > cat->pos.x)
+						{
+							ChangeMoveFlag(cat);
+						}
 					}
-					//else 
-					//	バネブロックで中心あたりに乗った時跳ねる処理
-					//if(m_block[i].patern == )
-					//{
-					//	if (block[i].pos.x - 10.0f < cat->pos.x && block[i].pos.x + 10.0f > cat->pos.x)
-					//	{
-					//		//とりあえず三段	
-					//		CatJump(3.0f);
-					//	}
-					//}
+
+					//サボテンに触れたら
+					if (block[i].Patern >= 15.0f && block[i].Patern <= 16.9f)
+					{
+						if (block[i].pos.x - 25.0f < cat->pos.x && block[i].pos.x + 25.0f > cat->pos.x)
+						{
+							//ゲームオーバー
+							SetScene(SCENE_GAMEOVER);
+						}
+					}
+
+					//	バネブロックか砂嵐で中心あたりに乗った時跳ねる処理
+					if (block[i].Patern >= 9.0f && block[i].Patern <= 11.9f || block[i].Patern >= 17.0f && block[i].Patern <= 19.9f)
+					{
+						//曲がって
+						block[i].Patern += 0.1f;
+						if (block[i].pos.x - 5.0f < cat->pos.x && block[i].pos.x + 5.0f > cat->pos.x)
+						{
+							//とりあえず7段	
+							CatJump(7.0f);
+							//飛んだ瞬間に戻る
+							if (block[i].Patern >= 9.0f && block[i].Patern <= 11.9f)
+							{
+								block[i].Patern = 9.0f;
+							}
+
+							if (block[i].Patern >= 17.0f && block[i].Patern <= 19.9f)
+							{
+								block[i].Patern = 17.0f;
+							}
+						}
+					}
+
+					if (block[i].Patern >= 13.0f && block[i].Patern <= 14.9f)
+					{
+						if (block[i].Patern == 13.0f)
+						{
+							block[i].Patern = 14.0f;
+						}
+						block[i].Patern += 0.9 / 28.0f;
+						block[i].ontime -= 1;
+						if (block[i].ontime <= 0)
+						{
+							//仮の番号。なにも描画しない
+							block[i].Patern = 23.0f;
+							block[i].use = false;
+						}
+					}
 
 					if (block[i].button == true)
 					{
@@ -139,6 +181,12 @@ void UpdateCollision()
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.x = BlockRight + SIZE / 2;
+					//サボテンに触れたら
+					if (block[i].Patern >= 15.0f && block[i].Patern <= 16.9f)
+					{
+						//ゲームオーバー
+						SetScene(SCENE_GAMEOVER);
+					}
 					//壁にぶつかったら反転。右へ
 					ChangeMoveFlag(cat);
 					
@@ -148,6 +196,12 @@ void UpdateCollision()
 				{//左
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.x = BlockLeft - SIZE / 2;
+					//サボテンに触れたら
+					if (block[i].Patern >= 15.0f && block[i].Patern <= 16.9f)
+					{
+						//ゲームオーバー
+						SetScene(SCENE_GAMEOVER);
+					}
 					//壁にぶつかったら反転。左へ
 					ChangeMoveFlag(cat);
 					
@@ -986,7 +1040,8 @@ void BlockCollision()
 								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
 								{
 									m_block[i].Speed.y = 0;
-									m_block[i].pos.y = BlockTopN - DRAW_SIZE / 2;
+									//一段なのに登れない場所ができるため少し増やしました
+									m_block[i].pos.y = BlockTopN - 2 - DRAW_SIZE / 2;
 								}
 							}
 						}
@@ -1002,7 +1057,8 @@ void BlockCollision()
 								{
 									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 									m_block[n].Speed.y = 0;
-									m_block[n].pos.y = BlockTopI - DRAW_SIZE / 2;
+									//一段なのに登れない場所ができるため少し増やしました
+									m_block[n].pos.y = BlockTopI - 2 - DRAW_SIZE / 2;
 
 								}
 								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)

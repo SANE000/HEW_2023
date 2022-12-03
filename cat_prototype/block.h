@@ -5,7 +5,7 @@
 
 //マクロ定義
 #define BLOCK_MAX 126
-
+#define ONTIME 28
 //構造体定義
 struct BLOCK
 {
@@ -13,6 +13,8 @@ struct BLOCK
 	bool use = true;
 	//ボタンオンフラグ
 	bool button = false;
+	//ボタンに乗っている時間をとる
+	int ontime;
 	//表示座標
 	D3DXVECTOR2 pos;
 	//回転角度

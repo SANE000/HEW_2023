@@ -47,6 +47,7 @@ HRESULT InitBlock()
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
 		//テクスチャロード 画像の名前を入れよう
+		g_Block[i].use = true;
 		g_Block[i].texNo = LoadTexture((char*)"data\\texture\\block.png");
 		//ブロックのリセット
 		if (field == 0)
@@ -195,6 +196,18 @@ void DrawBlock()
 				}
 			}
 		}
+		else if (field == 1)
+		{
+
+			if (g_Block[i].Patern >= 15.0f && g_Block[i].Patern <= 16.9f)
+			{
+				g_Block[i].Patern += 0.05f;
+			}
+			else if (g_Block[i].Patern >= 16.9f && g_Block[i].Patern < 17.0f)
+			{
+				g_Block[i].Patern = 15.0f;
+			}
+		}
 		//テクスチャのセット
 		GetDeviceContext()->PSSetShaderResources
 		(0, 1, GetTexture(g_Block[i].texNo));
@@ -245,7 +258,7 @@ void InitStage21()
 		if (i >= 15 && i <= 23 || i >= 60 && i <= 62 || i >= 113 && i <= 114)
 		{
 			//サボテンブロック
-			g_Block[i].Patern = 14.0f;
+			g_Block[i].Patern = 15.0f;
 		}
 	}
 	g_Block[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -255,6 +268,8 @@ void InitStage21()
 	g_Block[3].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 3, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 5, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[5].Patern = 13.0f;
+	g_Block[5].ontime = ONTIME;
 
 	g_Block[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 6, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -302,21 +317,21 @@ void InitStage21()
 	g_Block[40].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 22, DEFO_SIZE_Y - DRAW_SIZE * 3);
 	g_Block[41].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 23, DEFO_SIZE_Y - DRAW_SIZE * 3);
 
-	g_Block[42].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 6);
-	g_Block[43].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 16, DEFO_SIZE_Y - DRAW_SIZE * 6);
-	g_Block[44].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 17, DEFO_SIZE_Y - DRAW_SIZE * 6);
+	g_Block[42].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[43].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 16, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[44].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 17, DEFO_SIZE_Y - DRAW_SIZE * 7);
 
-	g_Block[45].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 18, DEFO_SIZE_Y - DRAW_SIZE * 6);
-	g_Block[46].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 19, DEFO_SIZE_Y - DRAW_SIZE * 6);
-	g_Block[47].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 20, DEFO_SIZE_Y - DRAW_SIZE * 6);
+	g_Block[45].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 18, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[46].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 19, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[47].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 20, DEFO_SIZE_Y - DRAW_SIZE * 7);
 
-	g_Block[48].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 21, DEFO_SIZE_Y - DRAW_SIZE * 6);
-	g_Block[49].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 22, DEFO_SIZE_Y - DRAW_SIZE * 6);
-	g_Block[50].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 23, DEFO_SIZE_Y - DRAW_SIZE * 6);
+	g_Block[48].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 21, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[49].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 22, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[50].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 23, DEFO_SIZE_Y - DRAW_SIZE * 7);
 
-	g_Block[51].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 24, DEFO_SIZE_Y - DRAW_SIZE * 6);
-	g_Block[52].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 25, DEFO_SIZE_Y - DRAW_SIZE * 6);
-	g_Block[53].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 26, DEFO_SIZE_Y - DRAW_SIZE * 6);
+	g_Block[51].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 24, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[52].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 25, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[53].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 26, DEFO_SIZE_Y - DRAW_SIZE * 7);
 
 	g_Block[54].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 30, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[55].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 31, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -326,8 +341,8 @@ void InitStage21()
 	g_Block[58].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 34, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[59].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 35, DEFO_SIZE_Y - DRAW_SIZE * 0);
 
-	g_Block[60].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 33, DEFO_SIZE_Y - DRAW_SIZE * 1);
-	g_Block[61].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 39, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[60].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 39, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[61].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 40, DEFO_SIZE_Y - DRAW_SIZE * 1);
 	g_Block[62].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 42, DEFO_SIZE_Y - DRAW_SIZE * 5);
 
 	g_Block[63].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 36, DEFO_SIZE_Y - DRAW_SIZE * 0);
@@ -386,6 +401,9 @@ void InitStage21()
 	g_Block[100].Patern = 13.0f;
 	g_Block[101].Patern = 13.0f;
 	g_Block[102].Patern = 13.0f;
+	g_Block[100].ontime = ONTIME;
+	g_Block[101].ontime = ONTIME;
+	g_Block[102].ontime = ONTIME;
 	//反転ブロック
 	g_Block[103].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 70, DEFO_SIZE_Y - DRAW_SIZE * 1);
 	g_Block[103].Patern = 2.0f;
@@ -393,23 +411,27 @@ void InitStage21()
 	g_Block[104].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 72, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[105].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 73, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[106].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 74, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	//砂嵐ブロック？//仮で同じ効果を持つバネに設定
+	//砂嵐ブロック
 	g_Block[107].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 75, DEFO_SIZE_Y - DRAW_SIZE * 1);
-	g_Block[107].Patern = 9.0f;
+	g_Block[107].Patern = 17.0f;
 	g_Block[108].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 81, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[109].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 79, DEFO_SIZE_Y - DRAW_SIZE * 1);
 	g_Block[110].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 80, DEFO_SIZE_Y - DRAW_SIZE * 1);
 
 	g_Block[111].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 81, DEFO_SIZE_Y - DRAW_SIZE * 1);
-	g_Block[112].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 81, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[112].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 82, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[112].Patern = 13.0f;
+	g_Block[112].ontime = ONTIME;
 	//サボテン
-	g_Block[113].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 82, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[114].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 83, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[113].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 83, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[114].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 84, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	//脆い砂
-	g_Block[115].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 82, DEFO_SIZE_Y - DRAW_SIZE * 1);
-	g_Block[116].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 83, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[115].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 83, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[116].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 84, DEFO_SIZE_Y - DRAW_SIZE * 1);
 	g_Block[115].Patern = 13.0f;
 	g_Block[116].Patern = 13.0f;
+	g_Block[115].ontime = ONTIME;
+	g_Block[116].ontime = ONTIME;
 	//ここから普通
 	g_Block[117].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 87, DEFO_SIZE_Y - DRAW_SIZE * 2);
 	g_Block[118].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 88, DEFO_SIZE_Y - DRAW_SIZE * 2);

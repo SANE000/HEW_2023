@@ -181,7 +181,7 @@ void CatJump(float jumpheight)
 	//‰º‚©‚çˆêŒÂ•ªˆÈ‰º‚É”L‚ªs‚Á‚Ä‚µ‚Ü‚Á‚½‚çƒWƒƒƒ“ƒv‚Í‚µ‚È‚¢
 	if (g_Cat.pos.y <= DEFO_SIZE_Y - DEFO_SIZE_X)
 	{
-		g_Cat.limit_jump = g_Cat.pos.y - (SIZE * jumpheight);
+		g_Cat.limit_jump = g_Cat.pos.y - (DRAW_SIZE * jumpheight);
 
 
 		g_Cat.jump_y = JUMP;

@@ -31,6 +31,13 @@ DOG InitData13[] =
 	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 66, DEFO_SIZE_Y - DRAW_SIZE * 7),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0}
 };
 
+DOG InitData21[] =
+{
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 22, DEFO_SIZE_Y - DRAW_SIZE * 4),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 63, DEFO_SIZE_Y - DRAW_SIZE * 1),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 17, DEFO_SIZE_Y - DRAW_SIZE * 1),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+};
+
 //------------------------
 //DOG‰Šú‰»
 //------------------------
@@ -59,6 +66,18 @@ HRESULT InitDog()
 				g_Dog[i] = InitData13[i];
 
 				g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\dog_sample.png");
+			}
+		}
+	}
+	else if (field == 1)
+	{
+		if (stage == 0 && clear >= 3)
+		{
+			for (int i = 0; i < DOG_MAX; i++)
+			{
+			g_Dog[i] = InitData21[i];
+
+			g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\catmummy_sample.png");
 			}
 		}
 	}
