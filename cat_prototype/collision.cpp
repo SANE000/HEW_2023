@@ -146,7 +146,7 @@ void UpdateCollision()
 						{
 							block[i].Patern = 14.0f;
 						}
-						block[i].Patern += 0.9 / 28.0f;
+						block[i].Patern += 0.9 / ONTIME;
 						block[i].ontime -= 1;
 						if (block[i].ontime <= 0)
 						{

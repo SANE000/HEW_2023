@@ -5,7 +5,7 @@
 
 //マクロ定義
 #define BLOCK_MAX 126
-#define ONTIME 28
+#define ONTIME 20.0f
 //構造体定義
 struct BLOCK
 {

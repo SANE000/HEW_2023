@@ -8,6 +8,7 @@
 #include "shop.h"
 #include "inputx.h"
 #include "keyboard.h"
+#include "stageselect.h"
 //==========================================
 //グローバル変数
 //==========================================
@@ -26,6 +27,8 @@ int previewblocknum = 0;
 
 //いくつ買ったかを保持する変数
 int haveblocknum;
+//フィールドを貰ってくる
+static int field;
 //==========================================
 //初期化処理
 //==========================================
@@ -35,6 +38,7 @@ HRESULT InitPreview()
 
 	use_haveblock_number = 0;
 	before_use_haveblock_number = 0;
+	field = SetField();
 
 	//射出ブロック初期化
 	for (int i = 0; i < MOVE_BLOCK_MAX; i++)
@@ -43,11 +47,12 @@ HRESULT InitPreview()
 		g_MoveBlock[i].pos = D3DXVECTOR2(0, 0);
 		g_MoveBlock[i].rot = 0.0f;
 		g_MoveBlock[i].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-		g_MoveBlock[i].texNo = LoadTexture((char*)"data\\texture\\sand_block.png");
+		g_MoveBlock[i].texNo = LoadTexture((char*)"data\\texture\\moveblock.png");
 		g_MoveBlock[i].type = 1;
 		g_MoveBlock[i].Speed.x = 0.0f;
 		g_MoveBlock[i].Speed.y = 0.0f;
 		g_MoveBlock[i].group = 0;
+		g_MoveBlock[i].Patern = field;
 	}
 
 	//プレビューブロック初期化
@@ -248,10 +253,10 @@ void DrawPreview()
 				DRAW_SIZE,
 				g_MoveBlock[i].rot,
 				g_MoveBlock[i].col,
-				0,
+				g_MoveBlock[i].Patern,
+				1.0f/2.0f,
 				1.0f,
-				1.0f,
-				1
+				2
 			);
 		}
 	}
