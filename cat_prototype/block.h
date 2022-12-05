@@ -13,6 +13,8 @@ struct BLOCK
 	bool use = true;
 	//ボタンオンフラグ
 	bool button = false;
+	//移動ブロック用フラグ
+	bool moveon = false;
 	//ボタンに乗っている時間をとる
 	int ontime;
 	//表示座標

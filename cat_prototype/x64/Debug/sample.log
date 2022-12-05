@@ -1,11 +1,11 @@
 ﻿  block.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(218): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(262): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(479): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(611): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(612): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(613): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(631): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(240): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(284): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(507): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(639): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
 c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(640): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
 c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(641): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(659): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(668): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(669): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
   sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe

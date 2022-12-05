@@ -145,6 +145,28 @@ void UpdateBlock()
 		map_pos = 0;
 	}
 
+	for (int i = 0; i < BLOCK_MAX; i++)
+	{
+		//まず移動するやつかを使用してるかチェック
+		if (g_Block[i].Patern == 20.0f)
+		{
+			//画面上まで着いたらスピードを逆にする
+			if (g_Block[i].pos.y < (DRAW_SIZE / 2.0))
+			{
+				g_Block[i].pos.y = (DRAW_SIZE / 2.0);
+				g_Block[i].Speed.y = (GRAV/2);
+			}
+			//画面下まで着いたらスピードを逆にする
+			if (g_Block[i].pos.y > (SCREEN_HEIGHT - DRAW_SIZE / 2.0))
+			{
+				g_Block[i].pos.y = (SCREEN_HEIGHT - DRAW_SIZE / 2.0);
+				g_Block[i].Speed.y = -(GRAV/2);
+			}
+			//動くので座標の更新
+			g_Block[i].pos += g_Block[i].Speed;
+		}
+	}
+
 	//ボタンを押した後の処理
 	UpdateGimmickWall();
 
@@ -256,10 +278,18 @@ void InitStage22()
 	//大きな形ごとに分けるとわかりやすいかも
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
-		if (i >= 21 && i <= 26 || i >= 49 && i <= 51 || i >= 116 && i <= 121)
+		if (i >= 21 && i <= 26 || i >= 49 && i <= 51)
 		{
 			g_Block[i].Patern = 13.0f;
 			g_Block[i].ontime = ONTIME;
+		}
+	}
+	for (int i = 0; i < BLOCK_MAX; i++)
+	{
+		if (i >= 115 && i <= 120)
+		{
+			g_Block[i].Patern = 20.0f;
+			g_Block[i].Speed.y = (GRAV / 2);
 		}
 	}
 	g_Block[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 3);
@@ -431,26 +461,24 @@ void InitStage22()
 
 	g_Block[113].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 81, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[114].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 82, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[115].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 83, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	//脆い砂
-	g_Block[116].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 84, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[117].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 85, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[118].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 86, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[119].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 90, DEFO_SIZE_Y - DRAW_SIZE * 5);
-	g_Block[120].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 91, DEFO_SIZE_Y - DRAW_SIZE * 5);
-	g_Block[121].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 92, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	//上下に動く奴
+	g_Block[115].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 89, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[116].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 85, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[117].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 86, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[118].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 87, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[119].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 90, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[120].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 91, DEFO_SIZE_Y - DRAW_SIZE * 4);
 	//砂嵐
-	g_Block[122].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 87, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[122].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 83, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[122].Patern = 17.0f;
 	//ここから普通
 	g_Block[123].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 93, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[124].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 94, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[125].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 95, DEFO_SIZE_Y - DRAW_SIZE * 0);
-
 	//余り
-
 	g_Block[38].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[39].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[121].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 0);
 }
 
 void InitStage21()
