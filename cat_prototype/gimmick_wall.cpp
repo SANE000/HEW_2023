@@ -1,4 +1,3 @@
-
 #include "main.h"
 #include "gimmick_wall.h"
 #include "block.h"
@@ -14,10 +13,8 @@
 #include "result.h"
 
 //==========================================
-//
+////g_wallのコリジョン！！！！！！！！
 //==========================================
-
-//g_wallのコリジョン！！！！！！！！
 
 //==========================================
 //グローバル変数
@@ -25,17 +22,14 @@
 //壁の配列変数
 G_WALL g_wall[WALL_MAX];
 
-
 //現在のステージを入れる
-
-
 
 //==========================================
 //プロトタイプ宣言
 //==========================================
 void InitWall_12();
 void InitWall_13();
-
+void InitWall_23();
 
 HRESULT InitGimmickWall()
 {
@@ -47,8 +41,6 @@ HRESULT InitGimmickWall()
 	{
 		g_wall[i].use = false;
 		g_wall[i].texNo = LoadTexture((char*)"data\\texture\\block.png");
-		g_wall[i].Patern = 7.0f;
-
 	}
 
 	switch (field_gw)
@@ -81,9 +73,9 @@ HRESULT InitGimmickWall()
 		{
 
 		}
-		else if (stage_gw == 2)
+		else if (stage_gw == 2 && clear_gw >= 5)
 		{
-
+			InitWall_23();
 		}
 
 		break;
@@ -207,9 +199,17 @@ void UninitGimmickWall()
 		{
 
 		}
-		else if (stage_gw == 2)
+		else if (stage_gw == 2 && clear_gw >= 5)
 		{
-
+			for (int i = 0; i < WALL_MAX; i++)
+			{
+				if (g_wall[i].use == false)
+				{
+					continue;
+				}
+				//trueのやつだけ設定する
+				g_wall[i].use = false;
+			}
 		}
 
 		break;
@@ -334,9 +334,40 @@ void UpdateGimmickWall()
 		{
 
 		}
-		else if (stage_gw == 2)
+		else if (stage_gw == 2 && clear_gw >= 5)
 		{
-
+			//赤ボタンaが押されたら全部trueにする
+			if (pb[7].button == false)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					g_wall[i].use = true;
+				}
+			}
+			//赤ボタンbが押されたら全部trueにする
+			if (pb[48].button == false)
+			{
+				for (int i = 8; i < 11; i++)
+				{
+					g_wall[i].use = true;
+				}
+			}
+			//青ボタンaが押されたら全部falseにする
+			if (pb[9].button == false)
+			{
+				for (int i = 4; i < 8; i++)
+				{
+					g_wall[i].use = false;
+				}
+			}
+			//青ボタンbが押されたら全部falseにする
+			if (pb[46].button == false)
+			{
+				for (int i = 11; i < 15; i++)
+				{
+					g_wall[i].use = false;
+				}
+			}
 		}
 
 		break;
@@ -448,21 +479,49 @@ G_WALL* GetGimmickWall()
 }
 
 
-void InitWall_12()
+void InitWall_23()
 {
-	g_wall[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 1);
-	g_wall[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 2);
-	g_wall[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 3);
-	g_wall[3].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 4);
-	g_wall[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 5);
-	g_wall[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 6);
-	g_wall[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 7);
-	g_wall[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 8);
+	g_wall[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_wall[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_wall[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 9, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_wall[3].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 10, DEFO_SIZE_Y - DRAW_SIZE * 3);
 
+	g_wall[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 12, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_wall[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_wall[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_wall[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 3);
 
-	for (int i = 0; i < 8; i++)
+	g_wall[8].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 53, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_wall[9].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 54, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_wall[10].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 55, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_wall[11].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 53, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[12].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 54, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[13].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 55, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[14].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 90, DEFO_SIZE_Y - DRAW_SIZE * 6);
+
+	//赤
+	for (int i = 0; i < 4; i++)
+	{
+		g_wall[i].use = false;
+		g_wall[i].Patern = 8.0f;
+	}
+
+	for (int i = 8; i < 11; i++)
+	{
+		g_wall[i].use = false;
+		g_wall[i].Patern = 8.0f;
+	}
+	//青
+	for (int i = 4; i < 8; i++)
 	{
 		g_wall[i].use = true;
+		g_wall[i].Patern = 7.0f;
+	}
+	for (int i = 11; i < 15; i++)
+	{
+		g_wall[i].use = true;
+		g_wall[i].Patern = 7.0f;
 	}
 }
 
@@ -495,5 +554,25 @@ void InitWall_13()
 	for (int i = 0; i < 18; i++)
 	{
 		g_wall[i].use = true;
+		g_wall[i].Patern = 7.0f;
+	}
+}
+
+void InitWall_12()
+{
+	g_wall[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_wall[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_wall[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_wall[3].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_wall[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 6);
+	g_wall[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_wall[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 8);
+
+
+	for (int i = 0; i < 8; i++)
+	{
+		g_wall[i].use = true;
+		g_wall[i].Patern = 7.0f;
 	}
 }
