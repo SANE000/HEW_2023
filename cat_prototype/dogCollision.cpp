@@ -4,6 +4,8 @@
 #include "Scene.h"
 #include "shop.h"
 
+#include "collision.h"
+
 //bool DogCollisionBB(D3DXVECTOR2 pos1, D3DXVECTOR2 pos2, D3DXVECTOR2 size1, D3DXVECTOR2 size2);
 
 //int temp = BLOCK_MAX;
@@ -32,7 +34,7 @@ void UpdateDogCollision()
 		{
 			if (dog[i].use == true)
 			{
-				bool hit = DogCollisionBB(cat->pos, dog[i].pos, D3DXVECTOR2(SIZE, SIZE), D3DXVECTOR2(dog[i].w, dog[i].h));
+				bool hit = CollisionBB(cat->pos, dog[i].pos, D3DXVECTOR2(SIZE, SIZE), D3DXVECTOR2(dog[i].w, dog[i].h));
 				if (hit == true)
 				{
 					SetScene(SCENE_GAMEOVER);
@@ -64,7 +66,7 @@ void UpdateDogCollision()
 					continue;
 				}
 				//
-				bool hit = DogCollisionBB(dog[i].pos, block[b].pos, D3DXVECTOR2(dog[i].w, dog[i].h), D3DXVECTOR2(SIZE, SIZE));
+				bool hit = CollisionBB(dog[i].pos, block[b].pos, D3DXVECTOR2(dog[i].w, dog[i].h), D3DXVECTOR2(SIZE, SIZE));
 				if (hit == true)
 				{
 					//床ブロックより上(重力GRAVの影響も排除する)
@@ -129,7 +131,7 @@ void UpdateDogCollision()
 						continue;
 					}
 
-					bool hit = DogCollisionBB(dog[i].pos, m_block[b].pos, D3DXVECTOR2(dog[i].w, dog[i].h), D3DXVECTOR2(SIZE, SIZE));
+					bool hit = CollisionBB(dog[i].pos, m_block[b].pos, D3DXVECTOR2(dog[i].w, dog[i].h), D3DXVECTOR2(SIZE, SIZE));
 					if (hit == true)
 					{
 						//犬が床ブロックより上(重力GRAVの影響も排除する)
@@ -182,46 +184,3 @@ void UpdateDogCollision()
 	}
 }
 
-//--------------------------------------------------------------------------
-//四角形　VS　四角形
-//--------------------------------------------------------------------------
-bool DogCollisionBB(D3DXVECTOR2 pos1, D3DXVECTOR2 pos2, D3DXVECTOR2 size1, D3DXVECTOR2 size2)
-{
-	D3DXVECTOR2  min1, max1; //四角形1
-	D3DXVECTOR2  min2, max2; //四角形2
-
-	min1.x = pos1.x - size1.x / 2;  //四角形1　左上
-	min1.y = pos1.y - size1.y / 2;
-
-	max1.x = pos1.x + size1.x / 2;  //四角形1　右下
-	max1.y = pos1.y + size1.y / 2;
-
-	min2.x = pos2.x - size2.x / 2;  //四角形2　左上
-	min2.y = pos2.y - size2.y / 2;
-
-	max2.x = pos2.x + size2.x / 2;  //四角形2　右下
-	max2.y = pos2.y + size2.y / 2;
-
-	//衝突判定
-	if (max1.x < min2.x)
-	{
-		return false;
-	}
-
-	if (max2.x < min1.x)
-	{
-		return false;
-	}
-
-	if (max1.y < min2.y)
-	{
-		return false;
-	}
-
-	if (max2.y < min1.y)
-	{
-		return false;
-	}
-
-	return true; 
-}

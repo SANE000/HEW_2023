@@ -84,7 +84,6 @@ void UpdateGame()
 	UpdateBlock();
 	UpdatePreview();
 	UpdateCollision();
-	UpdateDogCollision();
 	
 	////////////////ƒQ[ƒ€ŠÖ˜A
 }

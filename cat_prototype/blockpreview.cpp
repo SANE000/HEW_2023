@@ -254,9 +254,9 @@ void DrawPreview()
 				g_MoveBlock[i].rot,
 				g_MoveBlock[i].col,
 				g_MoveBlock[i].Patern,
-				1.0f/2.0f,
+				1.0f/6.0f,
 				1.0f,
-				2
+				6
 			);
 		}
 	}
