@@ -41,6 +41,8 @@ struct CAT
 	bool jump_flag;
 	//今ジャンプしているかどうかのフラグ
 	int nowjump_flag;
+	//爪とぎブロックに乗っているかどうかのフラグ
+	bool tumetogi_flag;
 	//ジャンプ力
 	float jump_y;
 	//ジャンプ限界高度

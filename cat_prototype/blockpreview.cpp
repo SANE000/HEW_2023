@@ -62,6 +62,7 @@ HRESULT InitPreview()
 		g_PreviewBlock[i].pos = D3DXVECTOR2(0, 0);
 		g_PreviewBlock[i].rot = 0.0f;
 		g_PreviewBlock[i].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		g_PreviewBlock[i].type = 0;
 		g_PreviewBlock[i].texNo = LoadTexture((char*)"data\\texture\\cursor_02.png");
 	}
 
@@ -325,6 +326,20 @@ void SetMoveBlock()
 			//弾が無いとこを見つける
 			if (g_MoveBlock[i].use == false)
 			{
+				switch (g_PreviewBlock[b].type)
+				{
+					//バネブロック
+				case 5:
+					g_MoveBlock[i].Patern = 2.0f;
+					break;
+					//爪とぎ
+				case 6:
+					g_MoveBlock[i].Patern = 5.0f;
+					break;
+				default:
+					break;
+				}
+
 				//typeに応じてblockをたくさんつくる
 				//発生座標
 				g_MoveBlock[i].pos = g_PreviewBlock[b].pos;
@@ -383,6 +398,12 @@ void BlockPreview(D3DXVECTOR2 pos)
 
 	//次のタイプを取得
 	nexttype = blocktype[use_haveblock_number].Gettype();
+
+	for (int i = 0; i < PREVIEW_BLOCK_MAX; i++)
+	{
+		g_PreviewBlock[i].type = nexttype;
+	}
+
 
 	switch (nexttype)
 	{
@@ -469,6 +490,23 @@ void BlockPreview(D3DXVECTOR2 pos)
 		g_PreviewBlock[0].pos = pos;
 
 		break;
+
+	case 5:
+		//ばねブロック
+		previewblocknum = 1;
+		g_PreviewBlock[0].use = true;
+
+		g_PreviewBlock[0].pos = pos;
+
+		break;
+	case 6:
+		//爪とぎブロック
+		previewblocknum = 1;
+		g_PreviewBlock[0].use = true;
+
+		g_PreviewBlock[0].pos = pos;
+		break;
+
 
 	}
 
@@ -597,6 +635,24 @@ void UpdateBlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 		break;
+
+	case 5:
+		//ばねブロック	//どの角度でも一緒
+		//横にはじけるようになってもいいかも
+		previewblocknum = 1;
+		g_PreviewBlock[0].use = true;
+
+		g_PreviewBlock[0].pos = pos;
+
+		break;
+	case 6:
+		//爪とぎブロック	//どの角度でも一緒
+		previewblocknum = 1;
+		g_PreviewBlock[0].use = true;
+
+		g_PreviewBlock[0].pos = pos;
+		break;
+
 	}
 }
 

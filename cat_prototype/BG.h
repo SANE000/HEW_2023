@@ -12,6 +12,5 @@ void UninitBg();
 void UpdateBg();
 void DrawBg();
 
-float GetMorningA();
 
 

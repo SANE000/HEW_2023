@@ -217,6 +217,36 @@ void UpdateCatCollision()
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.y = BlockTopM - GRAV - SIZE / 2;
 					m_temp = MOVE_BLOCK_MAX;
+						
+					//	バネブロックか砂嵐で中心あたりに乗った時跳ねる処理
+					if (m_block[i].Patern >= 2.0f && m_block[i].Patern <= 4.9f)
+					{
+						//曲がって
+						m_block[i].Patern += 0.1f;
+						if (m_block[i].pos.x - 5.0f < cat->pos.x && m_block[i].pos.x + 5.0f > cat->pos.x)
+						{
+							//とりあえず3段	
+							CatJump(3.0f);
+							//飛んだ瞬間に戻る
+							if (m_block[i].Patern >= 2.0f && m_block[i].Patern <= 4.9f)
+							{
+								m_block[i].Patern = 2.0f;
+							}
+						}
+					}
+
+					//	爪とぎブロック
+					if (m_block[i].Patern >= 5.0f && m_block[i].Patern <= 5.9f)
+					{
+						if (m_block[i].pos.x - 2.5f < cat->pos.x && m_block[i].pos.x + 2.5f > cat->pos.x)
+						{
+							cat->tumetogi_flag = true;
+						}
+
+					}
+
+						
+						;
 				}
 				//猫がブロックより右
 				else if (CatLeft <= BlockRightM && cat->pos.x > BlockRightM)

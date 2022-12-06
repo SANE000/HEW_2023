@@ -3,6 +3,9 @@
 #include "cat.h"
 #include "Scene.h"
 #include "shop.h"
+#include "dog.h"
+#include "block.h"
+#include "blockpreview.h"
 
 #include "collision.h"
 

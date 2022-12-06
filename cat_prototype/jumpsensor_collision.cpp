@@ -50,7 +50,7 @@ void UpdateJumpSensorCollision()
 			bool hit = CollisionBB(
 				cat->pos, block[i].pos,
 				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2, 1.0f),
-				D3DXVECTOR2(SIZE, SIZE)
+				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
@@ -142,7 +142,7 @@ void UpdateJumpSensorCollision()
 			bool hit = CollisionBB(
 				cat->pos, m_block[i].pos,
 				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2, 1.0f),
-				D3DXVECTOR2(SIZE, SIZE)
+				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2 , SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)
@@ -228,7 +228,7 @@ void UpdateJumpSensorCollision()
 			bool hit = CollisionBB(
 				cat->pos, gimmickwall[i].pos,
 				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2, 1.0f),
-				D3DXVECTOR2(SIZE, SIZE)
+				D3DXVECTOR2(SIZE + SENSOR_SIZE * 2, SIZE)
 			);
 			//ブロックに触れていて
 			if (hit == true)

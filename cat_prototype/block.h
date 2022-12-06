@@ -1,7 +1,6 @@
 #pragma once
 
 #include "main.h"
-#include "renderer.h"
 
 //ƒ}ƒNƒ’è‹`
 #define BLOCK_MAX 126

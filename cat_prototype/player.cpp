@@ -148,6 +148,12 @@ void UpdatePlayer()
 
 		}
 
+		//爪とぎ終了
+		if (GetCat()->tumetogi_flag == true && Keyboard_IsKeyDown(KK_X))
+		{
+			GetCat()->tumetogi_flag = false;
+		}
+
 		//リセットキー
 		if (Keyboard_IsKeyDown(KK_R) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0)
 		{

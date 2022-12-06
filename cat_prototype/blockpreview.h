@@ -3,7 +3,6 @@
 #pragma once
 
 #include "main.h"
-#include "renderer.h"
 
 #define MOVE_BLOCK_MAX 50
 #define PREVIEW_BLOCK_MAX 10
@@ -46,6 +45,8 @@ struct PREVIEW_BLOCK
 	int texNo;
 	//色
 	D3DXCOLOR col;
+	//ブロックの種類判別用変数
+	int type;
 };
 
 //プロトタイプ宣言

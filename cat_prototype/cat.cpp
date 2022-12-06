@@ -25,6 +25,7 @@ HRESULT InitCat()
 	g_Cat.dir.x = WALK;
 	g_Cat.move_flag = false;
 	g_Cat.jump_flag = false;
+	g_Cat.tumetogi_flag = false;
 	g_Cat.jump_y = 0.0f;
 	g_Cat.limit_jump = 0.0f;
 	g_Cat.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
@@ -55,41 +56,47 @@ void UpdateCat()
 	{
 		g_Cat.pos.y += GRAV;
 	}
-	//自動で移動(壁にぶつかるor初期値まで戻ったら反転)
-	if (g_Cat.move_flag == false)
+
+	//爪とぎ中は進まない
+	if (g_Cat.tumetogi_flag == false)
 	{
-		//右に向かって歩く猫アニメ
-		g_Cat.patern += 0.04;
-		if (g_Cat.patern > 2.0f)
+
+		//自動で移動(壁にぶつかるor初期値まで戻ったら反転)
+		if (g_Cat.move_flag == false)
 		{
-			g_Cat.patern = 0.0f;
-		}
-		//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
-		if (g_Cat.nowjump_flag > 0)
-		{
-			g_Cat.pos.x += g_Cat.dir.x / g_Cat.nowjump_flag;
+			//右に向かって歩く猫アニメ
+			g_Cat.patern += 0.04;
+			if (g_Cat.patern > 2.0f)
+			{
+				g_Cat.patern = 0.0f;
+			}
+			//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
+			if (g_Cat.nowjump_flag > 0)
+			{
+				g_Cat.pos.x += g_Cat.dir.x / g_Cat.nowjump_flag;
+			}
+			else
+			{
+				g_Cat.pos.x += g_Cat.dir.x;
+			}
 		}
 		else
 		{
-			g_Cat.pos.x += g_Cat.dir.x;
-		}
-	}
-	else
-	{
-		//左に向かって歩く猫アニメ
-		g_Cat.patern += 0.04;
-		if (g_Cat.patern > 4.0f || g_Cat.patern < 2.0f)
-		{
-			g_Cat.patern = 2.0f;
-		}
-		//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
-		if (g_Cat.nowjump_flag > 0)
-		{
-			g_Cat.pos.x += g_Cat.dir.x / g_Cat.nowjump_flag;
-		}
-		else
-		{
-			g_Cat.pos.x += g_Cat.dir.x;
+			//左に向かって歩く猫アニメ
+			g_Cat.patern += 0.04;
+			if (g_Cat.patern > 4.0f || g_Cat.patern < 2.0f)
+			{
+				g_Cat.patern = 2.0f;
+			}
+			//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
+			if (g_Cat.nowjump_flag > 0)
+			{
+				g_Cat.pos.x += g_Cat.dir.x / g_Cat.nowjump_flag;
+			}
+			else
+			{
+				g_Cat.pos.x += g_Cat.dir.x;
+			}
 		}
 	}
 	//画面外へはいかないようにする
