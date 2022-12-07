@@ -116,6 +116,8 @@ HRESULT InitShop()
 	g_item[2].texNo = LoadTexture((char*)"data\\texture\\shop_block_02.png");
 	g_item[3].texNo = LoadTexture((char*)"data\\texture\\shop_block_03.png");
 	g_item[4].texNo = LoadTexture((char*)"data\\texture\\shop_block_04.png");
+	g_item[5].texNo = LoadTexture((char*)"data\\texture\\spring.png");
+	g_item[6].texNo = LoadTexture((char*)"data\\texture\\tsumetogi_block.png");
 
 	for (int i = 0; i < MONEY_MAX; i++)
 	{
@@ -216,6 +218,7 @@ void UpdateShop()
 		}
 		else
 		{
+			//上下の見えないところは後を動かせば良さそう
 			//カーソル操作　とりあえず
 			if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
 			{//右
@@ -239,17 +242,23 @@ void UpdateShop()
 			}
 			else if (Keyboard_IsKeyDown(KK_DOWN) && time <= 0 || GetThumbLeftY(0) < 0 && time <= 0)
 			{//下
-				if (cursor.pos.y != CURSOR_Y_02)
+				if (g_item[0].pos.y != -CURSOR_MOVE_Y)
 				{
-					cursor.pos.y += CURSOR_MOVE_Y;
+					for (int i = 0; i < SHOP_ITEM_MAX; i++)
+					{
+						g_item[i].pos.y -= CURSOR_MOVE_Y;
+					}
 				}
 				time = WAIT_TIME;
 			}
 			else if (Keyboard_IsKeyDown(KK_UP) && time <= 0 || GetThumbLeftY(0) > 0 && time <= 0)
 			{//上
-				if (cursor.pos.y != CURSOR_Y_00)
+				if (g_item[0].pos.y != CURSOR_MOVE_Y)
 				{
-					cursor.pos.y -= CURSOR_MOVE_Y;
+					for (int i = 0; i < SHOP_ITEM_MAX; i++)
+					{
+						g_item[i].pos.y += CURSOR_MOVE_Y;
+					}
 				}
 				time = WAIT_TIME;
 			}
@@ -502,7 +511,7 @@ void Buyblock()
 {
 	int blocktype = -1;
 	
-	if (cursor.pos.y == CURSOR_Y_00)
+	if (g_item[0].pos.y == CURSOR_MOVE_Y)
 	{
 		if (cursor.pos.x == CURSOR_X_00)
 		{
@@ -525,7 +534,7 @@ void Buyblock()
 			blocktype = 4;
 		}
 	}
-	else if (cursor.pos.y == CURSOR_Y_01)
+	else if (g_item[0].pos.y == 0)
 	{
 		if (cursor.pos.x == CURSOR_X_00)
 		{
@@ -548,7 +557,7 @@ void Buyblock()
 			blocktype = 9;
 		}
 	}
-	else if (cursor.pos.y == CURSOR_Y_02)
+	else if (g_item[0].pos.y == -CURSOR_MOVE_Y)
 	{
 		if (cursor.pos.x == CURSOR_X_00)
 		{

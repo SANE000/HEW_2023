@@ -1,3 +1,15 @@
-﻿  cat_collision.cpp
-c:\users\實吉　貴大　学校用\desktop\hew_\hew_2023\cat_prototype\cat_collision.cpp(115): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
-  sample.vcxproj -> C:\Users\實吉　貴大　学校用\Desktop\HEW_\HEW_2023\cat_prototype\x64\Debug\sample.exe
+﻿  shop.cpp
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(90): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(124): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(370): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(367): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(366): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(390): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(389): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(409): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(408): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(431): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(430): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(447): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\shop.cpp(446): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe
