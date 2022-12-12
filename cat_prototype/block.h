@@ -10,6 +10,8 @@ struct BLOCK
 {
 	//構造体使用中フラグ
 	bool use = true;
+	//描画フラグ
+	bool draw_use = true;
 	//ボタンオンフラグ
 	bool button = false;
 	//ボタンに乗っている時間をとる
