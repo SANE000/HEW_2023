@@ -91,7 +91,7 @@ void UpdateCatCollision()
 					if (block[i].Patern >= 9.0f && block[i].Patern <= 11.9f || block[i].Patern >= 17.0f && block[i].Patern <= 19.9f)
 					{
 						//‹È‚ª‚Á‚Ä
-						block[i].Patern += 0.1f;
+						block[i].Patern += 0.1f/2;
 						if (block[i].pos.x - 5.0f < cat->pos.x && block[i].pos.x + 5.0f > cat->pos.x)
 						{
 							//‚Æ‚è‚ ‚¦‚¸7’i	
@@ -238,7 +238,7 @@ void UpdateCatCollision()
 					if (m_block[i].Patern >= 2.0f && m_block[i].Patern <= 4.9f)
 					{
 						//‹È‚ª‚Á‚Ä
-						m_block[i].Patern += 0.1f;
+						m_block[i].Patern += 0.1f/2;
 						if (m_block[i].pos.x - 5.0f < cat->pos.x && m_block[i].pos.x + 5.0f > cat->pos.x)
 						{
 							//‚Æ‚è‚ ‚¦‚¸3’i	
