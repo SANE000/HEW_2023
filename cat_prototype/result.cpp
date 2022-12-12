@@ -56,11 +56,11 @@ void UpdateResult()
 		time -= 1;
 	}
 	//スコア計算//ココプランナーに決めてもらうの忘れてた
-	if (BlockScore() <= 10 && ResultTimer() <= 120)
+	if (BlockScore() <= 10 && ResultTimer() <= 90)
 	{//Sランク
 		Score = SCORE::SCORE_S;
 	}
-	else if (BlockScore() <= 13 && ResultTimer() <= 130)
+	else if (BlockScore() <= 13 && ResultTimer() <= 100)
 	{//Aランク
 		Score = SCORE::SCORE_A;
 	}

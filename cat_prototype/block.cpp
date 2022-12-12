@@ -125,7 +125,7 @@ void UpdateBlock()
 		//自動スクロールから,分かりやすいように自分で動かせるようにした
 		if (Keyboard_IsKeyDown(KK_D) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
 		{
-			if (map_pos > -SCREEN_WIDTH * 5 + (-basePos.x))
+			if (map_pos > -SCREEN_WIDTH * 3 + (-basePos.x))
 			{
 				//画面端になったら止める
 				map_pos -= SCREEN_WIDTH;

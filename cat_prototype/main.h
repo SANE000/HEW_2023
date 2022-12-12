@@ -66,7 +66,7 @@
 #define TIME_SIZE_W 50
 #define TIME_SIZE_H 50
 //êßå¿éûä‘
-#define TIME_LIMIT 90
+#define TIME_LIMIT 60
 
 
 //*****************************************************************************

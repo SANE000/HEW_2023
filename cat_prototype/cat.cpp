@@ -227,9 +227,9 @@ void UpdateCat()
 		//初期値まで戻ってきたら反転する
 		ChangeMoveFlag(&g_Cat);
 	}
-	else if (g_Cat.pos.x >= SCREEN_WIDTH * 6 - CAT_SIZE_W/2)
+	else if (g_Cat.pos.x >= SCREEN_WIDTH * 4 - CAT_SIZE_W/2)
 	{
-		g_Cat.pos.x = SCREEN_WIDTH * 6 - CAT_SIZE_W / 2;
+		g_Cat.pos.x = SCREEN_WIDTH * 4 - CAT_SIZE_W / 2;
 		//終端値まで行ってしまったらきたら反転する
 		ChangeMoveFlag(&g_Cat);
 	}

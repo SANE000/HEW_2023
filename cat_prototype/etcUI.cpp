@@ -97,7 +97,7 @@ void UpdateEtc()
 
 		if (Keyboard_IsKeyDown(KK_D) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
 		{
-			if (map_pos > -SCREEN_WIDTH * 5 + (-basePos.x))
+			if (map_pos > -SCREEN_WIDTH * 3 + (-basePos.x))
 			{
 				//‰æ–Ê’[‚É‚È‚Á‚½‚çŽ~‚ß‚é
 				map_pos -= SCREEN_WIDTH;

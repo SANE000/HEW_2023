@@ -147,7 +147,7 @@ int GetTimer()
 //‚Â‚Ü‚è‚ÍŒo‰ß‚µ‚½ŽžŠÔ‚Å‚·
 int ResultTimer()
 {
-	int num = 180 - GetTimer();
+	int num = 120 - GetTimer();
 
 	return num;
 }

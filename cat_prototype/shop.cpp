@@ -157,7 +157,7 @@ void UpdateShop()
 		time -= 1;
 	}
 	//マップ見れるボタン
-	if (Keyboard_IsKeyDown(KK_M) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time<=0 )
+	if (Keyboard_IsKeyDown(KK_M) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_X) && time<=0 )
 	{
 		if (map_flag == false)
 		{
@@ -291,7 +291,7 @@ void UpdateShop()
 				start_con = 0.0f;
 				time = WAIT_TIME;
 			}
-			else if (IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0)
+			else if (IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0)
 			{
 				//スタート確認
 				start_flag = true;

@@ -73,9 +73,9 @@ void UpdatePlayer()
 	{
 		g_Player.pos.x = DEFO_SIZE_X;
 	}
-	else if (g_Player.pos.x >= SCREEN_WIDTH * 6 - DEFO_SIZE_X)
+	else if (g_Player.pos.x >= SCREEN_WIDTH * 4 - DEFO_SIZE_X)
 	{
-		g_Player.pos.x = SCREEN_WIDTH * 6 - DEFO_SIZE_X;
+		g_Player.pos.x = SCREEN_WIDTH * 4 - DEFO_SIZE_X;
 	}
 
 	if (g_Player.bwait > 0)
