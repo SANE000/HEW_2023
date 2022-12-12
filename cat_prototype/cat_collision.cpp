@@ -8,6 +8,7 @@
 #include "scene.h"
 
 #include "cat_collision.h"
+#include "jumpflag.h"
 
 void UpdateCatCollision()
 {
@@ -31,6 +32,8 @@ void UpdateCatCollision()
 	{
 		temp = BLOCK_MAX;
 		m_temp = MOVE_BLOCK_MAX;
+		g_temp = WALL_MAX;
+
 		//==============================================================================================================================
 		//		//動かないブロックと猫の当たり判定//////////////////////////////////////////////////////////////////////////////////////
 		//==============================================================================================================================
@@ -63,8 +66,8 @@ void UpdateCatCollision()
 				if (CatBottom - GRAV <= BlockTop && cat->pos.y < block[i].pos.y)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.y = BlockTop - GRAV - SIZE / 2;
-					temp = BLOCK_MAX;
+					cat->pos.y = BlockTop - CAT_SIZE_H / 2;
+					//temp = BLOCK_MAX;
 
 					if (block[i].Patern == 2.0f)
 					{
@@ -135,18 +138,21 @@ void UpdateCatCollision()
 				}
 				//床ブロックより下
 				else if (CatTop <= BlockBottom &&
-					cat->pos.y - (SIZE / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
+					cat->pos.y - (CAT_SIZE_H / 2 - GRAV) > block[i].pos.y + (SIZE / 2 - GRAV))
 				{
 					//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
 					cat->jump_y = 0;
 
-
+					if (temp > 0)
+					{
+						temp -= 1;
+					}
 				}
 				//床ブロックより右
 				else if (CatLeft <= BlockRight && cat->pos.x > BlockRight)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = BlockRight + SIZE / 2;
+					cat->pos.x = BlockRight + CAT_SIZE_W / 2;
 					//サボテンに触れたら
 					if (block[i].Patern >= 15.0f && block[i].Patern <= 16.9f)
 					{
@@ -154,14 +160,19 @@ void UpdateCatCollision()
 						SetScene(SCENE_GAMEOVER);
 					}
 					//壁にぶつかったら反転。右へ
-					ChangeMoveFlag(cat);
+					//ChangeMoveFlag(cat);
+
+					if (temp > 0)
+					{
+						temp -= 1;
+					}
 
 				}
 				//床ブロックより左
 				else if (CatRight >= BlockLeft && cat->pos.x < block[i].pos.x)
 				{//左
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = BlockLeft - SIZE / 2;
+					cat->pos.x = BlockLeft - CAT_SIZE_W / 2;
 					//サボテンに触れたら
 					if (block[i].Patern >= 15.0f && block[i].Patern <= 16.9f)
 					{
@@ -169,7 +180,12 @@ void UpdateCatCollision()
 						SetScene(SCENE_GAMEOVER);
 					}
 					//壁にぶつかったら反転。左へ
-					ChangeMoveFlag(cat);
+					//ChangeMoveFlag(cat);
+
+					if (temp > 0)
+					{
+						temp -= 1;
+					}
 
 				}
 			}
@@ -215,8 +231,8 @@ void UpdateCatCollision()
 				if (CatBottom - GRAV <= BlockTopM && cat->pos.y < m_block[i].pos.y)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.y = BlockTopM - GRAV - SIZE / 2;
-					m_temp = MOVE_BLOCK_MAX;
+					cat->pos.y = BlockTopM - CAT_SIZE_H / 2;
+					//m_temp = MOVE_BLOCK_MAX;
 						
 					//	バネブロックか砂嵐で中心あたりに乗った時跳ねる処理
 					if (m_block[i].Patern >= 2.0f && m_block[i].Patern <= 4.9f)
@@ -238,33 +254,38 @@ void UpdateCatCollision()
 					//	爪とぎブロック
 					if (m_block[i].Patern >= 5.0f && m_block[i].Patern <= 5.9f)
 					{
-						if (m_block[i].pos.x - 2.5f < cat->pos.x && m_block[i].pos.x + 2.5f > cat->pos.x)
+						if (m_block[i].pos.x - 1.0f < cat->pos.x && m_block[i].pos.x + 1.0f > cat->pos.x)
 						{
 							cat->tumetogi_flag = true;
 						}
 
 					}
-
-						
-						;
 				}
 				//猫がブロックより右
 				else if (CatLeft <= BlockRightM && cat->pos.x > BlockRightM)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = BlockRightM + SIZE / 2;
+					cat->pos.x = BlockRightM + CAT_SIZE_W / 2 + cat->dir.x + 1;
+
+					if (m_temp > 0)
+					{
+						m_temp -= 1;
+					}
 				}
 				//猫がブロックより左 
 				else if (CatRight >= BlockLeftM && CatRight < m_block[i].pos.x)
 				{//左
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = BlockLeftM - SIZE / 2;
+					cat->pos.x = BlockLeftM - CAT_SIZE_W / 2 - cat->dir.x - 1;
 
 					//ブロックとぶつかったとき飛べる高さか調べる関数
 					//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
 					//下で作成
 					//CatJump(SearchJumpHeight(m_block, cat, i));
-
+					if (m_temp > 0)
+					{
+						m_temp -= 1;
+					}
 				}
 			}
 			else
@@ -309,8 +330,13 @@ void UpdateCatCollision()
 				if (CatBottom - GRAV <= GimmickWallTop && cat->pos.y < gimmickwall[i].pos.y)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.y = GimmickWallTop - GRAV - SIZE / 2;
-					g_temp = WALL_MAX;
+					cat->pos.y = GimmickWallTop - CAT_SIZE_H / 2;
+
+					if (gimmickwall[i].pos.x - 25.0f < cat->pos.x && gimmickwall[i].pos.x + 25.0f > cat->pos.x)
+					{
+						//g_temp = WALL_MAX;
+					}
+					
 				}
 				//ブロックより下
 				else if (CatTop <= GimmickWallBottom &&
@@ -318,24 +344,39 @@ void UpdateCatCollision()
 				{
 					//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
 					cat->jump_y = 0;
+
+					if (g_temp > 0)
+					{
+						g_temp -= 1;
+					}
 				}
 				//猫がブロックより右
 				else if (CatLeft <= GimmickWallRight && cat->pos.x > GimmickWallRight)
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = GimmickWallRight + SIZE / 2 + cat->dir.x + 1;
+					cat->pos.x = GimmickWallRight + CAT_SIZE_W / 2 + cat->dir.x + 1;
 
 					//壁にぶつかったら反転。右へ
-					ChangeMoveFlag(cat);
+					//ChangeMoveFlag(cat);
+
+					if (g_temp > 0)
+					{
+						g_temp -= 1;
+					}
 				}
 				//猫がブロックより左 
 				else if (CatRight >= GimmickWallLeft && CatRight < gimmickwall[i].pos.x)
 				{//左
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
-					cat->pos.x = GimmickWallLeft - SIZE / 2 - cat->dir.x - 1;
+					cat->pos.x = GimmickWallLeft - CAT_SIZE_W / 2 - cat->dir.x - 1;
 
 					//壁にぶつかったら反転。左へ
-					ChangeMoveFlag(cat);
+					//ChangeMoveFlag(cat);
+
+					if (g_temp > 0)
+					{
+						g_temp -= 1;
+					}
 				}
 			}
 			else
@@ -347,7 +388,7 @@ void UpdateCatCollision()
 			}
 		}
 		//全てのブロックを見た後にジャンプフラグを設定する
-		if (g_temp > 0 || m_temp > 0 || temp > 2)
+		/*if (g_temp > 0 || m_temp > 0 || temp > 2)
 		{
 			cat->jump_flag = true;
 			cat->nowjump_flag = 0;
@@ -355,7 +396,9 @@ void UpdateCatCollision()
 		else
 		{
 			cat->jump_flag = false;
-		}
+		}*/
 
+
+		UpdateJumpFlag();
 	}
 }

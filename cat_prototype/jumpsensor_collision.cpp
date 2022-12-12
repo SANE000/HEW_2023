@@ -172,8 +172,12 @@ void UpdateJumpSensorCollision()
 						}
 						else
 						{
-							//ˆø‚«•Ô‚·
-							ChangeMoveFlag(cat);
+							if (cat->jump_flag == true)
+							{
+								//ˆø‚«•Ô‚·
+								ChangeMoveFlag(cat);
+							}
+							
 						}
 
 					}
@@ -201,8 +205,11 @@ void UpdateJumpSensorCollision()
 						}
 						else
 						{
-							//ˆø‚«•Ô‚·
-							ChangeMoveFlag(cat);
+							if (cat->jump_flag == true)
+							{
+								//ˆø‚«•Ô‚·
+								ChangeMoveFlag(cat);
+							}
 						}
 					}
 				}
@@ -258,8 +265,11 @@ void UpdateJumpSensorCollision()
 						}
 						else
 						{
-							//ˆø‚«•Ô‚·
-							ChangeMoveFlag(cat);
+							if (cat->jump_flag == true)
+							{
+								//ˆø‚«•Ô‚·
+								ChangeMoveFlag(cat);
+							}
 						}
 
 					}
@@ -287,8 +297,11 @@ void UpdateJumpSensorCollision()
 						}
 						else
 						{
-							//ˆø‚«•Ô‚·
-							ChangeMoveFlag(cat);
+							if (cat->jump_flag == true)
+							{
+								//ˆø‚«•Ô‚·
+								ChangeMoveFlag(cat);
+							}
 						}
 					}
 				}

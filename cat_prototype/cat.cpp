@@ -8,8 +8,14 @@
 #include "sound.h"
 #include "collision.h"
 #include "camera.h"
+#include "jumpflag.h"	
+
+
 //グローバル変数
 //int JumpSoundNo = 0;
+
+//爪とぎの秒数を知るため	
+int tumetogi_count = 0;
 
 //プレイヤーオブジェクト
 static CAT g_Cat;
@@ -18,7 +24,7 @@ static MOVE_BLOCK *m_block = GetMoveBlock();
 HRESULT InitCat()
 {
 	//テクスチャロード 画像の名前を入れよう
-	g_Cat.texNo = LoadTexture((char*)"data\\texture\\neko2.png");
+	g_Cat.texNo = LoadTexture((char*)"data\\texture\\cat.png");
 	//構造体の初期化
 	g_Cat.pos.x = DEFO_SIZE_X;
 	g_Cat.pos.y = CAT_INIT_Y;
@@ -56,20 +62,141 @@ void UpdateCat()
 	{
 		g_Cat.pos.y += GRAV;
 	}
+	//右に向かって進んでいるとき
+	if (g_Cat.move_flag == false)
+	{
+
+		//地面についているとき
+		if (g_Cat.jump_flag == true)
+		{
+			//猫アニメーションパターン管理
+			g_Cat.patern += 0.04f;
+
+			//爪とぎアニメーション 右
+			if (g_Cat.tumetogi_flag == true)
+			{
+				if (g_Cat.patern < 4.0f)
+				{
+					g_Cat.patern = 4.0f;
+				}
+
+				tumetogi_count++;
+
+
+				if (g_Cat.patern > 6.0f)
+				{
+					g_Cat.patern = 4.0f;
+				}
+			}
+			else
+			{
+
+				//右に向かって歩く猫アニメ
+				if (g_Cat.patern > 1.9f)
+				{
+					g_Cat.patern = 0.0f;
+				}
+				else if (g_Cat.patern > 2.0f)
+				{
+					g_Cat.patern = 0.0f;
+				}
+
+			}
+
+		}
+		else
+		{
+			//猫アニメーションパターン管理
+			g_Cat.patern += 0.20f;
+
+			//ジャンプパワーが0以上だったら　
+			if (g_Cat.jump_y > 0.0f)
+			{
+
+				//ジャンプ猫アニメ　右
+				if (g_Cat.patern > 10.0f)
+				{
+					g_Cat.patern = 9.0f;
+				}
+			}
+			else
+			{
+				//落ちる猫アニメ　右
+				g_Cat.patern = 10.0f;
+
+			}
+		}
+	}
+	//左に向かって進んでいるとき
+	else
+	{
+		g_Cat.patern += 0.04f;
+
+		//地面についているとき
+		if (g_Cat.jump_flag == true)
+		{
+			//爪とぎアニメーション 左
+			if (g_Cat.tumetogi_flag == true)
+			{
+				tumetogi_count++;
+
+				if (g_Cat.patern > 8.0f)
+				{
+					g_Cat.patern = 6.0f;
+				}
+			}
+			//左に向かって歩く猫アニメ
+			else if (g_Cat.patern > 4.0f)
+			{
+
+				g_Cat.patern = 2.0f;
+			}
+			else if (g_Cat.patern < 2.0f)
+			{
+				g_Cat.patern = 2.0f;
+			}
+		}
+		else
+		{
+			//猫アニメーションパターン管理
+			g_Cat.patern += 0.20f;
+
+			//ジャンプパワーが0以上だったら　
+			if (g_Cat.jump_y > 0.0f)
+			{
+
+				//ジャンプ猫アニメ　左
+				if (g_Cat.patern > 13.0f)
+				{
+					g_Cat.patern = 12.0f;
+				}
+			}
+			else
+			{
+				//落ちる猫アニメ　左
+				g_Cat.patern = 13.0f;
+
+			}
+
+
+		}
+
+	}
+
+	if (tumetogi_count > 180 && g_Cat.tumetogi_flag == true)
+	{
+		g_Cat.tumetogi_flag = false;
+	}
 
 	//爪とぎ中は進まない
 	if (g_Cat.tumetogi_flag == false)
 	{
+		if (tumetogi_count > 0)
+			tumetogi_count = 0;
 
 		//自動で移動(壁にぶつかるor初期値まで戻ったら反転)
 		if (g_Cat.move_flag == false)
 		{
-			//右に向かって歩く猫アニメ
-			g_Cat.patern += 0.04;
-			if (g_Cat.patern > 2.0f)
-			{
-				g_Cat.patern = 0.0f;
-			}
 			//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
 			if (g_Cat.nowjump_flag > 0)
 			{
@@ -82,12 +209,6 @@ void UpdateCat()
 		}
 		else
 		{
-			//左に向かって歩く猫アニメ
-			g_Cat.patern += 0.04;
-			if (g_Cat.patern > 4.0f || g_Cat.patern < 2.0f)
-			{
-				g_Cat.patern = 2.0f;
-			}
 			//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
 			if (g_Cat.nowjump_flag > 0)
 			{
@@ -157,9 +278,9 @@ void DrawCat()
 		g_Cat.rot,
 		g_Cat.col,
 		g_Cat.patern,		
-		1.0f / 4.0f,//横
-		1.0f,//縦
-		4//横のパターン枚数
+		1.0f / 8.0f,//横
+		1.0f / 3.0f,//縦
+		8//横のパターン枚数
 	);
 }
 //構造体の先頭ポインタを返す　皆が使えるように
@@ -195,6 +316,17 @@ void CatJump(float jumpheight)
 
 		g_Cat.nowjump_flag = jumpheight;
 		g_Cat.jump_flag = false;
+
+		//右に進んでいたら
+		if (g_Cat.move_flag == false)
+		{
+			g_Cat.patern = 8.0f;
+		}
+		else
+			//左に進んでいたら
+		{
+			g_Cat.patern = 11.0f;
+		}
 	}
 }
 

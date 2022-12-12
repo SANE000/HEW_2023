@@ -151,6 +151,7 @@
     <ClCompile Include="gameover.cpp" />
     <ClCompile Include="gimmick_wall.cpp" />
     <ClCompile Include="inputx.cpp" />
+    <ClCompile Include="jumpflag.cpp" />
     <ClCompile Include="jumpsensor_collision.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="Line.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="gameover.h" />
     <ClInclude Include="gimmick_wall.h" />
     <ClInclude Include="inputx.h" />
+    <ClInclude Include="jumpflag.h" />
     <ClInclude Include="jumpsensor_collision.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="Line.h" />

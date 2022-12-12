@@ -95,8 +95,8 @@ void UpdatePlayer()
 
 	//操作関係
 	//画面スクロール中はプレイヤーの操作は行えないようにする
-	if (g_Camera->moveLeft == false && g_Camera->moveRight == false)
-	{
+	//if (g_Camera->moveLeft == false && g_Camera->moveRight == false)
+	//{
 		//上下左右矢印キーで移動する
 		if (Keyboard_IsKeyDown(KK_D) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
 		{//右
@@ -149,7 +149,7 @@ void UpdatePlayer()
 		}
 
 		//爪とぎ終了
-		if (GetCat()->tumetogi_flag == true && Keyboard_IsKeyDown(KK_X) || IsButtonPressed(0, XINPUT_GAMEPAD_X))
+		if (GetCat()->tumetogi_flag == true && Keyboard_IsKeyDown(KK_X))
 		{
 			GetCat()->tumetogi_flag = false;
 		}
@@ -180,7 +180,7 @@ void UpdatePlayer()
 		}
 
 
-	}
+	//}
 }
 void DrawPlayer()
 {

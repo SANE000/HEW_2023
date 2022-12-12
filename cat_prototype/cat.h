@@ -14,7 +14,7 @@
 //ジャンプ力
 #define JUMP (7.0f)
 //ジャンプセンサーの横サイズ
-#define SENSOR_SIZE	(17.5f)		
+#define SENSOR_SIZE	(15.0f)		
 
 
 //構造体定義
