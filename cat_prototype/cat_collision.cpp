@@ -116,19 +116,32 @@ void UpdateCatCollision()
 							block[i].Patern = 14.0f;
 						}
 						block[i].Patern += 0.9 / ONTIME;
-						block[i].ontime -= 1;
+						block[i].ontime -= 1.0f;
 						if (block[i].ontime <= 0)
 						{
 							//仮の番号。なにも描画しない
-							block[i].Patern = 23.0f;
+							block[i].Patern = 35.0f;
 							block[i].use = false;
 						}
+					}
+
+					if (block[i].Patern == 22.0f)
+					{
+						cat->onmove = 0.5f;
+					}
+					else if (block[i].Patern == 23.0f)
+					{
+						cat->onmove = -0.5f;
+					}
+					else
+					{
+						cat->onmove = 0.0f;
 					}
 
 					if (block[i].button == true)
 					{
 						//触れた瞬間falseにならないように中心あたりでfalseにする
-						if (block[i].pos.x - 10.0f < cat->pos.x && block[i].pos.x + 10.0f > cat->pos.x)
+						if (block[i].pos.x - 15.0f < cat->pos.x && block[i].pos.x + 15.0f > cat->pos.x)
 						{
 							block[i].button = false;
 							block[i].use = false;
@@ -235,7 +248,7 @@ void UpdateCatCollision()
 					//m_temp = MOVE_BLOCK_MAX;
 
 					//	バネブロックか砂嵐で中心あたりに乗った時跳ねる処理
-					if (m_block[i].Patern >= 2.0f && m_block[i].Patern <= 4.9f)
+					if (m_block[i].Patern >= 3.0f && m_block[i].Patern <= 5.9f)
 					{
 						//曲がって
 						m_block[i].Patern += 0.1f / 2;
@@ -244,15 +257,15 @@ void UpdateCatCollision()
 							//とりあえず3段	
 							CatJump(3.0f);
 							//飛んだ瞬間に戻る
-							if (m_block[i].Patern >= 2.0f && m_block[i].Patern <= 4.9f)
+							if (m_block[i].Patern >= 3.0f && m_block[i].Patern <= 5.9f)
 							{
-								m_block[i].Patern = 2.0f;
+								m_block[i].Patern = 3.0f;
 							}
 						}
 					}
 
 					//	爪とぎブロック
-					if (m_block[i].Patern >= 5.0f && m_block[i].Patern <= 5.9f)
+					if (m_block[i].Patern >= 6.0f && m_block[i].Patern <= 6.9f)
 					{
 						if (m_block[i].pos.x - 1.0f < cat->pos.x && m_block[i].pos.x + 1.0f > cat->pos.x)
 						{

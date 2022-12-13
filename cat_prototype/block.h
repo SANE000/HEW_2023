@@ -15,7 +15,7 @@ struct BLOCK
 	//ボタンオンフラグ
 	bool button = false;
 	//ボタンに乗っている時間をとる
-	int ontime;
+	float ontime;
 	//表示座標
 	D3DXVECTOR2 pos;
 	//回転角度

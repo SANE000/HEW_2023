@@ -51,6 +51,8 @@ struct CAT
 	bool half_flag;
 	//ゴールフラグ
 	bool goal_flag;
+	//動くものに乗ってるときの左右への動き
+	float onmove;
 };
 
 //プロトタイプ宣言

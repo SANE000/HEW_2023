@@ -255,9 +255,9 @@ void DrawPreview()
 				g_MoveBlock[i].rot,
 				g_MoveBlock[i].col,
 				g_MoveBlock[i].Patern,
-				1.0f/6.0f,
+				1.0f/7.0f,
 				1.0f,
-				6
+				7
 			);
 		}
 	}
@@ -330,11 +330,11 @@ void SetMoveBlock()
 				{
 					//バネブロック
 				case 5:
-					g_MoveBlock[i].Patern = 2.0f;
+					g_MoveBlock[i].Patern = 3.0f;
 					break;
 					//爪とぎ
 				case 6:
-					g_MoveBlock[i].Patern = 5.0f;
+					g_MoveBlock[i].Patern = 6.0f;
 					break;
 				default:
 					break;

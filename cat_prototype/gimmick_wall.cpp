@@ -30,6 +30,7 @@ G_WALL g_wall[WALL_MAX];
 void InitWall_12();
 void InitWall_13();
 void InitWall_23();
+void InitWall_31();
 
 HRESULT InitGimmickWall()
 {
@@ -84,7 +85,7 @@ HRESULT InitGimmickWall()
 
 		if (stage_gw == 0)
 		{
-
+			InitWall_31();
 		}
 		else if (stage_gw == 1)
 		{
@@ -189,7 +190,7 @@ void UninitGimmickWall()
 
 		break;
 
-		//1-2
+		//2-1
 	case 1:
 		if (stage_gw == 0)
 		{
@@ -215,10 +216,18 @@ void UninitGimmickWall()
 		break;
 
 	case 2:
-
+		//3-1
 		if (stage_gw == 0)
 		{
-
+			for (int i = 0; i < WALL_MAX; i++)
+			{
+				if (g_wall[i].use == false)
+				{
+					continue;
+				}
+				//true‚Ì‚â‚Â‚¾‚¯Ý’è‚·‚é
+				g_wall[i].use = false;
+			}
 		}
 		else if (stage_gw == 1)
 		{
@@ -360,7 +369,13 @@ void UpdateGimmickWall()
 
 		if (stage_gw == 0)
 		{
-
+			if (pb[66].button == false)
+			{
+				for (int i = 0; i < 7; i++)
+				{
+					g_wall[i].use = false;
+				}
+			}
 		}
 		else if (stage_gw == 1)
 		{
@@ -448,7 +463,7 @@ void DrawGimmickWall()
 				g_wall[i].col,
 				g_wall[i].Patern,
 				1.0f / 12.0f,//‰¡
-				1.0f / 2.0f,//c
+				1.0f / 3.0f,//c
 				12//‘–‡”
 			);
 
@@ -462,6 +477,25 @@ G_WALL* GetGimmickWall()
 	return g_wall;
 }
 
+
+void InitWall_31()
+{
+	g_wall[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 47, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_wall[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 47, DEFO_SIZE_Y - DRAW_SIZE * 6);
+	g_wall[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 47, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_wall[3].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 47, DEFO_SIZE_Y - DRAW_SIZE * 8);
+
+	g_wall[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 41, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_wall[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 42, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_wall[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 43, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	//Â
+	for (int i = 0; i < 7; i++)
+	{
+		g_wall[i].use = true;
+		g_wall[i].Patern = 7.0f;
+	}
+}
 
 void InitWall_23()
 {

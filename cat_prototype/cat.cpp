@@ -36,6 +36,7 @@ HRESULT InitCat()
 	g_Cat.limit_jump = 0.0f;
 	g_Cat.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	g_Cat.patern = 0.0f;
+	g_Cat.onmove = 0.0f;
 	g_Cat.half_flag = false;
 	g_Cat.goal_flag = false;
 	//使用中フラグをオンにする
@@ -200,11 +201,11 @@ void UpdateCat()
 			//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
 			if (g_Cat.nowjump_flag > 0)
 			{
-				g_Cat.pos.x += g_Cat.dir.x / g_Cat.nowjump_flag;
+				g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove) / g_Cat.nowjump_flag;
 			}
 			else
 			{
-				g_Cat.pos.x += g_Cat.dir.x;
+				g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove);
 			}
 		}
 		else
@@ -212,11 +213,11 @@ void UpdateCat()
 			//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
 			if (g_Cat.nowjump_flag > 0)
 			{
-				g_Cat.pos.x += g_Cat.dir.x / g_Cat.nowjump_flag;
+				g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove) / g_Cat.nowjump_flag;
 			}
 			else
 			{
-				g_Cat.pos.x += g_Cat.dir.x;
+				g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove);
 			}
 		}
 	}

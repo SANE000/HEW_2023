@@ -153,7 +153,7 @@ void UpdateBlockCollision()
 								{
 									m_block[i].Speed.y = 0;
 									//一段なのに登れない場所ができるため少し増やしました
-									m_block[i].pos.y = BlockTopN - 2 - DRAW_SIZE / 2;
+									m_block[i].pos.y = BlockTopN - 1 - DRAW_SIZE / 2;
 								}
 							}
 						}
@@ -170,7 +170,7 @@ void UpdateBlockCollision()
 									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 									m_block[n].Speed.y = 0;
 									//一段なのに登れない場所ができるため少し増やしました
-									m_block[n].pos.y = BlockTopI - 2 - DRAW_SIZE / 2;
+									m_block[n].pos.y = BlockTopI - 1 - DRAW_SIZE / 2;
 
 								}
 								else if (m_block[n].Speed.y == 0 && m_block[i].Speed.y != 0)
