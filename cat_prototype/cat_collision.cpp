@@ -91,11 +91,11 @@ void UpdateCatCollision()
 					if (block[i].Patern >= 9.0f && block[i].Patern <= 11.9f || block[i].Patern >= 17.0f && block[i].Patern <= 19.9f)
 					{
 						//曲がって
-						block[i].Patern += 0.1f/2;
+						block[i].Patern += 0.1f / 2;
 						if (block[i].pos.x - 5.0f < cat->pos.x && block[i].pos.x + 5.0f > cat->pos.x)
 						{
-							//とりあえず6段	
-							CatJump(6.0f);
+							//とりあえず7段	
+							CatJump(7.0f);
 							//飛んだ瞬間に戻る
 							if (block[i].Patern >= 9.0f && block[i].Patern <= 11.9f)
 							{
@@ -233,12 +233,12 @@ void UpdateCatCollision()
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.y = BlockTopM - CAT_SIZE_H / 2;
 					//m_temp = MOVE_BLOCK_MAX;
-						
+
 					//	バネブロックか砂嵐で中心あたりに乗った時跳ねる処理
 					if (m_block[i].Patern >= 2.0f && m_block[i].Patern <= 4.9f)
 					{
 						//曲がって
-						m_block[i].Patern += 0.1f/2;
+						m_block[i].Patern += 0.1f / 2;
 						if (m_block[i].pos.x - 5.0f < cat->pos.x && m_block[i].pos.x + 5.0f > cat->pos.x)
 						{
 							//とりあえず3段	
@@ -336,7 +336,7 @@ void UpdateCatCollision()
 					{
 						//g_temp = WALL_MAX;
 					}
-					
+
 				}
 				//ブロックより下
 				else if (CatTop <= GimmickWallBottom &&

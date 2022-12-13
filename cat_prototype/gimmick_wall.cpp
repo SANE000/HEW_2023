@@ -315,7 +315,7 @@ void UpdateGimmickWall()
 			//ボタンが押されたら全部falseにする
 			if (pb[52].button == false)
 			{
-				for (int i = 0; i < 16; i++)
+				for (int i = 0; i < 8; i++)
 				{
 					g_wall[i].use = false;
 				}
@@ -324,7 +324,7 @@ void UpdateGimmickWall()
 
 		break;
 
-		//1-2
+		//2-1
 	case 1:
 		if (stage_gw == 0)
 		{
@@ -344,26 +344,10 @@ void UpdateGimmickWall()
 					g_wall[i].use = true;
 				}
 			}
-			//赤ボタンbが押されたら全部trueにする
-			if (pb[48].button == false)
-			{
-				for (int i = 8; i < 11; i++)
-				{
-					g_wall[i].use = true;
-				}
-			}
 			//青ボタンaが押されたら全部falseにする
 			if (pb[9].button == false)
 			{
 				for (int i = 4; i < 8; i++)
-				{
-					g_wall[i].use = false;
-				}
-			}
-			//青ボタンbが押されたら全部falseにする
-			if (pb[46].button == false)
-			{
-				for (int i = 11; i < 15; i++)
 				{
 					g_wall[i].use = false;
 				}
@@ -491,34 +475,14 @@ void InitWall_23()
 	g_wall[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 3);
 	g_wall[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 3);
 
-	g_wall[8].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 53, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_wall[9].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 54, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_wall[10].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 55, DEFO_SIZE_Y - DRAW_SIZE * 0);
-
-	g_wall[11].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 53, DEFO_SIZE_Y - DRAW_SIZE * 4);
-	g_wall[12].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 54, DEFO_SIZE_Y - DRAW_SIZE * 4);
-	g_wall[13].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 55, DEFO_SIZE_Y - DRAW_SIZE * 4);
-	g_wall[14].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 90, DEFO_SIZE_Y - DRAW_SIZE * 6);
-
 	//赤
 	for (int i = 0; i < 4; i++)
 	{
 		g_wall[i].use = false;
 		g_wall[i].Patern = 8.0f;
 	}
-
-	for (int i = 8; i < 11; i++)
-	{
-		g_wall[i].use = false;
-		g_wall[i].Patern = 8.0f;
-	}
 	//青
 	for (int i = 4; i < 8; i++)
-	{
-		g_wall[i].use = true;
-		g_wall[i].Patern = 7.0f;
-	}
-	for (int i = 11; i < 15; i++)
 	{
 		g_wall[i].use = true;
 		g_wall[i].Patern = 7.0f;
