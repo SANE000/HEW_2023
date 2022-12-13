@@ -3,8 +3,8 @@
 #include "main.h"
 #include "renderer.h"
 
-#define FIELD_MAX   6
-#define STAGE_MAX   3
+#define FIELD_MAX   7
+#define STAGE_MAX   21
 
 struct FIELD
 {
@@ -22,6 +22,8 @@ struct FIELD
 	D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	//種類用のアニメ番号
 	float Patern = 0;
+	//クリアしたワールド
+	int clear = 0; 
 };
 
 struct STAGE
@@ -40,6 +42,8 @@ struct STAGE
 	D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	//種類用のアニメ番号
 	float Patern = 0;
+	//クリアしたステージ
+	int clear = 0;
 
 };
 

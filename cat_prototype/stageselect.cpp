@@ -17,29 +17,37 @@
 static FIELD g_Field[FIELD_MAX];
 static STAGE  g_InStage[STAGE_MAX];
 static int	g_TextureNo;		// テクスチャ識別子
-static int	StageNum = 0;		// テクスチャ識別子
-static int  FieldNum = 0;
-static int	ClearNum = 0;
+
+static int	StageNum = 0;		// ステージ数
+static int  FieldNum = 0;       // ワールド数
+
+static int	ClearNum = 0;       // クリアした数
+static int  ClearStage = 0;
+static int  ClearField = 0;
+
 static int time = 0;
 
-static float num;
+static bool World = true;
+
 
 
 FIELD  InitData[] = {
 
-	{true,D3DXVECTOR2(170, 155),D3DXVECTOR2(288, 162),0,3,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0},
-	{true,D3DXVECTOR2(485, 155),D3DXVECTOR2(288, 162),0,1,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),1},
-	{true,D3DXVECTOR2(800, 155),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),2},
-	{true,D3DXVECTOR2(170, 400),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),3},
-	{true,D3DXVECTOR2(485, 400),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),4},
-	{true,D3DXVECTOR2(800, 400),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),5}
+	{true,D3DXVECTOR2(170, 290),D3DXVECTOR2(240, 130),0,3,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0},
+	{true,D3DXVECTOR2(485, 290),D3DXVECTOR2(240, 130),0,1,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),1},
+	{true,D3DXVECTOR2(800, 290),D3DXVECTOR2(240, 130),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),2},
+	{true,D3DXVECTOR2(170, 450),D3DXVECTOR2(240, 130),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),3},
+	{true,D3DXVECTOR2(485, 450),D3DXVECTOR2(240, 130),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),4},
+	{true,D3DXVECTOR2(800, 450),D3DXVECTOR2(240, 130),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),5},
+	{true,D3DXVECTOR2(500, 500),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),5}
+
 
 };
 
 STAGE  InitData1[] = {
 	{false,D3DXVECTOR2(170, 250),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0},
-	{false,D3DXVECTOR2(485, 250),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),1},
-	{false,D3DXVECTOR2(800, 250),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),2},
+	{false,D3DXVECTOR2(485, 250),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f),1},
+	{false,D3DXVECTOR2(800, 250),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f),2},
 	
 	//{false,D3DXVECTOR2(170 + SCREEN_WIDTH, 250),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),0},
 	//{false,D3DXVECTOR2(485 + SCREEN_WIDTH, 250),D3DXVECTOR2(288, 162),0,0,D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f),0},
@@ -68,15 +76,38 @@ HRESULT InitStageSelect()
 
 	for (int i = 0; i < FIELD_MAX; i++) {
 		g_Field[i] = InitData[i];
-		g_Field[i].texNo = LoadTexture((char*)"data/TEXTURE/field.png");
+		g_Field[i].texNo = LoadTexture((char*)"data/TEXTURE/field_0.png");
 	}
-
 
 	
-	for (int i = 0; i < STAGE_MAX; i++) {
-		g_InStage[i] = InitData1[i];
-		g_InStage[i].texNo = LoadTexture((char*)"data/TEXTURE/stage.png");
+	
+	for (int i = 0; i < FIELD_MAX * 3; ) {
+		for (int n = 0; n < 3; i++, n++) {
+			g_InStage[i] = InitData1[n];
+			g_InStage[i].texNo = LoadTexture((char*)"data/TEXTURE/stage.png");
+		}
 	}
+	StageNum = 0;
+	FieldNum = 0;
+	
+	
+	ClearNum = SetClear() + 1;
+
+	if (ClearNum > 20)
+	{
+		ClearNum = 20;
+	}
+
+	ClearStage = ClearNum;
+	ClearField = ClearNum / 3;
+
+	
+	for (int i = 0; i < ClearNum + 1; i++)
+	{
+		g_InStage[i].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+	}
+	
+
 
 	return S_OK;
 }
@@ -90,18 +121,19 @@ void UnInitStageSelect()
 
 void UpdateStageSelect()
 {
+
 	if (time > 0)
 	{
 		time -= 1;
 	}
-	if (g_Field[0].use == true) {//1～6面の選択
+	if (World == true) {//1～6面の選択
 		//右矢印で一つ右に移動
 		//選択中のステージを透明度を0.5
 		//次のステージの透明度を1.0
 		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0) {
 			g_Field[FieldNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 			FieldNum++;
-			if (FieldNum > 5) {
+			if (FieldNum > (ClearField)) {
 				FieldNum = 0;
 			}
 			g_Field[FieldNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
@@ -115,7 +147,7 @@ void UpdateStageSelect()
 			g_Field[FieldNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 			FieldNum--;
 			if (FieldNum < 0) {
-				FieldNum = 5;
+				FieldNum = (ClearField);
 			}
 			g_Field[FieldNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -127,34 +159,43 @@ void UpdateStageSelect()
 			for (int i = 0; i < FIELD_MAX; i++) {
 				g_Field[i].use = false;
 			}
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < STAGE_MAX; i++) {
 				g_InStage[i].use = true;
 			}
+
+			StageNum = FieldNum * 3;
+			g_InStage[StageNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+			World = false;
 			time = 20;
 		}
 	}
-	else if (g_InStage[0].use == true) {
+	else if (World == false) {
 		//右矢印で一つ右に移動
 		//選択中のステージを透明度を0.5
 		//次のステージの透明度を1.0
 		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0) {
 			g_InStage[StageNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 			StageNum++;
-			if (StageNum > 2) {
-				StageNum = 0;
+			if (StageNum > ClearStage) 
+			{
+				StageNum = ClearStage;
 			}
+			if (StageNum > FieldNum * 3 + 2) {
+				StageNum = FieldNum * 3 + 2;
+			}
+			
 			g_InStage[StageNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
 			time = 10;
 		}
 		if (Keyboard_IsKeyDown(KK_LEFT) && time <= 0 || GetThumbLeftX(0) < 0 && time <= 0) {
-			//←矢印で一つ右に移動
+			//←矢印で一つ左に移動
 			//選択中のステージを透明度を0.5
 			//次のステージの透明度を1.0
 			g_InStage[StageNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 			StageNum--;
-			if (StageNum < 0) {
-				StageNum = 2;
+			if (StageNum < FieldNum * 3) {
+				StageNum = FieldNum * 3;
 			}
 			g_InStage[StageNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -164,27 +205,46 @@ void UpdateStageSelect()
 		if (Keyboard_IsKeyDown(KK_ENTER) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0) {
 			//Enterでショップへ	
 			SetScene(SCENE_SHOP);
+			World = true;
 			time = 20;
 		}
-		
-		//上下の矢印で面を変更
+
+
+		if (Keyboard_IsKeyDown(KK_B) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0) {
+			for (int i = 0; i < FIELD_MAX; i++) {
+				g_Field[i].use = true;
+			}
+			for (int i = 0; i < STAGE_MAX; i++) {
+				g_InStage[i].use = false;
+			}
+			time = 20;
+			g_InStage[StageNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+			World = true;
+		}
+			//上下の矢印で面を変更
 		if (Keyboard_IsKeyDown(KK_UP) && time <= 0 || GetThumbLeftY(0) > 0 && time <= 0) {
 			time = 20;
+			g_InStage[StageNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 			FieldNum--;
+			StageNum = FieldNum * 3;
+			g_InStage[FieldNum * 3].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 			if (FieldNum < 0) {
-				FieldNum = 5;
+				FieldNum = (ClearField);
 			}
 		}
 		else if (Keyboard_IsKeyDown(KK_DOWN) && time <= 0 || GetThumbLeftY(0) < 0 && time <= 0) {
 			time = 20;
+			g_InStage[StageNum].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 			FieldNum++;
-			if (FieldNum > 5) {
+			StageNum = FieldNum * 3;
+			g_InStage[FieldNum * 3].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+			if (FieldNum > (ClearField)) {
 				FieldNum = 0;
 			}
 		}
-
+		
 	}
-	num += 0.1f;
+
 }
 
 void DrawStageSelect()
@@ -198,7 +258,7 @@ void DrawStageSelect()
 		SCREEN_WIDTH,
 		SCREEN_HEIGHT,
 		0,
-		D3DXCOLOR(1.0f,1.0f,1.0f,0.5f),
+		D3DXCOLOR(0.7f, 0.7f, 0.7f,0.7f),
 		FieldNum,
 		1.0f / 6.0f,//横
 		1.0f,//縦
@@ -228,7 +288,10 @@ void DrawStageSelect()
 		}
 	}
 
-	for (int i = 0; i < STAGE_MAX; i++) {
+
+
+
+	for (int i = FieldNum * 3; i < FieldNum * 3 + 3; i++) {
 		GetDeviceContext()->PSSetShaderResources
 		(0, 1, GetTexture(g_InStage[i].texNo));
 
@@ -261,5 +324,5 @@ int SetField()
 //ステージのセット
 int SetStage()
 {
-	return StageNum;
+	return StageNum % 3;
 }
