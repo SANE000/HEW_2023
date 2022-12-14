@@ -53,6 +53,7 @@ HRESULT InitPreview()
 		g_MoveBlock[i].Speed.y = 0.0f;
 		g_MoveBlock[i].group = 0;
 		g_MoveBlock[i].Patern = field;
+		g_MoveBlock[i].gimmickwall = -1;
 	}
 
 	//プレビューブロック初期化

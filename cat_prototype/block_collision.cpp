@@ -54,7 +54,26 @@ void UpdateBlockCollision()
 						{
 							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 							m_block[i].pos.y = G_Top - 1 - DRAW_SIZE / 2;
+						
+
+							//当たったギミックウォールの添え字を入れる
+							if (m_block[i].gimmickwall == -1)
+							{
+								m_block[i].gimmickwall = n;
+								m_block[i].Speed.y = 0;
+
+							}
+						
 						}
+					}
+				}
+				else
+				{
+					//消えたギミックウォールに当たって止まっていたブロックの動きを元に戻す
+					if (n == m_block[i].gimmickwall)
+					{
+						m_block[i].gimmickwall = -1;
+						m_block[i].Speed.y = GRAV;
 					}
 				}
 			}
@@ -143,7 +162,23 @@ void UpdateBlockCollision()
 							//下にあるブロックが地面に触れているブロックなのか確かめてそうなら当たり判定で止まる処理の追加の必要があるかも
 							if (m_block[i].pos.x - DRAW_SIZE / 2 <= m_block[n].pos.x && m_block[i].pos.x + DRAW_SIZE / 2 >= m_block[n].pos.x)
 							{
-								if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
+								
+								//ギミックウォールに触っているブロックに当たった時止まる
+								if (m_block[n].gimmickwall != -1 && m_block[i].gimmickwall == -1)
+								{
+									m_block[i].Speed.y = 0;
+									//一段なのに登れない場所ができるため少し増やしました
+									m_block[i].pos.y = BlockTopN - 2 - DRAW_SIZE / 2;
+									m_block[i].gimmickwall = m_block[n].gimmickwall;
+								}
+								else if (m_block[i].gimmickwall != -1 && m_block[n].gimmickwall == -1)
+								{
+									m_block[n].Speed.y = 0;
+									m_block[n].pos.y = BlockBottomI + DRAW_SIZE / 2;
+									m_block[n].gimmickwall = m_block[i].gimmickwall;
+
+								}
+								else if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 								{
 									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 									m_block[n].Speed.y = 0;
@@ -165,7 +200,22 @@ void UpdateBlockCollision()
 							//下にあるブロックが地面に触れているブロックなのか確かめてそうなら当たり判定で止まる処理の追加の必要があるかも
 							if (m_block[i].pos.x - DRAW_SIZE / 2 <= m_block[n].pos.x && m_block[i].pos.x + DRAW_SIZE / 2 >= m_block[n].pos.x)
 							{
-								if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
+
+								if (m_block[n].gimmickwall != -1 && m_block[i].gimmickwall == -1)
+								{
+									m_block[i].Speed.y = 0;
+									m_block[i].pos.y = BlockBottomN + DRAW_SIZE / 2;
+									m_block[i].gimmickwall = m_block[n].gimmickwall;
+								}
+								else if (m_block[i].gimmickwall != -1 && m_block[n].gimmickwall == -1)
+								{
+									m_block[n].Speed.y = 0;
+									//一段なのに登れない場所ができるため少し増やしました
+									m_block[n].pos.y = BlockTopI - 2 - DRAW_SIZE / 2;
+									m_block[n].gimmickwall = m_block[i].gimmickwall;
+
+								}
+								else if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 								{
 									//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 									m_block[n].Speed.y = 0;
@@ -191,7 +241,21 @@ void UpdateBlockCollision()
 								//同じグループのブロックか
 								if (m_block[i].group == m_block[n].group)
 								{
-									if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
+									if (m_block[n].gimmickwall != -1 && m_block[i].gimmickwall == -1)
+									{
+										m_block[i].Speed.y = 0;
+										m_block[i].pos.x = BlockRightN + DRAW_SIZE / 2;
+										m_block[i].pos.y = m_block[n].pos.y;
+										m_block[i].gimmickwall = m_block[n].gimmickwall;
+									}
+									else if (m_block[i].gimmickwall != -1 && m_block[n].gimmickwall == -1)
+									{
+										m_block[n].Speed.y = 0;
+										m_block[n].pos.x = BlockLeftI - DRAW_SIZE / 2;
+										m_block[n].pos.y = m_block[i].pos.y;
+										m_block[n].gimmickwall = m_block[i].gimmickwall;
+									}
+									else if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 									{
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 
@@ -221,7 +285,21 @@ void UpdateBlockCollision()
 							{
 								if (m_block[i].group == m_block[n].group)
 								{
-									if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
+									if (m_block[n].gimmickwall != -1 && m_block[i].gimmickwall == -1)
+									{
+										m_block[i].Speed.y = 0;
+										m_block[i].pos.x = BlockLeftN - DRAW_SIZE / 2;
+										m_block[i].pos.y = m_block[n].pos.y;
+
+									}
+									else if (m_block[i].gimmickwall != -1 && m_block[n].gimmickwall == -1)
+									{
+										m_block[n].Speed.y = 0;
+										m_block[n].pos.x = BlockRightI + DRAW_SIZE / 2;
+										m_block[n].pos.y = m_block[i].pos.y;
+										m_block[n].gimmickwall = m_block[i].gimmickwall;
+									}
+									else if (m_block[i].Speed.y == 0 && m_block[n].Speed.y != 0)
 									{
 										//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 										m_block[n].Speed.y = 0;

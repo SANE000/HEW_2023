@@ -1,43 +1,48 @@
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\vc141.pdb
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\vc141.idb
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\polygon.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\player.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\main.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\linecircle.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\line.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\keyboard.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\inputx.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\gimmick_wall.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\game.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\etcui.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\dogcollision.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\dog.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\cursor.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\collision.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\cat.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\camera.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\blocktype.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\blockpreview.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\block.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\bg.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\title.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\timer.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\texture.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\stageselect.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sprite.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sound.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\shop.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\select.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\scene.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\result.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\renderer.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\gameover.obj
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.exe
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.ilk
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.pdb
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\cl.command.1.tlog
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\cl.read.1.tlog
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\cl.write.1.tlog
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\link.command.1.tlog
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\link.read.1.tlog
-c:\users\高野智希\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\link.write.1.tlog
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\vc141.pdb
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\vc141.idb
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\keyboard.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\jumpsensor_collision.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\jumpflag.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\inputx.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\gimmick_wall.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\gameover.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\game.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\etcui.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\dogcollision.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\dog.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\cursor.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\collision.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\cat_collision.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\cat.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\camera.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\block_collision.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\blocktype.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\blockpreview.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\block.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\bg.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\title.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\timer.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\texture.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\stageselect.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sprite.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sound.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\shop.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\select.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\scene.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\result.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\renderer.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\preview_collision.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\polygon.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\player.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\main.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\linecircle.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\line.obj
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.ilk
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.exe
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.pdb
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\cl.command.1.tlog
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\cl.read.1.tlog
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\cl.write.1.tlog
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\link.command.1.tlog
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\link.read.1.tlog
+c:\users\實吉　貴大　学校用\desktop\hew\hew_2023\cat_prototype\x64\debug\sample.tlog\link.write.1.tlog
