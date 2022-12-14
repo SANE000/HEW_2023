@@ -245,6 +245,7 @@ void UpdateCatCollision()
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.y = BlockTopM - CAT_SIZE_H / 2;
+					cat->onmove = 0.0f;
 					//m_temp = MOVE_BLOCK_MAX;
 
 					//	バネブロックか砂嵐で中心あたりに乗った時跳ねる処理
@@ -344,7 +345,7 @@ void UpdateCatCollision()
 				{
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.y = GimmickWallTop - CAT_SIZE_H / 2;
-
+					cat->onmove = 0.0f;
 					if (gimmickwall[i].pos.x - 25.0f < cat->pos.x && gimmickwall[i].pos.x + 25.0f > cat->pos.x)
 					{
 						//g_temp = WALL_MAX;

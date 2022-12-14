@@ -189,8 +189,8 @@ void DrawDog()
 			DrawSpriteColorRotate(
 				mappos + basePos.x + g_Dog[i].pos.x,
 				basePos.y + g_Dog[i].pos.y,
-				g_Dog[i].w,
-				g_Dog[i].h,
+				DRAW_SIZE,
+				DRAW_SIZE,
 				g_Dog[i].rot,
 				D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
 				(int)g_Dog[i].anime,				//ÉpÉ^Å[Éìî‘å„			0
