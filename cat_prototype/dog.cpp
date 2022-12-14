@@ -51,6 +51,13 @@ DOG InitData31[] =
 	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 50, DEFO_SIZE_Y - DRAW_SIZE * 8),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0}
 };
 
+DOG InitData32[] =
+{
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 27, DEFO_SIZE_Y - DRAW_SIZE * 5),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{false,false,false,D3DXVECTOR2(0,0),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{false,false,false,D3DXVECTOR2(0,0),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0}
+};
+
 //------------------------
 //DOGèâä˙âª
 //------------------------
@@ -110,6 +117,15 @@ HRESULT InitDog()
 			for (int i = 0; i < DOG_MAX; i++)
 			{
 				g_Dog[i] = InitData31[i];
+
+				g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\nezumi.png");
+			}
+		}
+		else if (stage == 1 && clear >= 7)
+		{
+			for (int i = 0; i < DOG_MAX; i++)
+			{
+				g_Dog[i] = InitData32[i];
 
 				g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\nezumi.png");
 			}
