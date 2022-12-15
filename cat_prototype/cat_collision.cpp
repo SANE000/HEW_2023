@@ -12,9 +12,9 @@
 
 void UpdateCatCollision()
 {
-	int temp = 0;
-	int m_temp = 0;
-	int g_temp = 0;
+	//int temp = 0;
+	//int m_temp = 0;
+	//int g_temp = 0;
 	CAT *cat = GetCat();
 
 	BLOCK *block = GetBlock();
@@ -30,9 +30,9 @@ void UpdateCatCollision()
 
 	if (cat->use == true)
 	{
-		temp = BLOCK_MAX;
-		m_temp = MOVE_BLOCK_MAX;
-		g_temp = WALL_MAX;
+		//temp = BLOCK_MAX;
+		//m_temp = MOVE_BLOCK_MAX;
+		//g_temp = WALL_MAX;
 
 		//==============================================================================================================================
 		//		//動かないブロックと猫の当たり判定//////////////////////////////////////////////////////////////////////////////////////
@@ -46,12 +46,18 @@ void UpdateCatCollision()
 			//もし構造体を使ってなかったらスキップ
 			if (block[i].use != true)
 			{
-				if (temp > 0)
-				{
-					temp -= 1;
-				}
+				//if (temp > 0)
+				//{
+				//	temp -= 1;
+				//}
 				continue;
 			}
+			//猫から遠い所は飛ばす
+			else if (block[i].pos.x <(cat->pos.x - 90) || block[i].pos.x >(cat->pos.x + 90))
+			{
+				continue;
+			}
+
 			//当たり判定を行う
 			bool hit = CollisionBB(
 				cat->pos, block[i].pos,
@@ -156,10 +162,10 @@ void UpdateCatCollision()
 					//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
 					cat->jump_y = 0;
 
-					if (temp > 0)
-					{
-						temp -= 1;
-					}
+					//if (temp > 0)
+					//{
+					//	temp -= 1;
+					//}
 				}
 				//床ブロックより右
 				else if (CatLeft <= BlockRight && cat->pos.x > BlockRight)
@@ -175,10 +181,10 @@ void UpdateCatCollision()
 					//壁にぶつかったら反転。右へ
 					//ChangeMoveFlag(cat);
 
-					if (temp > 0)
-					{
-						temp -= 1;
-					}
+					//if (temp > 0)
+					//{
+					//	temp -= 1;
+					//}
 
 				}
 				//床ブロックより左
@@ -195,20 +201,20 @@ void UpdateCatCollision()
 					//壁にぶつかったら反転。左へ
 					//ChangeMoveFlag(cat);
 
-					if (temp > 0)
-					{
-						temp -= 1;
-					}
+					//if (temp > 0)
+					//{
+					//	temp -= 1;
+					//}
 
 				}
 			}
-			else
-			{
-				if (temp > 0)
-				{
-					temp -= 1;
-				}
-			}
+			//else
+			//{
+			//	if (temp > 0)
+			//	{
+			//		temp -= 1;
+			//	}
+			//}
 		}
 		//==============================================================================================================================
 		//			//MOVEブロックと猫の当たり判定//////////////////////////////////////////////////////////////////////////////////////
@@ -219,10 +225,15 @@ void UpdateCatCollision()
 			//もし構造体を使ってなかったらスキップ
 			if (m_block[i].use != true)
 			{
-				if (m_temp > 0)
-				{
-					m_temp -= 1;
-				}
+				//if (m_temp > 0)
+				//{
+				//	m_temp -= 1;
+				//}
+				continue;
+			}
+			//猫から遠い所は飛ばす
+			else if (m_block[i].pos.x <(cat->pos.x - 90) || m_block[i].pos.x >(cat->pos.x + 90))
+			{
 				continue;
 			}
 
@@ -281,10 +292,10 @@ void UpdateCatCollision()
 					//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 					cat->pos.x = BlockRightM + CAT_SIZE_W / 2 + cat->dir.x + 1;
 
-					if (m_temp > 0)
-					{
-						m_temp -= 1;
-					}
+					//if (m_temp > 0)
+					//{
+					//	m_temp -= 1;
+					//}
 				}
 				//猫がブロックより左 
 				else if (CatRight >= BlockLeftM && CatRight < m_block[i].pos.x)
@@ -296,18 +307,18 @@ void UpdateCatCollision()
 					//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
 					//下で作成
 					//CatJump(SearchJumpHeight(m_block, cat, i));
-					if (m_temp > 0)
-					{
-						m_temp -= 1;
-					}
+					//if (m_temp > 0)
+					//{
+					//	m_temp -= 1;
+					//}
 				}
 			}
 			else
 			{
-				if (m_temp > 0)
-				{
-					m_temp -= 1;
-				}
+				//if (m_temp > 0)
+				//{
+				//	m_temp -= 1;
+				//}
 			}
 		}
 		//==============================================================================================================================
@@ -319,10 +330,15 @@ void UpdateCatCollision()
 			//もし構造体を使ってなかったらスキップ
 			if (gimmickwall[i].use != true)
 			{
-				if (g_temp > 0)
-				{
-					g_temp -= 1;
-				}
+				//if (g_temp > 0)
+				//{
+				//	g_temp -= 1;
+				//}
+				continue;
+			}
+			//猫から遠い所は飛ばす
+			else if (gimmickwall[i].pos.x <(cat->pos.x - 90) || gimmickwall[i].pos.x >(cat->pos.x + 90))
+			{
 				continue;
 			}
 
@@ -359,10 +375,10 @@ void UpdateCatCollision()
 					//ブロックにプレイヤーの上面で触れている時はジャンプ力を0にする
 					cat->jump_y = 0;
 
-					if (g_temp > 0)
-					{
-						g_temp -= 1;
-					}
+					//if (g_temp > 0)
+					//{
+					//	g_temp -= 1;
+					//}
 				}
 				//猫がブロックより右
 				else if (CatLeft <= GimmickWallRight && cat->pos.x > GimmickWallRight)
@@ -373,10 +389,10 @@ void UpdateCatCollision()
 					//壁にぶつかったら反転。右へ
 					//ChangeMoveFlag(cat);
 
-					if (g_temp > 0)
-					{
-						g_temp -= 1;
-					}
+					//if (g_temp > 0)
+					//{
+					//	g_temp -= 1;
+					//}
 				}
 				//猫がブロックより左 
 				else if (CatRight >= GimmickWallLeft && CatRight < gimmickwall[i].pos.x)
@@ -387,19 +403,19 @@ void UpdateCatCollision()
 					//壁にぶつかったら反転。左へ
 					//ChangeMoveFlag(cat);
 
-					if (g_temp > 0)
-					{
-						g_temp -= 1;
-					}
+					//if (g_temp > 0)
+					//{
+					//	g_temp -= 1;
+					//}
 				}
 			}
-			else
-			{
-				if (g_temp > 0)
-				{
-					g_temp -= 1;
-				}
-			}
+			//else
+			//{
+			//	if (g_temp > 0)
+			//	{
+			//		g_temp -= 1;
+			//	}
+			//}
 		}
 		//全てのブロックを見た後にジャンプフラグを設定する
 		/*if (g_temp > 0 || m_temp > 0 || temp > 2)

@@ -11,6 +11,7 @@
 #include "gimmick_wall.h"
 #include "stageselect.h"
 #include "result.h"
+#include "cat.h"
 
 //==========================================
 ////g_wallのコリジョン！！！！！！！！
@@ -490,11 +491,18 @@ void UpdateGimmickWall()
 
 void DrawGimmickWall()
 {
+	CAT* c = GetCat();
 	D3DXVECTOR2 basePos_gw = GetBase();
 	double 	mappos_gw = GetMapPos();
 
 	for (int i = 0; i < WALL_MAX; i++)
 	{
+		//猫から遠いものは描画しない
+		if (g_wall[i].pos.x < (c->pos.x - 960) || g_wall[i].pos.x >(c->pos.x + 960))
+		{
+			continue;
+		}
+
 		if (g_wall[i].use == true)
 		{
 			//テクスチャのセット

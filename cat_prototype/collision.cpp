@@ -85,6 +85,28 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 		//それがあったら二個上の高さのブロックを探す
 		//全部あれば三個分ジャンプ　ジャンプの高さを決める
 
+		for (int a = 0; a < BLOCK_MAX; a++)
+		{
+			//全部のブロックが見つかったら終了
+			if (blockexist1 == true)
+			{
+				break;
+			}
+			//x座標が同じじゃないなら飛ばす
+			if (block[a].pos.x != mb[i].pos.x)
+			{
+				continue;
+			}
+
+			//y軸が一個上なら
+			if (block[a].pos.y <= (mb[i].pos.y - SIZE / 2) &&
+				block[a].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
+			{
+				blockexist1 = true;
+			}
+
+		}
+
 		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
 		{
 			//全部のブロックが見つかったら終了
@@ -92,32 +114,42 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 			{
 				break;
 			}
-
-			//x座標が同じなら
-			if (mb[a].pos.x == mb[i].pos.x)
+			//x座標が同じじゃないなら飛ばす
+			if (m_block[a].pos.x != mb[i].pos.x)
 			{
-				//y軸が一個上なら
-				if (mb[a].pos.y <= (mb[i].pos.y - SIZE / 2) &&
-					mb[a].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
-				{
-					blockexist1 = true;
-				}
-				////2個上なら
-				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE + SIZE / 2)) &&
-				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)))
-				//{
-				//	blockexist2 = true;
-				//}
-				////3個上なら
-				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)) &&
-				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 3 + SIZE / 2)))
-				//{
-				//	blockexist3 = true;
-				//}
+				continue;
+			}
 
+			//y軸が一個上なら
+			if (m_block[a].pos.y <= (mb[i].pos.y - SIZE / 2) &&
+				m_block[a].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
+			{
+				blockexist1 = true;
+			}
+		}
+
+		for (int a = 0; a < WALL_MAX; a++)
+		{
+			//全部のブロックが見つかったら終了
+			if (blockexist1 == true)
+			{
+				break;
+			}
+			//x座標が同じじゃないなら飛ばす
+			if (gimmickwall[a].pos.x != mb[i].pos.x)
+			{
+				continue;
+			}
+
+			//y軸が一個上なら
+			if (gimmickwall[a].pos.y <= (mb[i].pos.y - SIZE / 2) &&
+				gimmickwall[a].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
+			{
+				blockexist1 = true;
 			}
 
 		}
+
 
 		//何段飛べるという変数を渡す
 		//blockexisitをfalseにする
@@ -134,17 +166,6 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 			catjump_height = 2;
 			enablejump = false;
 		}
-		////一個上と二個上存在する
-		//else if (blockexist1 == true && blockexist2 == true )
-		//{
-		//	catjump_height = 3;
-		//	enablejump = true;
-		//}
-		////全部存在する
-		//else if (blockexist1 == true && blockexist2 == true && blockexist3 == true)
-		//{
-		//	catjump_height = 4;
-		//	enablejump = false;
 	}
 
 	//二個上のブロックだけ存在した際どうするかは今後考える
@@ -174,63 +195,60 @@ float SearchJumpHeightB(BLOCK* b, CAT* c, int i)
 			{
 				break;
 			}
-
-			//x座標が同じなら
-			if (b[a].pos.x == b[i].pos.x)
+			//x座標が同じじゃないなら飛ばす
+			if (block[a].pos.x != b[i].pos.x)
 			{
-				//y軸が一個上なら
-				if (b[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
-					b[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
-				{
-					blockexist1 = true;
-				}
-				////2個上なら
-				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE + SIZE / 2)) &&
-				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)))
-				//{
-				//	blockexist2 = true;
-				//}
-				////3個上なら
-				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)) &&
-				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 3 + SIZE / 2)))
-				//{
-				//	blockexist3 = true;
-				//}
+				continue;
+			}
 
+			//y軸が一個上なら
+			if (block[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
+				block[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
+			{
+				blockexist1 = true;
 			}
 
 		}
 
-		for (int a = 0; a < BLOCK_MAX; a++)
+		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
 		{
 			//全部のブロックが見つかったら終了
 			if (blockexist1 == true)
 			{
 				break;
 			}
-
-			//x座標が同じなら
-			if (b[a].pos.x == b[i].pos.x)
+			//x座標が同じじゃないなら飛ばす
+			if (m_block[a].pos.x != b[i].pos.x)
 			{
-				//y軸が一個上なら
-				if (b[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
-					b[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
-				{
-					blockexist1 = true;
-				}
-				////2個上なら
-				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE + SIZE / 2)) &&
-				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)))
-				//{
-				//	blockexist2 = true;
-				//}
-				////3個上なら
-				//else if (mb[b].pos.y <= (mb[i].pos.y - (SIZE * 2 + SIZE / 2)) &&
-				//	mb[b].pos.y >= (mb[i].pos.y - (SIZE * 3 + SIZE / 2)))
-				//{
-				//	blockexist3 = true;
-				//}
+				continue;
+			}
 
+			//y軸が一個上なら
+			if (m_block[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
+				m_block[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
+			{
+				blockexist1 = true;
+			}
+		}
+
+		for (int a = 0; a < WALL_MAX; a++)
+		{
+			//全部のブロックが見つかったら終了
+			if (blockexist1 == true)
+			{
+				break;
+			}
+			//x座標が同じじゃないなら飛ばす
+			if (gimmickwall[a].pos.x != b[i].pos.x)
+			{
+				continue;
+			}
+
+			//y軸が一個上なら
+			if (gimmickwall[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
+				gimmickwall[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
+			{
+				blockexist1 = true;
 			}
 
 		}
@@ -272,25 +290,47 @@ float SearchJumpHeightG(G_WALL* g, CAT* c, int i)
 		//ぶつかったブロックと同じx座標で一個上の高さのブロックを探す
 		//それがあったら二個上の高さのブロックを探す
 		//全部あれば三個分ジャンプ　ジャンプの高さを決める
-		for (int a = 0; a < WALL_MAX; a++)
+		for (int a = 0; a < BLOCK_MAX; a++)
 		{
 			//全部のブロックが見つかったら終了
 			if (blockexist1 == true)
 			{
 				break;
 			}
-
-			//x座標が同じなら
-			if (g[a].pos.x == g[i].pos.x)
+			//x座標が同じじゃないなら飛ばす
+			if (block[a].pos.x != g[i].pos.x)
 			{
-				//y軸が一個上なら
-				if (g[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
-					g[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
-				{
-					blockexist1 = true;
-				}
+				continue;
 			}
 
+			//y軸が一個上なら
+			if (block[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
+				block[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
+			{
+				blockexist1 = true;
+			}
+
+		}
+
+		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
+		{
+			//全部のブロックが見つかったら終了
+			if (blockexist1 == true)
+			{
+				break;
+			}
+			//x座標が同じじゃないなら飛ばす
+			if (m_block[a].pos.x != g[i].pos.x)
+			{
+				continue;
+			}
+
+			//y軸が一個上なら
+			if (m_block[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
+				m_block[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
+			{
+				blockexist1 = true;
+			}
 		}
 
 		for (int a = 0; a < WALL_MAX; a++)
@@ -300,16 +340,17 @@ float SearchJumpHeightG(G_WALL* g, CAT* c, int i)
 			{
 				break;
 			}
-
-			//x座標が同じなら
-			if (g[a].pos.x == g[i].pos.x)
+			//x座標が同じじゃないなら飛ばす
+			if (gimmickwall[a].pos.x != g[i].pos.x)
 			{
-				//y軸が一個上なら
-				if (g[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
-					g[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
-				{
-					blockexist1 = true;
-				}
+				continue;
+			}
+
+			//y軸が一個上なら
+			if (gimmickwall[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
+				gimmickwall[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
+			{
+				blockexist1 = true;
 			}
 
 		}

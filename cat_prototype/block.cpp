@@ -247,11 +247,18 @@ void UpdateBlock()
 //描画処理
 void DrawBlock()
 {
+	CAT* c = GetCat();
 	D3DXVECTOR2 basePos = GetBase();
 
 	//動かないステージブロック
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
+		////猫から遠いものは描画しない
+		if (g_Block[i].pos.x < (c->pos.x - 960) || g_Block[i].pos.x >(c->pos.x + 960))
+		{
+			continue;
+		}
+
 		//ブロックによってパターンの変更
 		//パターンによって効果があってもいいかも
 		//stage11では
