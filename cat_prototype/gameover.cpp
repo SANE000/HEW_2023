@@ -31,9 +31,19 @@ void UpdateGameOver()
 		time -= 1;
 	}
 
-	if (Keyboard_IsKeyDown(KK_A) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
+	if (Keyboard_IsKeyDown(KK_Q) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
 	{
 		SetScene(SCENE_SELECT);
+		time = WAIT_TIME;
+	}
+	if (Keyboard_IsKeyDown(KK_A) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
+	{
+		SetScene(SCENE_SHOP);
+		time = WAIT_TIME;
+	}
+	if (Keyboard_IsKeyDown(KK_Z) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
+	{
+		SetScene(SCENE_GAME);
 		time = WAIT_TIME;
 	}
 }
