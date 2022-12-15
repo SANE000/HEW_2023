@@ -149,7 +149,7 @@ void UpdatePlayer()
 		}
 
 		//’Ü‚Æ‚¬I—¹
-		if (GetCat()->tumetogi_flag == true && Keyboard_IsKeyDown(KK_X))
+		if (GetCat()->tumetogi_flag == true && Keyboard_IsKeyDown(KK_X) || IsButtonTriggered(0, XINPUT_GAMEPAD_X))
 		{
 			GetCat()->tumetogi_flag = false;
 		}

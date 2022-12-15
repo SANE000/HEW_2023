@@ -32,6 +32,7 @@ void InitWall_13();
 void InitWall_23();
 void InitWall_31();
 void InitWall_32();
+void InitWall_33();
 
 HRESULT InitGimmickWall()
 {
@@ -94,7 +95,7 @@ HRESULT InitGimmickWall()
 		}
 		else if (stage_gw == 2)
 		{
-
+			InitWall_33();
 		}
 		break;
 
@@ -244,7 +245,15 @@ void UninitGimmickWall()
 		}
 		else if (stage_gw == 2)
 		{
-
+			for (int i = 0; i < WALL_MAX; i++)
+			{
+				if (g_wall[i].use == false)
+				{
+					continue;
+				}
+				//trueのやつだけ設定する
+				g_wall[i].use = false;
+			}
 		}
 		break;
 
@@ -407,7 +416,22 @@ void UpdateGimmickWall()
 		}
 		else if (stage_gw == 2)
 		{
-
+			//赤ボタンaが押されたら全部trueにする
+			if (pb[28].button == false)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					g_wall[i].use = true;
+				}
+			}
+			//青ボタンaが押されたら全部falseにする
+			if (pb[30].button == false)
+			{
+				for (int i = 3; i < 6; i++)
+				{
+					g_wall[i].use = false;
+				}
+			}
 		}
 		break;
 
@@ -499,6 +523,30 @@ void DrawGimmickWall()
 G_WALL* GetGimmickWall()
 {
 	return g_wall;
+}
+
+void InitWall_33()
+{
+	g_wall[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 22, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_wall[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 23, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_wall[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 24, DEFO_SIZE_Y - DRAW_SIZE * 1);
+
+	g_wall[3].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 22, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 23, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_wall[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 24, DEFO_SIZE_Y - DRAW_SIZE * 4);
+
+	//赤
+	for (int i = 0; i < 3; i++)
+	{
+		g_wall[i].use = false;
+		g_wall[i].Patern = 8.0f;
+	}
+	//青
+	for (int i = 3; i < 6; i++)
+	{
+		g_wall[i].use = true;
+		g_wall[i].Patern = 7.0f;
+	}
 }
 
 void InitWall_32()

@@ -10,7 +10,7 @@
 #include "stageselect.h"
 
 //その他のUI関係のマクロやこれから追加するかも用
-#define ETC_MAX 18
+#define ETC_MAX 22
 #define ETC_SIZE_W 100
 #define ETC_SIZE_H 50
 //プロトタイプ宣言
@@ -56,6 +56,11 @@ ETC InitDate[] =
 	//ベルトコンベア32-16-17
 	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 22, DEFO_SIZE_Y - DRAW_SIZE * 0),0,0,180,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f / 3.0f,10},
 	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 25, DEFO_SIZE_Y - DRAW_SIZE * 0),0,0,180,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f / 3.0f,10},
+	//ベルトコンベア33-18-21
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 10, DEFO_SIZE_Y - DRAW_SIZE * 1),0,0,180,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f / 3.0f,10},
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 1),0,0,180,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f / 3.0f,10},
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 1, DEFO_SIZE_Y - DRAW_SIZE * 1),0,0,180,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f / 3.0f,10},
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 1),0,0,180,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f / 3.0f,10},
 };
 
 HRESULT InitEtc()
@@ -94,7 +99,7 @@ HRESULT InitEtc()
 		{
 			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\goal.png");
 		}
-		else if (i >= 12 && i <= 14 || i >= 16 && i <= 17)
+		else if (i >= 12 && i <= 14 || i >= 16 && i <= 19)
 		{
 			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\-belt_con.png");
 		}
@@ -120,10 +125,17 @@ HRESULT InitEtc()
 				g_etc[i].use = true;
 			}
 		}
+		else if (stage == 2)
+		{
+			for (int i = 18; i < 22; i++)
+			{
+				g_etc[i].use = true;
+			}
+		}
 	}
 	else
 	{
-		for (int i = 8; i < 18; i++)
+		for (int i = 8; i < 22; i++)
 		{
 			g_etc[i].use = false;
 		}
@@ -265,7 +277,7 @@ void DrawEtc()
 					g_etc[i].uv_num//総枚数
 				);
 			}
-			if (i >= 8 && i <= 17)
+			if (i >= 8 && i <= 21)
 			{
 				g_etc[i].patern += 0.5f;
 				if (g_etc[i].patern >= 30.0f)

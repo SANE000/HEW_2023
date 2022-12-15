@@ -184,7 +184,7 @@ void UpdateCat()
 
 	}
 
-	if (tumetogi_count > 180 && g_Cat.tumetogi_flag == true)
+	if (tumetogi_count > 600 && g_Cat.tumetogi_flag == true)
 	{
 		g_Cat.tumetogi_flag = false;
 	}
