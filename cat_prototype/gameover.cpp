@@ -34,7 +34,7 @@ void UpdateGameOver()
 
 	if (Keyboard_IsKeyDown(KK_SPACE) && time <= 0 && patern == 0.0f || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && patern == 0.0f)
 	{
-		SetScene(SCENE_SELECT);
+		SetScene(SCENE_GAME);
 		time = WAIT_TIME;
 	}
 	if (Keyboard_IsKeyDown(KK_SPACE) && time <= 0 && patern == 1.0f || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && patern == 1.0f)
@@ -44,22 +44,22 @@ void UpdateGameOver()
 	}
 	if (Keyboard_IsKeyDown(KK_SPACE) && time <= 0 && patern == 2.0f || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && patern == 2.0f)
 	{
-		SetScene(SCENE_GAME);
+		SetScene(SCENE_SELECT);
 		time = WAIT_TIME;
 	}
 
 	if (patern < 2.0f)
 	{
-		if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
-		{//‰E
+		if (Keyboard_IsKeyDown(KK_DOWN) && time <= 0 || GetThumbLeftY(0) < 0 && time <= 0)
+		{//‰º
 			patern += 1.0f;
 			time = WAIT_TIME;
 		}
 	}
 	if (patern > 0.0f)
 	{
-		if (Keyboard_IsKeyDown(KK_LEFT) && time <= 0 || GetThumbLeftX(0) < 0 && time <= 0)
-		{//¶
+		if (Keyboard_IsKeyDown(KK_UP) && time <= 0 || GetThumbLeftY(0) > 0 && time <= 0)
+		{//ã
 			patern -= 1.0f;
 			time = WAIT_TIME;
 		}
