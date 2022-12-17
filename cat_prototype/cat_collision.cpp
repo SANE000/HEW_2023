@@ -135,7 +135,7 @@ void UpdateCatCollision()
 					{
 						cat->onmove = 0.5f;
 					}
-					else if (block[i].Patern == 23.0f)
+					else if (block[i].Patern == 23.0f || block[i].Patern == 29.0f)
 					{
 						cat->onmove = -0.5f;
 					}
