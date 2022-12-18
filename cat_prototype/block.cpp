@@ -23,6 +23,7 @@ void InitStage32();
 void InitStage33();
 void InitStage41();
 void InitStage42();
+void InitStage43();
 
 //==========================================
 //グローバル変数
@@ -54,9 +55,10 @@ HRESULT InitBlock()
 	//BLOCK構造体の初期化
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
-		//テクスチャロード 画像の名前を入れよう
 		g_Block[i].use = true;
+		//センサーで動くものフラグをリセット
 		g_Block[i].moveflug = false;
+		//テクスチャロード 画像の名前を入れよう
 		g_Block[i].texNo = LoadTexture((char*)"data\\texture\\block.png");
 		//ブロックのリセット
 		if (field == 0)
@@ -139,8 +141,8 @@ HRESULT InitBlock()
 		}
 		else if (stage == 2 && clear >= 11)
 		{
-			//InitStage43();
-			//InitGimmickWall();
+			InitStage43();
+			InitGimmickWall();
 		}
 	}
 	else
@@ -250,14 +252,14 @@ void UpdateBlock()
 			//動くので座標の更新
 			g_Block[i].pos += g_Block[i].Speed;
 		}
-		//画面外に出たら戻ってくる奴
+		//限界値になったら戻ってくるやつ
 		if (g_Block[i].Patern == 28.0f)
 		{
-			//画面外に出たら
-			if (g_Block[i].pos.y < -(DRAW_SIZE * 2))
+			//画面外の限界値までいったら(各個で設定する)
+			if (g_Block[i].pos.y < g_Block[i].limitmax)
 			{
-				//元の高さに戻す
-				g_Block[i].pos.y = (SCREEN_HEIGHT - DRAW_SIZE / 2.0);
+				//発生の限界値まで戻す
+				g_Block[i].pos.y = g_Block[i].limitmin;
 			}
 			//動くので座標の更新
 			g_Block[i].pos += g_Block[i].Speed;
@@ -436,6 +438,26 @@ void DrawBlock()
 				}
 			}
 		}
+		else if (field == 3)
+		{
+			//ボタン
+			if (stage == 2)
+			{
+				if (i == 68)//赤
+				{
+					//ボタンブロック
+					if (g_Block[i].button == true)
+					{
+
+						g_Block[i].Patern = 5.0f;
+					}
+					else
+					{
+						g_Block[i].Patern = 6.0f;
+					}
+				}
+			}
+		}
 		if (g_Block[i].draw_use == true)
 		{
 			//テクスチャのセット
@@ -475,6 +497,200 @@ int GetStage()
 {
 	return stage;
 }
+
+void InitStage43()
+{
+	//足場に関しては,ザーッと並べる感じにしてみました
+	//一画面 横 16 マス * 縦 9 マス　で　やってます
+	// X方向　画面左端から右に * 数字(マス)
+	// Y方向　画面下端から上に * 数字(マス)
+	//大きな形ごとに分けるとわかりやすいかも
+
+	for (int i = 0; i < BLOCK_MAX; i++)
+	{
+		//サンゴ
+		if (i >= 6 && i <= 23)
+		{
+			g_Block[i].Patern = 26.0f;
+		}
+
+		if (i >= 73 && i <= 74 || i >= 80 && i <= 85)
+		{
+			//気泡発生床ブロック
+			g_Block[i].Patern = 27.0f;
+		}
+
+		//気泡limitmin,maxずらして配置でランダム性演出
+		if (i >= 42 && i <= 50 || i >= 75 && i <= 76 || i >= 86 && i <= 88)
+		{
+			g_Block[i].Patern = 28.0f;
+			//min
+			if (i >= 42 && i <= 44)
+			{
+				g_Block[i].limitmin = SCREEN_HEIGHT + (DRAW_SIZE / 2);
+			}
+			else if (i >= 45 && i <= 47)
+			{
+				g_Block[i].limitmin = SCREEN_HEIGHT + ((DRAW_SIZE / 2) * 3);
+			}
+			else if (i >= 48 && i <= 50)
+			{
+				g_Block[i].limitmin = SCREEN_HEIGHT + ((DRAW_SIZE / 2) * 5);
+			}
+			else
+			{
+				g_Block[i].limitmin = SCREEN_HEIGHT - (DRAW_SIZE / 2.0);
+			}
+			//max
+			if (i >= 75 && i <= 76)
+			{
+				g_Block[i].limitmax = DEFO_SIZE_Y - DRAW_SIZE * 3;
+			}
+			else
+			{
+				g_Block[i].limitmax = -(DRAW_SIZE / 2);
+			}
+			//スピードは一律同じ
+			g_Block[i].Speed.y = -(GRAV / 4);
+		}
+
+		if (i >= 54 && i <= 56)
+		{
+			//海流
+			g_Block[i].Patern = 29.0f;
+		}
+
+		//余りのブロック
+		if (i >= 89 && i <= 125)
+		{
+			//使わないブロックは当たり判定は取らない
+			g_Block[i].use = false;
+			g_Block[i].draw_use = false;
+		}
+	}
+	g_Block[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 1, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 2, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[3].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 3, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 5, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//サンゴ
+	g_Block[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 1, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[8].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 2, DEFO_SIZE_Y - DRAW_SIZE * 1);
+
+	g_Block[9].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 3, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[10].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[11].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 5, DEFO_SIZE_Y - DRAW_SIZE * 1);
+
+	g_Block[12].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[13].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 1, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[14].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 2, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_Block[15].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 3, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[16].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[17].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 5, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_Block[18].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 3, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[19].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[20].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 5, DEFO_SIZE_Y - DRAW_SIZE * 3);
+
+	g_Block[21].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 6, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[22].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[23].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	//ここから普通
+	g_Block[24].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 6, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[25].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//この上にサメ
+	g_Block[26].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[27].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 9, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[28].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 10, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[29].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 11, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[30].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 12, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[31].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[32].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[33].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 12, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[34].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[35].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 4);
+
+	g_Block[36].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[37].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 16, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[38].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 17, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[39].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[40].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 16, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[41].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 17, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	//気泡
+	g_Block[42].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 18, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[43].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 19, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[44].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 20, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[45].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 21, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[46].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 22, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[47].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 23, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[48].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 24, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[49].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 25, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[50].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 26, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//ここから普通
+	g_Block[51].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 27, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[52].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 28, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[53].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 29, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//←海流
+	g_Block[54].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 27, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[55].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 28, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[56].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 29, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	//ここから普通
+	g_Block[57].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 30, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[58].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 31, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//ここから三面
+	g_Block[59].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 32, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[60].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 33, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[61].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 34, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[62].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 35, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[63].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 36, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[64].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 37, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[65].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 38, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[66].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 36, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[67].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 37, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	//赤ボタン
+	g_Block[68].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 37, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[68].button = true;
+
+	g_Block[69].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 39, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[70].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 40, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[71].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 41, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[72].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 42, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//気泡発生床
+	g_Block[73].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 43, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[74].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 44, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//気泡max短めたくさん発生エレベーターの代わり
+	g_Block[75].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 43, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[76].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 44, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	//海流
+	g_Block[77].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 42, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[78].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 41, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[79].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 40, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	//気泡発生床
+	g_Block[80].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 49, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[81].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 53, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[82].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 57, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[83].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 61, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[84].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 62, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[85].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 63, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//気泡
+	g_Block[86].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 49, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[87].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 53, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[88].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 57, DEFO_SIZE_Y - DRAW_SIZE * 1);
+}
+
 void InitStage42()
 {
 	//足場に関しては,ザーッと並べる感じにしてみました
@@ -629,6 +845,8 @@ void InitStage41()
 		if (i == 6 || i >= 94 && i <= 96)
 		{
 			g_Block[i].Patern = 28.0f;
+			g_Block[i].limitmax = -(DRAW_SIZE * 2);
+			g_Block[i].limitmin = SCREEN_HEIGHT - (DRAW_SIZE / 2.0);
 			g_Block[i].Speed.y = -(GRAV / 4);
 		}
 
@@ -932,7 +1150,7 @@ void InitStage33()
 		if (i >= 46 && i <= 53)
 		{
 			g_Block[i].Patern = 25.0f;
-			g_Block[i].Speed.x = 0;
+			g_Block[i].Speed.y = 0;
 			//下の最大値を決定
 			g_Block[i].limitmax = g_Block[i].pos.y + (DRAW_SIZE * 4);
 		}
@@ -1092,7 +1310,7 @@ void InitStage32()
 		if (i >= 19 && i <= 24 || i == 49 || i >= 56 && i <= 59)
 		{
 			g_Block[i].Patern = 25.0f;
-			g_Block[i].Speed.x = 0;
+			g_Block[i].Speed.y = 0;
 			//下の最大値を決定
 			g_Block[i].limitmax = g_Block[i].pos.y + (DRAW_SIZE * 4);
 		}

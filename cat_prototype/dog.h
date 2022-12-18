@@ -10,7 +10,7 @@
 #define DOG_SPEED (2.0f)
 
 #define DOG_SIZE_W (60)
-#define DOG_SIZE_H (58)
+#define DOG_SIZE_H (60)
 //#define DOG_INIT_X (60)
 //#define DOG_INIT_Y (240)
 
