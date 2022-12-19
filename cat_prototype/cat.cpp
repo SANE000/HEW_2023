@@ -107,18 +107,11 @@ void UpdateCat()
 		}
 		else
 		{
-			//猫アニメーションパターン管理
-			g_Cat.patern += 0.20f;
 
 			//ジャンプパワーが0以上だったら　
 			if (g_Cat.jump_y > 0.0f)
 			{
-
-				//ジャンプ猫アニメ　右
-				if (g_Cat.patern > 10.0f)
-				{
-					g_Cat.patern = 9.0f;
-				}
+				g_Cat.patern = 9.0f;
 			}
 			else
 			{
@@ -159,18 +152,10 @@ void UpdateCat()
 		}
 		else
 		{
-			//猫アニメーションパターン管理
-			g_Cat.patern += 0.20f;
-
 			//ジャンプパワーが0以上だったら　
 			if (g_Cat.jump_y > 0.0f)
 			{
-
-				//ジャンプ猫アニメ　左
-				if (g_Cat.patern > 13.0f)
-				{
-					g_Cat.patern = 12.0f;
-				}
+				g_Cat.patern = 12.0f;
 			}
 			else
 			{
@@ -321,12 +306,12 @@ void CatJump(float jumpheight)
 		//右に進んでいたら
 		if (g_Cat.move_flag == false)
 		{
-			g_Cat.patern = 8.0f;
+			g_Cat.patern = 11.0f;
 		}
 		else
 			//左に進んでいたら
 		{
-			g_Cat.patern = 11.0f;
+			g_Cat.patern = 8.0f;
 		}
 	}
 }
