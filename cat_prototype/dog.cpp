@@ -94,6 +94,13 @@ DOG InitData51[] =
 	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 48, DEFO_SIZE_Y - DRAW_SIZE * 6),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0}
 };
 
+DOG InitData52[] =
+{//
+	{false,false,false,D3DXVECTOR2(0,0),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 27, DEFO_SIZE_Y - DRAW_SIZE * 6),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0},
+	{true,false,false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 53, DEFO_SIZE_Y - DRAW_SIZE * 1),0,D3DXVECTOR2(0.0f,0),0,DOG_SIZE_W,DOG_SIZE_H,D3DXVECTOR2(0,0),D3DXCOLOR(1.0f,1.0f,1.0f,1.0f),200,1,0}
+};
+
 //------------------------
 //DOG‰Šú‰»
 //------------------------
@@ -217,22 +224,22 @@ HRESULT InitDog()
 			g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\kariseizin.png");
 		}
 	}
-	//else if (stage == 1 && clear >= 10)
+	else if (stage == 1 && clear >= 13)
+	{
+		for (int i = 0; i < DOG_MAX; i++)
+		{
+			g_Dog[i] = InitData52[i];
+
+			g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\kariseizin.png");
+		}
+	}
+	//else if (stage == 2 && clear >= 14)
 	//{
 	//	for (int i = 0; i < DOG_MAX; i++)
 	//	{
-	//		g_Dog[i] = InitData42[i];
+	//		g_Dog[i] = InitData53[i];
 
-	//		g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\same.png");
-	//	}
-	//}
-	//else if (stage == 2 && clear >= 11)
-	//{
-	//	for (int i = 0; i < DOG_MAX; i++)
-	//	{
-	//		g_Dog[i] = InitData43[i];
-
-	//		g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\same.png");
+	//		g_Dog[i].texNo = LoadTexture((char*)"data\\texture\\kariseizin.png");
 	//	}
 	//}
 	}
