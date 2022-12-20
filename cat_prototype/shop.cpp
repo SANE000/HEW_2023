@@ -13,6 +13,7 @@
 #include "etcUI.h"
 #include "dog.h"
 #include "gimmick_wall.h"
+#include "camera.h"
 
 
 //==========================================
@@ -60,6 +61,7 @@ HRESULT InitShop()
 	InitEtc();
 	InitDog();
 	InitGimmickWall();
+	InitCamera();
 
 	shopconfirmtexNo = LoadTexture((char*)"data\\texture\\shop_confirm.png");;
 	startconfirmtexNo = LoadTexture((char*)"data\\texture\\start_confirm.png");;
@@ -203,6 +205,7 @@ void UpdateShop()
 			//Žn‚ß‚é
 			if (Keyboard_IsKeyDown(KK_Y) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)
 			{
+				//‰Šúó‘Ô‚É–ß‚·false
 				start_flag = false;
 				SetScene(SCENE_GAME);
 				time = WAIT_TIME;

@@ -70,7 +70,7 @@ void UpdateResult()
 	}
 	if (Keyboard_IsKeyDown(KK_ENTER) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)//ENTERキー押したら
 	{
-		//例　2面の2ステージ  1*3 + 1 = 4 (0,1,2,3,4)の5番目のステージである 2-2(中の数字的に0から始まるので1-1をクリアした時だけクリアが1足される)
+		//例　2面の2ステージ  1*3 + 1 = 4 (0,1,2,3,4)の5番目のステージである 2-2(中の数字的に0から始まるので1-1)をクリアした時だけクリアが1足される
 		if (clear == (SetField() * 3) + SetStage())
 		{
 			clear += 1;

@@ -3,7 +3,7 @@
 #include "main.h"
 
 //マクロ定義
-#define BLOCK_MAX 126
+#define BLOCK_MAX 100
 #define ONTIME 69.0f
 //構造体定義
 struct BLOCK
@@ -18,6 +18,8 @@ struct BLOCK
 	float ontime;
 	//表示座標
 	D3DXVECTOR2 pos;
+	//ワープ先座標
+	D3DXVECTOR2 warpos;
 	//回転角度
 	float rot = 0;
 	//テクスチャ番号

@@ -24,6 +24,7 @@ void InitStage33();
 void InitStage41();
 void InitStage42();
 void InitStage43();
+void InitStage51();
 
 //==========================================
 //グローバル変数
@@ -72,6 +73,10 @@ HRESULT InitBlock()
 		else if (field == 2)
 		{
 			g_Block[i].Patern = 24.0f;
+		}
+		else if (field == 4)
+		{
+			g_Block[i].Patern = 30.0f;
 		}
 	}
 	////////////////////////////////////////////////////////////////////
@@ -144,6 +149,23 @@ HRESULT InitBlock()
 			InitStage43();
 			InitGimmickWall();
 		}
+	}
+	else if (field == 4)
+	{
+		if (stage == 0 && clear >= 12)
+		{
+			InitStage51();
+			InitGimmickWall();
+		}
+		//else if (stage == 1 && clear >= 13)
+		//{
+		//	InitStage52();
+		//}
+		//else if (stage == 2 && clear >= 14)
+		//{
+		//	InitStage53();
+		//	InitGimmickWall();
+		//}
 	}
 	else
 	{
@@ -272,15 +294,10 @@ void UpdateBlock()
 void DrawBlock()
 {
 	D3DXVECTOR2 basePos = GetBase();
+	CAT* c = GetCat();
 
-	//動かないステージブロック
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
-		//ブロックによってパターンの変更
-		//パターンによって効果があってもいいかも
-		//stage11では
-		//21~29 or 33~44 or 108~110は表面では無い方へ変更
-		//stage12では
 		if (field == 0)
 		{
 			if (stage == 1)
@@ -458,6 +475,34 @@ void DrawBlock()
 				}
 			}
 		}
+		else if (field == 4)
+		{
+			//ボタン
+			if (stage == 0)
+			{
+				if (i == 83)//青
+				{
+					//ボタンブロック
+					if (g_Block[i].button == true)
+					{
+
+						g_Block[i].Patern = 3.0f;
+					}
+					else
+					{
+						g_Block[i].Patern = 4.0f;
+					}
+				}
+			}
+		}
+		if (WatchMapFlag() == false)
+		{
+			//プレイ中は猫から遠いものは描画しない
+			if (g_Block[i].pos.x < (c->pos.x - SCREEN_WIDTH) || g_Block[i].pos.x >(c->pos.x + SCREEN_WIDTH))
+			{
+				continue;
+			}
+		}
 		if (g_Block[i].draw_use == true)
 		{
 			//テクスチャのセット
@@ -478,7 +523,6 @@ void DrawBlock()
 				12//横の総枚数
 			);
 		}
-
 		DrawGimmickWall();
 	}
 }
@@ -496,6 +540,164 @@ double GetMapPos()
 int GetStage()
 {
 	return stage;
+}
+
+void InitStage51()
+{
+	//足場に関しては,ザーッと並べる感じにしてみました
+	//一画面 横 16 マス * 縦 9 マス　で　やってます
+	// X方向　画面左端から右に * 数字(マス)
+	// Y方向　画面下端から上に * 数字(マス)
+	//大きな形ごとに分けるとわかりやすいかも
+
+	for (int i = 0; i < BLOCK_MAX; i++)
+	{
+		//余りのブロック
+		if (i >= 86 && i < BLOCK_MAX)
+		{
+			//使わないブロックは当たり判定は取らない
+			g_Block[i].use = false;
+			g_Block[i].draw_use = false;
+		}
+	}
+	g_Block[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 0, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 1, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[2].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 2, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[3].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 3, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[4].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 4, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[5].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 5, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	
+	g_Block[6].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 6, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[7].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[8].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[9].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 6, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[10].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 7, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[11].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 8, DEFO_SIZE_Y - DRAW_SIZE * 1);
+
+	g_Block[12].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 9, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[13].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 10, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[14].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 11, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[15].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 9, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[16].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 10, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[17].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 11, DEFO_SIZE_Y - DRAW_SIZE * 1);
+
+	g_Block[18].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 9, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[19].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 10, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[20].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 11, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_Block[21].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 12, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[22].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[23].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[24].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 12, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[25].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[26].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 1);
+
+	g_Block[27].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 12, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[28].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[29].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_Block[30].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 12, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[31].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[32].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 3);
+
+	g_Block[33].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 12, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	//ここがワープ機械
+	g_Block[34].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[34].Patern = 31.0f;
+	//ワープ先座標を設定
+	g_Block[34].warpos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 17, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_Block[35].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 14, DEFO_SIZE_Y - DRAW_SIZE * 4);
+
+	g_Block[36].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[37].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[38].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_Block[39].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[40].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[41].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 5);
+
+	g_Block[42].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 6);
+	g_Block[43].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[44].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 15, DEFO_SIZE_Y - DRAW_SIZE * 8);
+	//ここから二面
+	g_Block[45].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 16, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//ワープ機械
+	g_Block[46].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 17, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[46].Patern = 31.0f;
+	//ワープ先座標を設定
+	g_Block[46].warpos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 13, DEFO_SIZE_Y - DRAW_SIZE * 6);
+
+	g_Block[47].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 18, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[48].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 16, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	//この上に敵
+	g_Block[49].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 17, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	//ここから普通
+	g_Block[50].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 19, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[51].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 20, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//バネ
+	g_Block[52].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 21, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[52].Patern = 9.0f;
+	//バネ
+	g_Block[53].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 26, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[53].Patern = 9.0f;
+	//ここから普通
+	g_Block[54].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 31, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	//ここから三面
+	g_Block[55].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 32, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[56].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 33, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[57].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 34, DEFO_SIZE_Y - DRAW_SIZE * 0);
+
+	g_Block[58].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 35, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[59].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 36, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[60].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 37, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[61].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 37, DEFO_SIZE_Y - DRAW_SIZE * 1);
+	g_Block[62].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 37, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_Block[63].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 38, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	//この上に敵
+	g_Block[64].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 39, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_Block[65].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 40, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[66].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 41, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	
+	g_Block[67].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 42, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[68].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 43, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[69].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 44, DEFO_SIZE_Y - DRAW_SIZE * 2);
+
+	g_Block[70].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 42, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_Block[71].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 43, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_Block[72].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 44, DEFO_SIZE_Y - DRAW_SIZE * 5);
+
+	g_Block[73].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 2);
+	g_Block[74].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 3);
+	g_Block[75].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	//ワープ機械
+	g_Block[76].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_Block[76].Patern = 31.0f;
+	//ワープ先座標を設定
+	g_Block[76].warpos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 51, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	//ここから普通
+	g_Block[77].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 46, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_Block[78].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 47, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_Block[79].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 47, DEFO_SIZE_Y - DRAW_SIZE * 6);
+	g_Block[80].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 47, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	g_Block[81].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 47, DEFO_SIZE_Y - DRAW_SIZE * 8);
+	//ワープ機械
+	g_Block[82].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 51, DEFO_SIZE_Y - DRAW_SIZE * 5);
+	g_Block[82].Patern = 31.0f;
+	//ワープ先座標を設定
+	g_Block[82].warpos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 7);
+	//青ボタン
+	g_Block[83].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 56, DEFO_SIZE_Y - DRAW_SIZE * 6);
+	g_Block[83].button = true;
+	g_Block[84].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 62, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[85].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 63, DEFO_SIZE_Y - DRAW_SIZE * 0);
 }
 
 void InitStage43()
@@ -561,7 +763,7 @@ void InitStage43()
 		}
 
 		//余りのブロック
-		if (i >= 89 && i <= 125)
+		if (i >= 89 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -713,7 +915,7 @@ void InitStage42()
 			g_Block[i].Patern = 26.0f;
 		}
 		//余りのブロック
-		if (i >= 69 && i <= 125)
+		if (i >= 69 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -864,7 +1066,7 @@ void InitStage41()
 		}
 
 		//余りのブロック
-		if (i >= 98 && i <= 125)
+		if (i >= 98 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -1035,7 +1237,7 @@ void InitStage33()
 		}
 
 		//余りのブロック
-		if (i >= 72 && i <= 125)
+		if (i >= 72 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -1183,7 +1385,7 @@ void InitStage32()
 		}
 
 		//余りのブロック
-		if (i >= 79 && i <= 125)
+		if (i >= 79 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -1349,7 +1551,7 @@ void InitStage31()
 		}
 
 		//余りのブロック
-		if (i >= 91 && i <= 125)
+		if (i >= 91 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -1512,7 +1714,7 @@ void InitStage23()
 		}
 
 		//余りのブロック
-		if (i >= 56 && i <= 125)
+		if (i >= 56 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -1620,7 +1822,7 @@ void InitStage22()
 			g_Block[i].ontime = ONTIME;
 		}
 		//余りのブロック
-		if (i >= 88 && i <= 125)
+		if (i >= 88 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -1775,7 +1977,7 @@ void InitStage21()
 			g_Block[i].Patern = 15.0f;
 		}
 		//余りのブロック
-		if (i >= 91 && i <= 125)
+		if (i >= 91 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -1926,7 +2128,7 @@ void InitStage13()
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
 		//余りのブロック
-		if (i >= 56 && i <= 125)
+		if (i >= 56 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -2027,8 +2229,8 @@ void InitStage12()
 			//草がないタイプの床ブロック
 			g_Block[i].Patern = 1.0f;
 		}
-		//余りのブロック
-		if (i >= 100 && i <= 125)
+		//余りはない。最大個数増やしたら復活せよ
+		if (i >= 96 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定は取らない
 			g_Block[i].use = false;
@@ -2153,22 +2355,16 @@ void InitStage12()
 	g_Block[86].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 56, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	//この上に犬
 	g_Block[87].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 54, DEFO_SIZE_Y - DRAW_SIZE * 4);
-	g_Block[88].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 55, DEFO_SIZE_Y - DRAW_SIZE * 4);
-	g_Block[89].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 56, DEFO_SIZE_Y - DRAW_SIZE * 4);
+	g_Block[88].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 57, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[89].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 58, DEFO_SIZE_Y - DRAW_SIZE * 0);
 
-	g_Block[90].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 57, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[91].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 58, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[92].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 59, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[90].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 59, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[91].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 60, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[92].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 61, DEFO_SIZE_Y - DRAW_SIZE * 0);
 
-	g_Block[93].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 57, DEFO_SIZE_Y - DRAW_SIZE * 4);
-	g_Block[94].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 58, DEFO_SIZE_Y - DRAW_SIZE * 4);
-	g_Block[95].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 59, DEFO_SIZE_Y - DRAW_SIZE * 4);
-
-	g_Block[96].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 60, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[97].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 61, DEFO_SIZE_Y - DRAW_SIZE * 0);
-	g_Block[98].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 62, DEFO_SIZE_Y - DRAW_SIZE * 0);
-
-	g_Block[99].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 63, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[93].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 62, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[94].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 63, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	g_Block[95].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 55, DEFO_SIZE_Y - DRAW_SIZE * 4);
 }
 
 void InitStage11()
@@ -2186,7 +2382,7 @@ void InitStage11()
 			g_Block[i].Patern = 1.0f;
 		}
 
-		if (i >= 92 && i <= 125)
+		if (i >= 92 && i < BLOCK_MAX)
 		{
 			//使わないブロックは当たり判定と描画は取らない
 			g_Block[i].use = false;

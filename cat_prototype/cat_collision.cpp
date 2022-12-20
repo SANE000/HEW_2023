@@ -67,7 +67,6 @@ void UpdateCatCollision()
 			//ブロックに触れていて
 			if (hit == true)
 			{
-
 				//床ブロックより上(重力GRAVの影響も排除する)
 				if (CatBottom - GRAV <= BlockTop && cat->pos.y < block[i].pos.y)
 				{
@@ -121,6 +120,21 @@ void UpdateCatCollision()
 							{
 								block[i].Patern = 17.0f;
 							}
+						}//中途半端に乗った後でもバネが起動するようにしました
+						else if (block[i].Patern >= 11.8f && block[i].Patern <= 11.9f || block[i].Patern >= 19.8f && block[i].Patern <= 19.9f)
+						{
+							//とりあえず7段	
+							CatJump(7.0f);
+							//飛んだ瞬間に戻る
+							if (block[i].Patern >= 11.8f && block[i].Patern <= 11.9f)
+							{
+								block[i].Patern = 9.0f;
+							}
+
+							if (block[i].Patern >= 19.8f && block[i].Patern <= 19.9f)
+							{
+								block[i].Patern = 17.0f;
+							}
 						}
 					}
 
@@ -137,6 +151,14 @@ void UpdateCatCollision()
 							//仮の番号。なにも描画しない
 							block[i].Patern = 35.0f;
 							block[i].use = false;
+						}
+					}
+					//ワープ
+					if (block[i].Patern == 31.0f)
+					{
+						if (block[i].pos.x - 5.0f < cat->pos.x && block[i].pos.x + 5.0f > cat->pos.x)
+						{
+							cat->pos = block[i].warpos;
 						}
 					}
 
@@ -269,7 +291,7 @@ void UpdateCatCollision()
 					//m_temp = MOVE_BLOCK_MAX;
 
 					//	バネブロックか砂嵐で中心あたりに乗った時跳ねる処理
-					if (m_block[i].Patern >= 4.0f && m_block[i].Patern <= 6.9f)
+					if (m_block[i].Patern >= 5.0f && m_block[i].Patern <= 7.9f)
 					{
 						if (cat->move_flag == false)
 						{
@@ -286,15 +308,22 @@ void UpdateCatCollision()
 							//とりあえず3段	
 							CatJump(3.0f);
 							//飛んだ瞬間に戻る
-							if (m_block[i].Patern >= 4.0f && m_block[i].Patern <= 6.9f)
+							if (m_block[i].Patern >= 5.0f && m_block[i].Patern <= 7.9f)
 							{
-								m_block[i].Patern = 4.0f;
+								m_block[i].Patern = 5.0f;
 							}
+						}
+						else if (m_block[i].Patern >= 7.8f && m_block[i].Patern <= 7.9f)
+						{
+							//とりあえず3段	
+							CatJump(3.0f);
+							//飛んだ瞬間に戻る
+							m_block[i].Patern = 5.0f;
 						}
 					}
 
 					//	爪とぎブロック
-					if (m_block[i].Patern >= 7.0f && m_block[i].Patern <= 7.9f)
+					if (m_block[i].Patern >= 8.0f && m_block[i].Patern <= 8.9f)
 					{
 						if (m_block[i].pos.x - 1.0f < cat->pos.x && m_block[i].pos.x + 1.0f > cat->pos.x)
 						{

@@ -25,7 +25,6 @@ struct G_WALL
 	//スクロール用ブロック移動ベクトル
 	D3DXVECTOR2 Speed = D3DXVECTOR2(0, 0);
 	//種類用のアニメ番号
-	//デフォルトは草ありブロック
 	float Patern = 0.0f;
 };
 

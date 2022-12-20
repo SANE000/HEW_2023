@@ -6,6 +6,7 @@
 #include "dog.h"
 #include "block.h"
 #include "blockpreview.h"
+#include "gimmick_wall.h"
 
 #include "collision.h"
 
@@ -24,6 +25,7 @@ void UpdateDogCollision()
 	CAT* cat = GetCat();
 	BLOCK* block = GetBlock();
 	MOVE_BLOCK* m_block = GetMoveBlock();
+	G_WALL* gimmickwall = GetGimmickWall();
 
 	float CatTop = cat->pos.y - SIZE / 2;
 	float CatBottom = cat->pos.y + SIZE / 2;
@@ -160,7 +162,60 @@ void UpdateDogCollision()
 				}
 			}
 		}
+		//dog vs gimmki_wall
+		for (int i = 0; i < DOG_MAX; i++)
+		{
+			float DogTop = dog[i].pos.y - SIZE / 2;
+			float DogBottom = dog[i].pos.y + SIZE / 2;
+			float DogLeft = dog[i].pos.x - SIZE / 2;
+			float DogRight = dog[i].pos.x + SIZE / 2;
 
+			if (dog[i].use == true)
+			{
+				for (int b = 0; b < WALL_MAX; b++)
+				{
+					float BlockTopG = gimmickwall[b].pos.y - SIZE / 2;
+					float BlockBottomG = gimmickwall[b].pos.y + SIZE / 2;
+					float BlockLeftG = gimmickwall[b].pos.x - SIZE / 2;
+					float BlockRightG = gimmickwall[b].pos.x + SIZE / 2;
+					//もし構造体を使ってなかったらスキップ
+					if (gimmickwall[b].use != true)
+					{
+						continue;
+					}
+					//
+					bool hit = CollisionBB(dog[i].pos, gimmickwall[b].pos, D3DXVECTOR2(dog[i].w, dog[i].h), D3DXVECTOR2(SIZE, SIZE));
+					if (hit == true)
+					{
+						//床ブロックより上(重力GRAVの影響も排除する)
+						if (DogBottom - GRAV <= BlockTopG && dog[i].pos.y < gimmickwall[b].pos.y)
+						{
+							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+							dog[i].pos.y = BlockTopG - GRAV - SIZE / 2;
+							temp = BLOCK_MAX;
+						}
+						//床ブロックより下
+						else if (DogTop <= BlockBottomG &&
+							dog[i].pos.y - (SIZE / 2 - GRAV) > gimmickwall[b].pos.y + (SIZE / 2 - GRAV))
+						{
+							dog[i].use = false;
+						}
+						//床ブロックより右
+						else if (DogLeft <= BlockRightG && dog[i].pos.x > BlockRightG)
+						{
+							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+							dog[i].pos.x = BlockRightG + SIZE / 2;
+						}
+						//床ブロックより左
+						else if (DogRight >= BlockLeftG && dog[i].pos.x < gimmickwall[i].pos.x)
+						{//左
+							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
+							dog[i].pos.x = BlockLeftG - SIZE / 2;
+						}
+					}
+				}
+			}
+		}
 		////close to dog
 		//if (cat->use == true)
 		//{
