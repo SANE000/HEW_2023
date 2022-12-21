@@ -59,6 +59,7 @@ HRESULT InitBlock()
 	for (int i = 0; i < BLOCK_MAX; i++)
 	{
 		g_Block[i].use = true;
+		g_Block[i].draw_use = true;
 		//センサーで動くものフラグをリセット
 		g_Block[i].moveflug = false;
 		//テクスチャロード 画像の名前を入れよう
@@ -180,7 +181,8 @@ HRESULT InitBlock()
 //終了処理
 void UnInitBlock()
 {
-	UninitGimmickWall();
+	//バグ防止のために一時的にコメントアウトしました
+	//UninitGimmickWall();
 }
 //更新処理
 void UpdateBlock()

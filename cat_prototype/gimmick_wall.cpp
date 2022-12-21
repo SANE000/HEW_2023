@@ -331,8 +331,6 @@ void UninitGimmickWall()
 
 		}
 		break;
-
-
 	}
 }
 
