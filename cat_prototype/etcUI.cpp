@@ -10,7 +10,7 @@
 #include "stageselect.h"
 
 //その他のUI関係のマクロやこれから追加するかも用
-#define ETC_MAX 28
+#define ETC_MAX 34
 #define ETC_SIZE_W 100
 #define ETC_SIZE_H 50
 //プロトタイプ宣言
@@ -69,6 +69,14 @@ ETC InitDate[] =
 	//ワープ52-26-27
 	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 52, DEFO_SIZE_Y - DRAW_SIZE * 4),0,0,DRAW_SIZE,DRAW_SIZE,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 2.0f,1.0f,2},
 	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 57, DEFO_SIZE_Y - DRAW_SIZE * 8),0,0,DRAW_SIZE,DRAW_SIZE,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 2.0f,1.0f,2},
+	//ワープ53-28-31
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 49, DEFO_SIZE_Y - DRAW_SIZE * 2),0,0,DRAW_SIZE,DRAW_SIZE,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 2.0f,1.0f,2},
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 49, DEFO_SIZE_Y - DRAW_SIZE * 8),0,0,DRAW_SIZE,DRAW_SIZE,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 2.0f,1.0f,2},
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 59, DEFO_SIZE_Y - DRAW_SIZE * 8),0,0,DRAW_SIZE,DRAW_SIZE,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 2.0f,1.0f,2},
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 59, DEFO_SIZE_Y - DRAW_SIZE * 2),0,0,DRAW_SIZE,DRAW_SIZE,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 2.0f,1.0f,2},
+	//ベルトコンベア53-32-33
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 32, DEFO_SIZE_Y - DRAW_SIZE * 0),0,0,180,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f / 3.0f,10},
+	{false,D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 35, DEFO_SIZE_Y - DRAW_SIZE * 0),0,0,180,60,D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),0.0f,1.0f / 10.0f,1.0f / 3.0f,10},
 };
 
 HRESULT InitEtc()
@@ -111,7 +119,7 @@ HRESULT InitEtc()
 		{
 			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\-belt_con.png");
 		}
-		else if (i >= 22 && i <= 27)
+		else if (i >= 22 && i <= 31)
 		{
 			g_etc[i].texNo = LoadTexture((char*)"data\\texture\\warp.png");
 		}
@@ -161,10 +169,17 @@ HRESULT InitEtc()
 				g_etc[i].use = true;
 			}
 		}
+		else if (stage == 2)
+		{
+			for (int i = 28; i < 34; i++)
+			{
+				g_etc[i].use = true;
+			}
+		}
 	}
 	else
 	{
-		for (int i = 8; i < 28; i++)
+		for (int i = 8; i < 34; i++)
 		{
 			g_etc[i].use = false;
 		}
@@ -306,7 +321,7 @@ void DrawEtc()
 					g_etc[i].uv_num//総枚数
 				);
 			}
-			if (i >= 8 && i <= 21)
+			if (i >= 8 && i <= 21|| i >= 32 && i <= 33)
 			{
 				g_etc[i].patern += 0.5f;
 				if (g_etc[i].patern >= 30.0f)
@@ -314,7 +329,7 @@ void DrawEtc()
 					g_etc[i].patern -= 30.0f;
 				}
 			}
-			else if (i >= 22 && i <= 27)
+			else if (i >= 22 && i <= 31)
 			{
 				g_etc[i].patern += 0.02f;
 				if (g_etc[i].patern >= 2.0f)

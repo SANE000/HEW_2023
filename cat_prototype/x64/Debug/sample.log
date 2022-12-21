@@ -1,14 +1,6 @@
-﻿  block.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\block.cpp(515): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  etcUI.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(250): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(259): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(265): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(266): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(281): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(280): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(300): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(299): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\etcui.cpp(297): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  コードを生成中...
+﻿  result.cpp
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(112): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(111): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(126): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(125): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe

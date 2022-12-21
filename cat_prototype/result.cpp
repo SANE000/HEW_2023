@@ -26,7 +26,7 @@ static int g_Block = 0;
 //Clear←この値をいじれば好きなステージを選べるようになる
 //初期値を0に設定して順番通りにプレイすればバグは起きない
 //デバック用は99に設定すればどこでもプレイできます
-static int clear = 99;
+static int clear = 0;
 //
 int Score = 0;
 

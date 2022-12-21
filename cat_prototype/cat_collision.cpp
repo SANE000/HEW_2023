@@ -156,7 +156,7 @@ void UpdateCatCollision()
 					//ÉèÅ[Év
 					if (block[i].Patern == 31.0f)
 					{
-						if (block[i].pos.x - 5.0f < cat->pos.x && block[i].pos.x + 5.0f > cat->pos.x)
+						if (block[i].pos.x - 15.0f < cat->pos.x && block[i].pos.x + 15.0f > cat->pos.x)
 						{
 							cat->pos = block[i].warpos;
 						}
