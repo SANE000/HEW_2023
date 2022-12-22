@@ -43,7 +43,7 @@ static int g_TextureNo = 0;	// テクスチャ識別子
 
 HRESULT InitTitle()
 {
-	g_TextureNo = LoadTexture((char*)"data/TEXTURE/gameover.png");
+	g_TextureNo = LoadTexture((char*)"data/TEXTURE/title.png");
 
 
 	return S_OK;
@@ -56,7 +56,7 @@ void UninitTitle()
 
 void UpdateTitle()
 {
-	if (Keyboard_IsKeyDown(KK_ENTER)) {
+	if (Keyboard_IsKeyDown(KK_ENTER) || IsButtonTriggered(0, XINPUT_GAMEPAD_B)) {
 		SetScene(SCENE_SELECT);
 	}
 }
