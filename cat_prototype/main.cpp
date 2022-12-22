@@ -212,7 +212,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	//サウンドはシーンが始まる前に置いておく
 	InitSound(hWnd);
 	InitSptite();
-	InitScene(SCENE::SCENE_SELECT);
+	InitScene(SCENE::SCENE_TITLE);
 
 	return S_OK;
 }

@@ -4,7 +4,8 @@
 //ÉVÅ[Éìî‘çÜ
 enum SCENE
 {
-	SCENE_NONE = 0,
+	SCENE_NONE = 0, 
+	SCENE_TITLE,
 	SCENE_SELECT,
 	SCENE_SHOP,
 	SCENE_GAME,

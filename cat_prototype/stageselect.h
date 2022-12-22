@@ -55,3 +55,5 @@ void DrawStageSelect();
 
 int SetStage();
 int SetField();
+
+bool SelectWorld();

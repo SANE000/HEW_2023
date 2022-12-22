@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\git避難\HEW_2023\cat_prototype\TitleUI.cpp" />
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="blockpreview.cpp" />
@@ -154,8 +155,6 @@
     <ClCompile Include="jumpflag.cpp" />
     <ClCompile Include="jumpsensor_collision.cpp" />
     <ClCompile Include="keyboard.cpp" />
-    <ClCompile Include="Line.cpp" />
-    <ClCompile Include="Linecircle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon.cpp" />
@@ -164,6 +163,7 @@
     <ClCompile Include="result.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="select.cpp" />
+    <ClCompile Include="selectUI.cpp" />
     <ClCompile Include="shop.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="sprite.cpp" />
@@ -173,6 +173,7 @@
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\git避難\HEW_2023\cat_prototype\TitleUI.h" />
     <ClInclude Include="BG.h" />
     <ClInclude Include="block.h" />
     <ClInclude Include="blockpreview.h" />
@@ -193,8 +194,6 @@
     <ClInclude Include="jumpflag.h" />
     <ClInclude Include="jumpsensor_collision.h" />
     <ClInclude Include="keyboard.h" />
-    <ClInclude Include="Line.h" />
-    <ClInclude Include="Linecircle.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="polygon.h" />
@@ -203,6 +202,7 @@
     <ClInclude Include="result.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="select.h" />
+    <ClInclude Include="selectUI.h" />
     <ClInclude Include="shop.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="sprite.h" />

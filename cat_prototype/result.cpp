@@ -26,10 +26,10 @@ static int g_Block = 0;
 //Clear←この値をいじれば好きなステージを選べるようになる
 //初期値を0に設定して順番通りにプレイすればバグは起きない
 //デバック用は99に設定すればどこでもプレイできます
-static int clear = 0;
+static int clear = -1;
 //
 int Score = 0;
-
+int rank[21];
 
 HRESULT InitResult()
 {
@@ -56,22 +56,24 @@ void UpdateResult()
 		time -= 1;
 	}
 	//スコア計算//ココプランナーに決めてもらうの忘れてた
-	if (BlockScore() <= 10 && ResultTimer() <= 90)
+	if (BlockScore() <= 6 && ResultTimer() <= 5)
 	{//Sランク
 		Score = SCORE::SCORE_S;
 	}
-	else if (BlockScore() <= 15 && ResultTimer() <= 100)
+	else if (BlockScore() <= 8 && ResultTimer() <= 10)
 	{//Aランク
 		Score = SCORE::SCORE_A;
 	}
-	else														
+	else
 	{//Bランク
 		Score = SCORE::SCORE_B;
 	}
 	if (Keyboard_IsKeyDown(KK_ENTER) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0)//ENTERキー押したら
 	{
-		//例　2面の2ステージ  1*3 + 1 = 4 (0,1,2,3,4)の5番目のステージである 2-2(中の数字的に0から始まるので1-1)をクリアした時だけクリアが1足される
-		if (clear == (SetField() * 3) + SetStage())
+		rank[(SetField() * 3) + SetStage()] = Score;
+
+		//例　2面の2ステージ  1*3 + 1 = 4 (0,1,2,3,4)の5番目のステージである 2-2(中の数字的に0から始まるので1-1をクリアした時だけクリアが1足される)
+		if (clear == (SetField() * 3) + SetStage() - 1)
 		{
 			clear += 1;
 		}
@@ -187,7 +189,7 @@ void DrawResult()
 		}
 	}
 
-	
+
 }
 
 void SetTime(int time)
@@ -201,5 +203,10 @@ void SetBlock(int block)
 
 int SetClear()
 {
-	return clear;
+	return clear + 1;
+}
+
+int GetScore(int i)
+{
+	return rank[i];
 }

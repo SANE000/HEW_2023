@@ -14,7 +14,8 @@
 //シーン番号
 enum SCORE
 {
-	SCORE_S = 0,
+	SCORE_NULL = 0,
+	SCORE_S,
 	SCORE_A,
 	SCORE_B,
 };
@@ -34,3 +35,5 @@ void SetBlock(int block);
 //クリアの値のセット
 int SetClear();
 
+//ステージのクリアランク
+int GetScore(int i);

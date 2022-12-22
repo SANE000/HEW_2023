@@ -1,6 +1,63 @@
-﻿  result.cpp
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(112): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(111): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(126): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\isikawa\desktop\dx関連\hew2023\hew_2023\cat_prototype\result.cpp(125): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-  sample.vcxproj -> C:\Users\isikawa\Desktop\DX関連\hew2023\HEW_2023\cat_prototype\x64\Debug\sample.exe
+﻿  block.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\block.cpp(547): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  block_collision.cpp
+  camera.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\camera.cpp(76): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\camera.cpp(95): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\camera.cpp(108): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\camera.cpp(114): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+  cat.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\cat.cpp(303): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+  cat_collision.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\cat_collision.cpp(147): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
+  collision.cpp
+  dog.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\dog.cpp(331): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\dog.cpp(325): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  dogCollision.cpp
+  etcUI.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\etcui.cpp(265): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\etcui.cpp(274): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\etcui.cpp(280): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\etcui.cpp(281): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\etcui.cpp(296): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\etcui.cpp(295): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\etcui.cpp(315): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\etcui.cpp(314): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\etcui.cpp(312): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  game.cpp
+  gimmick_wall.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\gimmick_wall.cpp(572): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  jumpflag.cpp
+  jumpsensor_collision.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\jumpsensor_collision.cpp(59): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\jumpsensor_collision.cpp(78): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\jumpsensor_collision.cpp(110): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\jumpsensor_collision.cpp(151): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\jumpsensor_collision.cpp(170): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\jumpsensor_collision.cpp(203): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\jumpsensor_collision.cpp(244): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\jumpsensor_collision.cpp(263): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\jumpsensor_collision.cpp(295): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  main.cpp
+  player.cpp
+  preview_collision.cpp
+  result.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\result.cpp(114): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\result.cpp(113): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\result.cpp(128): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\result.cpp(127): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  select.cpp
+  selectUI.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\selectui.cpp(91): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\selectui.cpp(88): warning C4244: '引数': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\selectui.cpp(87): warning C4244: '引数': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
+  timer.cpp
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\timer.cpp(59): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\timer.cpp(65): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\timer.cpp(71): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\timer.cpp(90): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\timer.cpp(89): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\timer.cpp(143): warning C4244: 'return': 'float' から 'int' への変換です。データが失われる可能性があります。
+  コードを生成中...
+  sample.vcxproj -> C:\Users\81804\OneDrive\デスクトップ\HEW2023\HEW_2023\cat_prototype\x64\Debug\sample.exe

@@ -10,20 +10,25 @@
 #include "result.h"
 #include "Select.h"
 #include "StageSelect.h"
+#include "selectUI.h"
 
 void InitSelect()
 {
+	InitselUI();
 	InitStageSelect();
 }
 void UpdateSelect()
 {
 	UpdateStageSelect();
+	UpdateselUI();
 }
-void UninitSelect() 
+void UninitSelect()
 {
 	UnInitStageSelect();
+	UnInitselUI();
 }
 void DrawSelect()
 {
 	DrawStageSelect();
+	DrawselUI();
 }

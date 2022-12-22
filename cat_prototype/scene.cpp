@@ -6,6 +6,7 @@
 #include "result.h"
 #include "Select.h"
 #include "gameover.h"
+#include "title.h"
 
 //グローバル変数
 //現在実行中のシーン番号
@@ -14,11 +15,15 @@ static SCENE g_SceneNextIndex = g_SceneIndex;
 
 void InitScene(SCENE no)
 {
-	g_SceneIndex =g_SceneNextIndex = no;
+	g_SceneIndex = g_SceneNextIndex = no;
 
 	switch (g_SceneIndex)
 	{
 	case SCENE::SCENE_NONE:
+		break;
+
+	case SCENE::SCENE_TITLE:
+		InitTitle();
 		break;
 	case SCENE::SCENE_SELECT:
 		InitSelect();
@@ -43,11 +48,14 @@ void UninitScene()
 	{
 	case SCENE::SCENE_NONE:
 		break;
-	
+
+	case SCENE::SCENE_TITLE:
+		UninitTitle();
+		break;
 	case SCENE::SCENE_SELECT:
 		UninitSelect();
 		break;
-	
+
 	case SCENE::SCENE_SHOP:
 		UninitShop();
 
@@ -56,8 +64,8 @@ void UninitScene()
 		UninitGame();
 		break;
 	case SCENE::SCENE_GAMEOVER:
-	    UninitGameOver();
-	    break;
+		UninitGameOver();
+		break;
 	case SCENE::SCENE_SCORE:
 		UninitResult();
 		break;
@@ -68,6 +76,9 @@ void UpdateScene()
 	switch (g_SceneIndex)
 	{
 	case SCENE::SCENE_NONE:
+		break;
+	case SCENE::SCENE_TITLE:
+		UpdateTitle();
 		break;
 	case SCENE::SCENE_SELECT:
 		UpdateSelect();
@@ -92,6 +103,9 @@ void DrawScene()
 	switch (g_SceneIndex)
 	{
 	case SCENE::SCENE_NONE:
+		break;
+	case SCENE::SCENE_TITLE:
+		DrawTitle();
 		break;
 	case SCENE::SCENE_SELECT:
 		DrawSelect();

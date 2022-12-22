@@ -13,231 +13,279 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ヘッダー ファイル\基本触らない">
+      <UniqueIdentifier>{e7f77c3b-8250-4749-a615-186b75284885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\その他">
+      <UniqueIdentifier>{e2277707-83c7-4dcb-8935-6cabbdb4dc89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\当たり判定">
+      <UniqueIdentifier>{0cd56dcb-16c6-44b1-bbdd-f41cd769abde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\アニマル">
+      <UniqueIdentifier>{2f54dfde-7268-455b-842c-0954d1d9b493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ブロック">
+      <UniqueIdentifier>{38bb4484-010a-4be3-b4c2-eb30a6a1f5f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ステージ選択">
+      <UniqueIdentifier>{18a8701a-3d67-4bf9-bbae-05494bb2e7e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ゲーム">
+      <UniqueIdentifier>{b7df3183-d9e4-4dfc-a6be-022ff5768603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\タイトル">
+      <UniqueIdentifier>{3a83c358-97ba-43a0-9ab6-44e76702c56e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\基本触らない">
+      <UniqueIdentifier>{9e804a85-3631-4a18-bbcb-a79e22f4ad2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\その他">
+      <UniqueIdentifier>{eed561d4-19b3-41df-9b10-f760ece6eb1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\当たり判定">
+      <UniqueIdentifier>{2f3fdc00-2730-43b7-8604-181c3bf32dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\アニマル">
+      <UniqueIdentifier>{84ba9d13-ac65-46f2-8df5-145e65e4a402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ゲーム">
+      <UniqueIdentifier>{3cc97393-120e-4818-8540-eab51e517e1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージ選択">
+      <UniqueIdentifier>{9a81c561-38ff-48e9-950f-55ca75ee4f66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\タイトル">
+      <UniqueIdentifier>{91903485-bc75-4954-add1-784276416632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ブロック">
+      <UniqueIdentifier>{8cbb011f-d172-477e-af26-2ecb068dd9f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="renderer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sprite.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="BG.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="scene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="title.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\タイトル</Filter>
     </ClCompile>
-    <ClCompile Include="result.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Linecircle.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Line.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="polygon.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sound.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="etcUI.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="..\..\..\git避難\HEW_2023\cat_prototype\TitleUI.cpp">
+      <Filter>ソース ファイル\タイトル</Filter>
     </ClCompile>
     <ClCompile Include="cat.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="block.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="timer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="blocktype.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="shop.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="cursor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="inputx.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="keyboard.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="blockpreview.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="gimmick_wall.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\アニマル</Filter>
     </ClCompile>
     <ClCompile Include="dog.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="dogCollision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="select.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="stageselect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="gameover.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="preview_collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="cat_collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="jumpsensor_collision.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\アニマル</Filter>
     </ClCompile>
     <ClCompile Include="block_collision.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\当たり判定</Filter>
+    </ClCompile>
+    <ClCompile Include="cat_collision.cpp">
+      <Filter>ソース ファイル\当たり判定</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>ソース ファイル\当たり判定</Filter>
+    </ClCompile>
+    <ClCompile Include="jumpsensor_collision.cpp">
+      <Filter>ソース ファイル\当たり判定</Filter>
+    </ClCompile>
+    <ClCompile Include="preview_collision.cpp">
+      <Filter>ソース ファイル\当たり判定</Filter>
+    </ClCompile>
+    <ClCompile Include="select.cpp">
+      <Filter>ソース ファイル\ステージ選択</Filter>
+    </ClCompile>
+    <ClCompile Include="stageselect.cpp">
+      <Filter>ソース ファイル\ステージ選択</Filter>
+    </ClCompile>
+    <ClCompile Include="selectUI.cpp">
+      <Filter>ソース ファイル\ステージ選択</Filter>
+    </ClCompile>
+    <ClCompile Include="block.cpp">
+      <Filter>ソース ファイル\ブロック</Filter>
+    </ClCompile>
+    <ClCompile Include="blockpreview.cpp">
+      <Filter>ソース ファイル\ブロック</Filter>
+    </ClCompile>
+    <ClCompile Include="blocktype.cpp">
+      <Filter>ソース ファイル\ブロック</Filter>
+    </ClCompile>
+    <ClCompile Include="dogCollision.cpp">
+      <Filter>ソース ファイル\当たり判定</Filter>
+    </ClCompile>
+    <ClCompile Include="BG.cpp">
+      <Filter>ソース ファイル\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>ソース ファイル\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="etcUI.cpp">
+      <Filter>ソース ファイル\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>ソース ファイル\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="gameover.cpp">
+      <Filter>ソース ファイル\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>ソース ファイル\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>ソース ファイル\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="shop.cpp">
+      <Filter>ソース ファイル\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="gimmick_wall.cpp">
+      <Filter>ソース ファイル\ブロック</Filter>
     </ClCompile>
     <ClCompile Include="jumpflag.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\アニマル</Filter>
+    </ClCompile>
+    <ClCompile Include="inputx.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="cursor.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite.cpp">
+      <Filter>ソース ファイル\基本触らない</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>ソース ファイル\ゲーム</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="renderer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sprite.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="collision.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="BG.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="result.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Line.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Linecircle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="polygon.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sound.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="etcUI.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="cat.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="block.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="timer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="blocktype.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="shop.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
     <ClInclude Include="cursor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
     <ClInclude Include="inputx.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
     <ClInclude Include="keyboard.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
-    <ClInclude Include="blockpreview.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="sound.h">
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
-    <ClInclude Include="gimmick_wall.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="texture.h">
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
-    <ClInclude Include="dog.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="timer.h">
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
-    <ClInclude Include="dogCollision.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="sprite.h">
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
-    <ClInclude Include="select.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="camera.h">
+      <Filter>ヘッダー ファイル\その他</Filter>
     </ClInclude>
-    <ClInclude Include="stageselect.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="etcUI.h">
+      <Filter>ヘッダー ファイル\その他</Filter>
     </ClInclude>
-    <ClInclude Include="gameover.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="main.h">
+      <Filter>ヘッダー ファイル\その他</Filter>
     </ClInclude>
-    <ClInclude Include="preview_collision.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="renderer.h">
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
-    <ClInclude Include="cat_collision.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="scene.h">
+      <Filter>ヘッダー ファイル\その他</Filter>
     </ClInclude>
-    <ClInclude Include="jumpsensor_collision.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="polygon.h">
+      <Filter>ヘッダー ファイル\基本触らない</Filter>
     </ClInclude>
     <ClInclude Include="block_collision.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\当たり判定</Filter>
+    </ClInclude>
+    <ClInclude Include="cat_collision.h">
+      <Filter>ヘッダー ファイル\当たり判定</Filter>
+    </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>ヘッダー ファイル\当たり判定</Filter>
+    </ClInclude>
+    <ClInclude Include="dogCollision.h">
+      <Filter>ヘッダー ファイル\当たり判定</Filter>
+    </ClInclude>
+    <ClInclude Include="jumpsensor_collision.h">
+      <Filter>ヘッダー ファイル\当たり判定</Filter>
+    </ClInclude>
+    <ClInclude Include="preview_collision.h">
+      <Filter>ヘッダー ファイル\当たり判定</Filter>
+    </ClInclude>
+    <ClInclude Include="cat.h">
+      <Filter>ヘッダー ファイル\アニマル</Filter>
+    </ClInclude>
+    <ClInclude Include="dog.h">
+      <Filter>ヘッダー ファイル\アニマル</Filter>
+    </ClInclude>
+    <ClInclude Include="block.h">
+      <Filter>ヘッダー ファイル\ブロック</Filter>
+    </ClInclude>
+    <ClInclude Include="blockpreview.h">
+      <Filter>ヘッダー ファイル\ブロック</Filter>
+    </ClInclude>
+    <ClInclude Include="blocktype.h">
+      <Filter>ヘッダー ファイル\ブロック</Filter>
+    </ClInclude>
+    <ClInclude Include="gimmick_wall.h">
+      <Filter>ヘッダー ファイル\ブロック</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>ヘッダー ファイル\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="select.h">
+      <Filter>ヘッダー ファイル\ステージ選択</Filter>
+    </ClInclude>
+    <ClInclude Include="selectUI.h">
+      <Filter>ヘッダー ファイル\ステージ選択</Filter>
+    </ClInclude>
+    <ClInclude Include="stageselect.h">
+      <Filter>ヘッダー ファイル\ステージ選択</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>ヘッダー ファイル\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="gameover.h">
+      <Filter>ヘッダー ファイル\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>ヘッダー ファイル\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="shop.h">
+      <Filter>ヘッダー ファイル\ゲーム</Filter>
     </ClInclude>
     <ClInclude Include="jumpflag.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\アニマル</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>ヘッダー ファイル\タイトル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\git避難\HEW_2023\cat_prototype\TitleUI.h">
+      <Filter>ヘッダー ファイル\タイトル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

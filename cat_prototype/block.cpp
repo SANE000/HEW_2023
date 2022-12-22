@@ -87,17 +87,17 @@ HRESULT InitBlock()
 	//増えてきたらswitch構文でつくってもいいかも
 	if (field == 0)
 	{
-		if (stage == 0 && clear >= 0)
+		if (stage == 0)
 		{
 			//足場ブロックの設置.一番最後に設定
 			InitStage11();
 		}
-		else if (stage == 1 && clear >= 1)
+		else if (stage == 1 && clear >= 0)
 		{
 			InitStage12();
 			InitGimmickWall();
 		}
-		else if (stage == 2 && clear >= 2)
+		else if (stage == 2 && clear >= 1)
 		{
 			InitStage13();
 			InitGimmickWall();
@@ -105,15 +105,15 @@ HRESULT InitBlock()
 	}
 	else if (field == 1)
 	{
-		if (stage == 0 && clear >= 3)
+		if (stage == 0 && clear >= 2)
 		{
 			InitStage21();
 		}
-		else if (stage == 1 && clear >= 4)
+		else if (stage == 1 && clear >= 3)
 		{
 			InitStage22();
 		}
-		else if (stage == 2 && clear >= 5)
+		else if (stage == 2 && clear >= 4)
 		{
 			InitStage23();
 			InitGimmickWall();
@@ -121,17 +121,17 @@ HRESULT InitBlock()
 	}
 	else if (field == 2)
 	{
-		if (stage == 0 && clear >= 6)
+		if (stage == 0 && clear >= 5)
 		{
 			InitStage31();
 			InitGimmickWall();
 		}
-		else if (stage == 1 && clear >= 7)
+		else if (stage == 1 && clear >= 6)
 		{
 			InitStage32();
 			InitGimmickWall();
 		}
-		else if (stage == 2 && clear >= 8)
+		else if (stage == 2 && clear >= 7)
 		{
 			InitStage33();
 			InitGimmickWall();
@@ -139,15 +139,15 @@ HRESULT InitBlock()
 	}
 	else if (field == 3)
 	{
-		if (stage == 0 && clear >= 9)
+		if (stage == 0 && clear >= 8)
 		{
 			InitStage41();
 		}
-		else if (stage == 1 && clear >= 10)
+		else if (stage == 1 && clear >= 9)
 		{
 			InitStage42();
 		}
-		else if (stage == 2 && clear >= 11)
+		else if (stage == 2 && clear >= 10)
 		{
 			InitStage43();
 			InitGimmickWall();
@@ -155,16 +155,16 @@ HRESULT InitBlock()
 	}
 	else if (field == 4)
 	{
-		if (stage == 0 && clear >= 12)
+		if (stage == 0 && clear >= 11)
 		{
 			InitStage51();
 			InitGimmickWall();
 		}
-		else if (stage == 1 && clear >= 13)
+		else if (stage == 1 && clear >= 12)
 		{
 			InitStage52();
 		}
-		else if (stage == 2 && clear >= 14)
+		else if (stage == 2 && clear >= 13)
 		{
 			InitStage53();
 			InitGimmickWall();
