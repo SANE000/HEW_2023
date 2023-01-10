@@ -174,6 +174,9 @@
     <ClCompile Include="player.cpp">
       <Filter>ソース ファイル\ゲーム</Filter>
     </ClCompile>
+    <ClCompile Include="pose.cpp">
+      <Filter>ソース ファイル\その他</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BG.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\git避難\HEW_2023\cat_prototype\TitleUI.h">
       <Filter>ヘッダー ファイル\タイトル</Filter>
+    </ClInclude>
+    <ClInclude Include="pose.h">
+      <Filter>ヘッダー ファイル\その他</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

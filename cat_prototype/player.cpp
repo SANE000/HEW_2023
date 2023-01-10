@@ -12,6 +12,7 @@
 #include "collision.h"
 #include "camera.h"
 #include "preview_collision.h"
+#include "pose.h"
 
 //マクロ定義
 #define BULLET_WAIT (28)
@@ -27,7 +28,9 @@ static PLAYER g_Player;
 static CAMERA_2D *g_Camera = GetCamera();
 //1ステージに何個ブロックを使ったか
 static int blockscore = 0;
-///
+/////ポーズフラグ
+static POSE *g_Pose = GetPose();;
+
 
 bool SpeedUpFlag;
 
@@ -197,6 +200,10 @@ void UpdatePlayer()
 
 
 	//}
+		if (Keyboard_IsKeyDown(KK_B) && time <= 0)
+		{
+			g_Pose->use = true;
+		}
 }
 void DrawPlayer()
 {

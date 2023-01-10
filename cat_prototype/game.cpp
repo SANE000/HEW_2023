@@ -15,6 +15,7 @@
 #include "blocktype.h"
 #include "camera.h"
 #include "result.h"
+#include "pose.h"
 
 //マクロ定義
 //あとはタイム表示、
@@ -22,6 +23,8 @@
 //==========================================
 //グローバル変数
 //==========================================
+
+static POSE *g_Pose = GetPose();
 
 //初期化
 void InitGame()
@@ -39,15 +42,15 @@ void InitGame()
 	//タイマーの初期化
 	InitTime();
 	//ステージの初期化
-	InitCamera();
 	InitPlayer();
 	InitCat();
-	InitDog();
+	InitDog();	
+	InitCamera();
 	InitBlock();
 	InitPreview();
 	InitCollsion();
 	InitResult();
-
+	InitPose();
 
 	///////////////////////////////
 }
@@ -68,23 +71,28 @@ void UninitGame()
 	//背景の終了
 	UnInitPolygon();
 	////////////////ゲーム関連
+	UninitPose();
 }
 //終了処理
 void UpdateGame()
 {
-	////////////////ゲーム関連
-	//背景の更新
-	UpdatePolygon();
-	UpdateEtc();
-	//ステージの更新
-	UpdatePlayer();
-	UpdateCat();
-	UpdateDog();
-	UpdateCamera();
-	UpdateBlock();
-	UpdatePreview();
-	UpdateCollision();
-	
+	if (g_Pose->use == false) {
+		////////////////ゲーム関連
+		//背景の更新
+		UpdatePolygon();
+		UpdateEtc();
+		//ステージの更新
+		UpdatePlayer();
+		UpdateCat();
+		UpdateDog();
+		UpdateCamera();
+		UpdateBlock();
+		UpdatePreview();
+		UpdateCollision();
+	}
+	else {
+		UpdatePose();
+	}
 	////////////////ゲーム関連
 }
 //描画処理
@@ -107,4 +115,10 @@ void DrawGame()
 	DrawPlayer();
 	// バックバッファ、フロントバッファ入れ替え
 	////////////////ゲーム関連
+
+	if (g_Pose->use == true) {
+
+		DrawPose();
+	}
+
 }
