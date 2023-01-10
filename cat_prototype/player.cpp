@@ -162,12 +162,13 @@ void UpdatePlayer()
 			GetCat()->tumetogi_flag = false;
 		}
 
-		//リセットキー
-		if (Keyboard_IsKeyDown(KK_R) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0)
-		{
-			SetScene(SCENE_SHOP);
-			time = WAIT_TIME;
-		}
+		////リセットキー　ポーズ中に実装予定
+		//if (Keyboard_IsKeyDown(KK_R) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0)
+		//{
+		//	SetScene(SCENE_GAME);
+		//	time = WAIT_TIME;
+		//}
+
 		//時間切れゲームオーバー
 		if (GetLimitFrame() < 0)
 		{
@@ -175,9 +176,10 @@ void UpdatePlayer()
 		}
 
 
-		if (Keyboard_IsKeyDown(KK_U))
+		if (Keyboard_IsKeyDown(KK_U) || IsButtonPressed(0, XINPUT_GAMEPAD_RIGHT_SHOULDER))
 		{
 			SpeedUpFlag = true;
+
 		}
 		else
 		{
@@ -200,9 +202,10 @@ void UpdatePlayer()
 
 
 	//}
-		if (Keyboard_IsKeyDown(KK_B) && time <= 0)
+		if (Keyboard_IsKeyDown(KK_B) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_START) && time <= 0)
 		{
 			g_Pose->use = true;
+			time = WAIT_TIME;
 		}
 }
 void DrawPlayer()
