@@ -39,8 +39,8 @@ void InitCamera(void)
 	g_Camera.pos = D3DXVECTOR2(0.0f, 0.0f);
 	g_Camera.move = false;
 	g_Base = D3DXVECTOR2(0.0f, 0.0f);
-
-
+	g_Camera.moveLeft = false;
+	g_Camera.moveRight = false;
 }
 
 void UninitCamera(void)
