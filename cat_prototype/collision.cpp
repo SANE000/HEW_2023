@@ -71,9 +71,9 @@ void UpdateCollision()
 //		//ジャンプ関連の関数達　　　　　　//////////////////////////////////////////////////////////////////////////////////////
 //==============================================================================================================================
 
-//ブロックとぶつかったとき飛べる高さか調べる関数　動くブロックとぶつかったとき
-//引数:moveblockのポインタ,猫ポインタ,ぶつかったブロックの添え字
-float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
+//ブロックとぶつかったとき飛べる高さか調べる関数
+//引数:ぶつかったブロックのx座標, y座標,猫ポインタ
+float SearchJumpHeight(float x, float y, CAT* c)
 {
 	//ジャンプフラグがtrueだったら
 					//床についていたら
@@ -85,7 +85,7 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 		//それがあったら二個上の高さのブロックを探す
 		//全部あれば三個分ジャンプ　ジャンプの高さを決める
 
-		for (int a = 0; a < BLOCK_MAX; a++)
+		for (int i = 0; i < BLOCK_MAX; i++)
 		{
 			//全部のブロックが見つかったら終了
 			if (blockexist1 == true)
@@ -93,21 +93,21 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 				break;
 			}
 			//x座標が同じじゃないなら飛ばす
-			if (block[a].pos.x != mb[i].pos.x)
+			if (block[i].pos.x != x)
 			{
 				continue;
 			}
 
 			//y軸が一個上なら
-			if (block[a].pos.y <= (mb[i].pos.y - SIZE / 2) &&
-				block[a].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
+			if (block[i].pos.y <= (y - SIZE / 2) &&
+				block[i].pos.y >= (y - (SIZE + SIZE / 2)))
 			{
 				blockexist1 = true;
 			}
 
 		}
 
-		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
+		for (int i = 0; i < MOVE_BLOCK_MAX; i++)
 		{
 			//全部のブロックが見つかったら終了
 			if (blockexist1 == true)
@@ -115,20 +115,20 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 				break;
 			}
 			//x座標が同じじゃないなら飛ばす
-			if (m_block[a].pos.x != mb[i].pos.x)
+			if (m_block[i].pos.x != x)
 			{
 				continue;
 			}
 
 			//y軸が一個上なら
-			if (m_block[a].pos.y <= (mb[i].pos.y - SIZE / 2) &&
-				m_block[a].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
+			if (m_block[i].pos.y <= (y - SIZE / 2) &&
+				m_block[i].pos.y >= (y - (SIZE + SIZE / 2)))
 			{
 				blockexist1 = true;
 			}
 		}
 
-		for (int a = 0; a < WALL_MAX; a++)
+		for (int i = 0; i < WALL_MAX; i++)
 		{
 			//全部のブロックが見つかったら終了
 			if (blockexist1 == true)
@@ -136,14 +136,14 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 				break;
 			}
 			//x座標が同じじゃないなら飛ばす
-			if (gimmickwall[a].pos.x != mb[i].pos.x)
+			if (gimmickwall[i].pos.x != x)
 			{
 				continue;
 			}
 
 			//y軸が一個上なら
-			if (gimmickwall[a].pos.y <= (mb[i].pos.y - SIZE / 2) &&
-				gimmickwall[a].pos.y >= (mb[i].pos.y - (SIZE + SIZE / 2)))
+			if (gimmickwall[i].pos.y <= (y - SIZE / 2) &&
+				gimmickwall[i].pos.y >= (y - (SIZE + SIZE / 2)))
 			{
 				blockexist1 = true;
 			}
@@ -175,209 +175,210 @@ float SearchJumpHeight(MOVE_BLOCK* mb, CAT* c, int i)
 	return catjump_height;
 }
 
-//ブロックとぶつかったとき飛べる高さか調べる関数 床ブロックとぶつかったとき
-//引数:blockのポインタ,猫ポインタ,ぶつかったブロックの添え字
-float SearchJumpHeightB(BLOCK* b, CAT* c, int i)
-{
-	//ジャンプフラグがtrueだったら
-					//床についていたら
-	if (GetJumpFlag() == true)
-	{
 
-		//全ブロックを探知
-		//ぶつかったブロックと同じx座標で一個上の高さのブロックを探す
-		//それがあったら二個上の高さのブロックを探す
-		//全部あれば三個分ジャンプ　ジャンプの高さを決める
-		for (int a = 0; a < BLOCK_MAX; a++)
-		{
-			//全部のブロックが見つかったら終了
-			if (blockexist1 == true)
-			{
-				break;
-			}
-			//x座標が同じじゃないなら飛ばす
-			if (block[a].pos.x != b[i].pos.x)
-			{
-				continue;
-			}
-
-			//y軸が一個上なら
-			if (block[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
-				block[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
-			{
-				blockexist1 = true;
-			}
-
-		}
-
-		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
-		{
-			//全部のブロックが見つかったら終了
-			if (blockexist1 == true)
-			{
-				break;
-			}
-			//x座標が同じじゃないなら飛ばす
-			if (m_block[a].pos.x != b[i].pos.x)
-			{
-				continue;
-			}
-
-			//y軸が一個上なら
-			if (m_block[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
-				m_block[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
-			{
-				blockexist1 = true;
-			}
-		}
-
-		for (int a = 0; a < WALL_MAX; a++)
-		{
-			//全部のブロックが見つかったら終了
-			if (blockexist1 == true)
-			{
-				break;
-			}
-			//x座標が同じじゃないなら飛ばす
-			if (gimmickwall[a].pos.x != b[i].pos.x)
-			{
-				continue;
-			}
-
-			//y軸が一個上なら
-			if (gimmickwall[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
-				gimmickwall[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
-			{
-				blockexist1 = true;
-			}
-
-		}
-
-		//何段飛べるという変数を渡す
-		//blockexisitをfalseにする
-
-		//どっちも見つからなかった時
-		if (blockexist1 == false)
-		{
-			catjump_height = 1;
-			enablejump = true;
-		}
-		//一個上だけ存在する
-		else if (blockexist1 == true)
-		{
-			catjump_height = 2;
-			enablejump = false;
-		}
-	}
-
-	//二個上のブロックだけ存在した際どうするかは今後考える
-	//else if (blockexist1 == false && blockexist2 == true)
-
-	blockexist1 = false;
-	return catjump_height;
-}
-
-//ギミックブロックとぶつかったとき飛べる高さか調べる関数 床ブロックとぶつかったとき
-//引数:g_wallのポインタ,猫ポインタ,ぶつかったブロックの添え字
-float SearchJumpHeightG(G_WALL* g, CAT* c, int i)
-{
-	//ジャンプフラグがtrueだったら
-					//床についていたら
-	if (GetJumpFlag() == true)
-	{
-
-		//全ブロックを探知
-		//ぶつかったブロックと同じx座標で一個上の高さのブロックを探す
-		//それがあったら二個上の高さのブロックを探す
-		//全部あれば三個分ジャンプ　ジャンプの高さを決める
-		for (int a = 0; a < BLOCK_MAX; a++)
-		{
-			//全部のブロックが見つかったら終了
-			if (blockexist1 == true)
-			{
-				break;
-			}
-			//x座標が同じじゃないなら飛ばす
-			if (block[a].pos.x != g[i].pos.x)
-			{
-				continue;
-			}
-
-			//y軸が一個上なら
-			if (block[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
-				block[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
-			{
-				blockexist1 = true;
-			}
-
-		}
-
-		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
-		{
-			//全部のブロックが見つかったら終了
-			if (blockexist1 == true)
-			{
-				break;
-			}
-			//x座標が同じじゃないなら飛ばす
-			if (m_block[a].pos.x != g[i].pos.x)
-			{
-				continue;
-			}
-
-			//y軸が一個上なら
-			if (m_block[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
-				m_block[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
-			{
-				blockexist1 = true;
-			}
-		}
-
-		for (int a = 0; a < WALL_MAX; a++)
-		{
-			//全部のブロックが見つかったら終了
-			if (blockexist1 == true)
-			{
-				break;
-			}
-			//x座標が同じじゃないなら飛ばす
-			if (gimmickwall[a].pos.x != g[i].pos.x)
-			{
-				continue;
-			}
-
-			//y軸が一個上なら
-			if (gimmickwall[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
-				gimmickwall[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
-			{
-				blockexist1 = true;
-			}
-
-		}
-
-		//何段飛べるという変数を渡す
-		//blockexisitをfalseにする
-
-		//どっちも見つからなかった時
-		if (blockexist1 == false)
-		{
-			catjump_height = 1;
-			enablejump = true;
-		}
-		//一個上だけ存在する
-		else if (blockexist1 == true)
-		{
-			catjump_height = 2;
-			enablejump = false;
-		}
-	}
-
-	//二個上のブロックだけ存在した際どうするかは今後考える
-	//else if (blockexist1 == false && blockexist2 == true)
-
-	blockexist1 = false;
-	return catjump_height;
-}
+////ブロックとぶつかったとき飛べる高さか調べる関数 床ブロックとぶつかったとき
+////引数:blockのポインタ,猫ポインタ,ぶつかったブロックの添え字
+//float SearchJumpHeightB(BLOCK* b, CAT* c, int i)
+//{
+//	//ジャンプフラグがtrueだったら
+//					//床についていたら
+//	if (GetJumpFlag() == true)
+//	{
+//
+//		//全ブロックを探知
+//		//ぶつかったブロックと同じx座標で一個上の高さのブロックを探す
+//		//それがあったら二個上の高さのブロックを探す
+//		//全部あれば三個分ジャンプ　ジャンプの高さを決める
+//		for (int a = 0; a < BLOCK_MAX; a++)
+//		{
+//			//全部のブロックが見つかったら終了
+//			if (blockexist1 == true)
+//			{
+//				break;
+//			}
+//			//x座標が同じじゃないなら飛ばす
+//			if (block[a].pos.x != b[i].pos.x)
+//			{
+//				continue;
+//			}
+//
+//			//y軸が一個上なら
+//			if (block[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
+//				block[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
+//			{
+//				blockexist1 = true;
+//			}
+//
+//		}
+//
+//		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
+//		{
+//			//全部のブロックが見つかったら終了
+//			if (blockexist1 == true)
+//			{
+//				break;
+//			}
+//			//x座標が同じじゃないなら飛ばす
+//			if (m_block[a].pos.x != b[i].pos.x)
+//			{
+//				continue;
+//			}
+//
+//			//y軸が一個上なら
+//			if (m_block[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
+//				m_block[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
+//			{
+//				blockexist1 = true;
+//			}
+//		}
+//
+//		for (int a = 0; a < WALL_MAX; a++)
+//		{
+//			//全部のブロックが見つかったら終了
+//			if (blockexist1 == true)
+//			{
+//				break;
+//			}
+//			//x座標が同じじゃないなら飛ばす
+//			if (gimmickwall[a].pos.x != b[i].pos.x)
+//			{
+//				continue;
+//			}
+//
+//			//y軸が一個上なら
+//			if (gimmickwall[a].pos.y <= (b[i].pos.y - SIZE / 2) &&
+//				gimmickwall[a].pos.y >= (b[i].pos.y - (SIZE + SIZE / 2)))
+//			{
+//				blockexist1 = true;
+//			}
+//
+//		}
+//
+//		//何段飛べるという変数を渡す
+//		//blockexisitをfalseにする
+//
+//		//どっちも見つからなかった時
+//		if (blockexist1 == false)
+//		{
+//			catjump_height = 1;
+//			enablejump = true;
+//		}
+//		//一個上だけ存在する
+//		else if (blockexist1 == true)
+//		{
+//			catjump_height = 2;
+//			enablejump = false;
+//		}
+//	}
+//
+//	//二個上のブロックだけ存在した際どうするかは今後考える
+//	//else if (blockexist1 == false && blockexist2 == true)
+//
+//	blockexist1 = false;
+//	return catjump_height;
+//}
+//
+////ギミックブロックとぶつかったとき飛べる高さか調べる関数 床ブロックとぶつかったとき
+////引数:g_wallのポインタ,猫ポインタ,ぶつかったブロックの添え字
+//float SearchJumpHeightG(G_WALL* g, CAT* c, int i)
+//{
+//	//ジャンプフラグがtrueだったら
+//					//床についていたら
+//	if (GetJumpFlag() == true)
+//	{
+//
+//		//全ブロックを探知
+//		//ぶつかったブロックと同じx座標で一個上の高さのブロックを探す
+//		//それがあったら二個上の高さのブロックを探す
+//		//全部あれば三個分ジャンプ　ジャンプの高さを決める
+//		for (int a = 0; a < BLOCK_MAX; a++)
+//		{
+//			//全部のブロックが見つかったら終了
+//			if (blockexist1 == true)
+//			{
+//				break;
+//			}
+//			//x座標が同じじゃないなら飛ばす
+//			if (block[a].pos.x != g[i].pos.x)
+//			{
+//				continue;
+//			}
+//
+//			//y軸が一個上なら
+//			if (block[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
+//				block[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
+//			{
+//				blockexist1 = true;
+//			}
+//
+//		}
+//
+//		for (int a = 0; a < MOVE_BLOCK_MAX; a++)
+//		{
+//			//全部のブロックが見つかったら終了
+//			if (blockexist1 == true)
+//			{
+//				break;
+//			}
+//			//x座標が同じじゃないなら飛ばす
+//			if (m_block[a].pos.x != g[i].pos.x)
+//			{
+//				continue;
+//			}
+//
+//			//y軸が一個上なら
+//			if (m_block[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
+//				m_block[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
+//			{
+//				blockexist1 = true;
+//			}
+//		}
+//
+//		for (int a = 0; a < WALL_MAX; a++)
+//		{
+//			//全部のブロックが見つかったら終了
+//			if (blockexist1 == true)
+//			{
+//				break;
+//			}
+//			//x座標が同じじゃないなら飛ばす
+//			if (gimmickwall[a].pos.x != g[i].pos.x)
+//			{
+//				continue;
+//			}
+//
+//			//y軸が一個上なら
+//			if (gimmickwall[a].pos.y <= (g[i].pos.y - SIZE / 2) &&
+//				gimmickwall[a].pos.y >= (g[i].pos.y - (SIZE + SIZE / 2)))
+//			{
+//				blockexist1 = true;
+//			}
+//
+//		}
+//
+//		//何段飛べるという変数を渡す
+//		//blockexisitをfalseにする
+//
+//		//どっちも見つからなかった時
+//		if (blockexist1 == false)
+//		{
+//			catjump_height = 1;
+//			enablejump = true;
+//		}
+//		//一個上だけ存在する
+//		else if (blockexist1 == true)
+//		{
+//			catjump_height = 2;
+//			enablejump = false;
+//		}
+//	}
+//
+//	//二個上のブロックだけ存在した際どうするかは今後考える
+//	//else if (blockexist1 == false && blockexist2 == true)
+//
+//	blockexist1 = false;
+//	return catjump_height;
+//}
 
 
 int GetBlockNum()

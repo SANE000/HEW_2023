@@ -29,6 +29,8 @@ static CAMERA_2D *g_Camera = GetCamera();
 static int blockscore = 0;
 ///
 
+bool SpeedUpFlag;
+
 HRESULT InitPlayer()
 {
 	//テクスチャロード 画像の名前を入れよう
@@ -46,6 +48,7 @@ HRESULT InitPlayer()
 
 	blockscore = 0;
 
+	SpeedUpFlag = false;
 
 	//サウンドのロード
 	//char filename[] = "data\\SE\\boyoyon.wav";
@@ -61,6 +64,8 @@ void UnInitPlayer()
 //更新処理
 void UpdatePlayer()
 {
+	
+
 	//今現在のプレイヤーの座標を記憶しておく
 	D3DXVECTOR2 now_playerpos = g_Player.pos;
 
@@ -166,6 +171,17 @@ void UpdatePlayer()
 			SetScene(SCENE_GAMEOVER);
 		}
 
+
+		if (Keyboard_IsKeyDown(KK_U))
+		{
+			SpeedUpFlag = true;
+		}
+		else
+		{
+			SpeedUpFlag = false;
+		}
+
+
 		//ブロックプレビュー更新
 		UpdateBlockPreview(g_Player.pos);
 
@@ -215,3 +231,7 @@ int BlockScore()
 	return blockscore;
 }
 
+bool GetSpeedUpFlag()
+{
+	return SpeedUpFlag;
+}

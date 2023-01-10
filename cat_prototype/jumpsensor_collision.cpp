@@ -56,7 +56,7 @@ void UpdateJumpSensorCollision()
 			if (hit == true)
 			{
 				//目の前のブロックの高さをとる
-				int jumpheight = SearchJumpHeightB(block, cat, i);
+				int jumpheight = SearchJumpHeight(block[i].pos.x, block[i].pos.y, cat);
 
 				//猫が床ブロックより右
 				if (CatLeft <= JumpSensorRightM && cat->pos.x > JumpSensorRightM)
@@ -148,7 +148,7 @@ void UpdateJumpSensorCollision()
 			if (hit == true)
 			{
 				//目の前のブロックの高さをとる
-				int jumpheight = SearchJumpHeight(m_block, cat, i);
+				int jumpheight = SearchJumpHeight(m_block[i].pos.x, m_block[i].pos.y, cat);
 
 				//猫が床ブロックより右
 				if (CatLeft <= JumpSensorRightM && cat->pos.x > JumpSensorRightM)
@@ -241,7 +241,7 @@ void UpdateJumpSensorCollision()
 			if (hit == true)
 			{
 				//目の前のブロックの高さをとる
-				int jumpheight = SearchJumpHeightG(gimmickwall, cat, i);
+				int jumpheight = SearchJumpHeight(gimmickwall[i].pos.x, gimmickwall[i].pos.y, cat);
 
 				//猫が床ブロックより右
 				if (CatLeft <= JumpSensorRightM && cat->pos.x > JumpSensorRightM)

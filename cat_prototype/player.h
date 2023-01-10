@@ -39,3 +39,4 @@ void DrawPlayer();
 PLAYER *GetPlayer();
 
 int BlockScore();
+bool GetSpeedUpFlag();

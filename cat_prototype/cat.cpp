@@ -9,6 +9,7 @@
 #include "collision.h"
 #include "camera.h"
 #include "jumpflag.h"	
+#include "player.h"
 
 
 //グローバル変数
@@ -183,27 +184,60 @@ void UpdateCat()
 		//自動で移動(壁にぶつかるor初期値まで戻ったら反転)
 		if (g_Cat.move_flag == false)
 		{
-			//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
-			if (g_Cat.nowjump_flag > 0)
+			if (GetSpeedUpFlag() == true)
 			{
-				g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove) / g_Cat.nowjump_flag;
+				//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
+				if (g_Cat.nowjump_flag > 0)
+				{
+					g_Cat.pos.x += ((g_Cat.dir.x + g_Cat.onmove) / g_Cat.nowjump_flag) * 2;
+				}
+				else
+				{
+					g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove) * 2;
+				}
 			}
 			else
 			{
-				g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove);
+				//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
+				if (g_Cat.nowjump_flag > 0)
+				{
+					g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove) / g_Cat.nowjump_flag;
+				}
+				else
+				{
+					g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove);
+				}
 			}
+			
 		}
 		else
 		{
-			//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
-			if (g_Cat.nowjump_flag > 0)
+			if (GetSpeedUpFlag() == true)
+
 			{
-				g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove) / g_Cat.nowjump_flag;
+				//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
+				if (g_Cat.nowjump_flag > 0)
+				{
+					g_Cat.pos.x += ((g_Cat.dir.x + g_Cat.onmove) / g_Cat.nowjump_flag )* 2;
+				}
+				else
+				{
+					g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove) * 2;
+				}
 			}
 			else
 			{
-				g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove);
+				//同じタイミングでジャンプが始まるため、飛ぶ段数に応じて飛んでる最中はX方面の移動を遅くする
+				if (g_Cat.nowjump_flag > 0)
+				{
+					g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove) / g_Cat.nowjump_flag;
+				}
+				else
+				{
+					g_Cat.pos.x += (g_Cat.dir.x + g_Cat.onmove);
+				}
 			}
+			
 		}
 	}
 	//画面外へはいかないようにする
@@ -227,6 +261,7 @@ void UpdateCat()
 	{
 		//飛び上がる力を0にする
 		g_Cat.jump_y = 0;
+		g_Cat.nowjump_flag = 0;
 	}
 	////中間ポイント
 	if (g_Cat.pos.x >= CAT_GOLL/2 && g_Cat.jump_flag == true)

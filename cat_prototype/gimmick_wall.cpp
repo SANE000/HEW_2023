@@ -65,6 +65,7 @@ HRESULT InitGimmickWall()
 		}
 		else if (stage_gw == 2 && clear_gw >= 2)
 		{
+			
 			InitWall_13();
 		}
 
@@ -354,9 +355,9 @@ void UpdateGimmickWall()
 		else if (stage_gw == 1 && clear_gw >= 1)
 		{
 			//ボタンが押されたら全部falseにする
-			if (pb[50].button == false)
+			if (pb[52].button == false)
 			{
-				for (int i = 0; i < 8; i++)
+				for (int i = 0; i < 16; i++)
 				{
 					g_wall[i].use = false;
 				}
@@ -365,10 +366,11 @@ void UpdateGimmickWall()
 		}
 		else if (stage_gw == 2 && clear_gw >= 2)
 		{
+			
 			//ボタンが押されたら全部falseにする
-			if (pb[52].button == false)
+			if (pb[50].button == false)
 			{
-				for (int i = 0; i < 16; i++)
+				for (int i = 0; i < 8; i++)
 				{
 					g_wall[i].use = false;
 				}
@@ -790,7 +792,7 @@ void InitWall_23()
 	}
 }
 
-void InitWall_13()
+void InitWall_12()
 {
 	g_wall[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 45, DEFO_SIZE_Y - DRAW_SIZE * 1);
 	g_wall[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 46, DEFO_SIZE_Y - DRAW_SIZE * 1);
@@ -821,7 +823,7 @@ void InitWall_13()
 	}
 }
 
-void InitWall_12()
+void InitWall_13()
 {
 	g_wall[0].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 30, DEFO_SIZE_Y - DRAW_SIZE * 1);
 	g_wall[1].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 30, DEFO_SIZE_Y - DRAW_SIZE * 2);

@@ -95,6 +95,7 @@ HRESULT InitBlock()
 		else if (stage == 1 && clear >= 0)
 		{
 			InitStage12();
+			
 			InitGimmickWall();
 		}
 		else if (stage == 2 && clear >= 1)
@@ -306,7 +307,7 @@ void DrawBlock()
 		{
 			if (stage == 1)
 			{
-				if (i == 50)
+				if (i == 52)
 				{
 					//ボタンブロック
 					if (g_Block[i].button == true)
@@ -322,7 +323,8 @@ void DrawBlock()
 			}
 			else if (stage == 2)
 			{
-				if (i == 52)
+				
+				if (i == 50)
 				{
 					//ボタンブロック
 					if (g_Block[i].button == true)
@@ -2491,7 +2493,7 @@ void InitStage21()
 	g_Block[90].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 63, DEFO_SIZE_Y - DRAW_SIZE * 4);
 }
 
-void InitStage13()
+void InitStage12()
 {
 	//足場に関しては,ザーッと並べる感じにしてみました
 	//一画面 横 16 マス * 縦 9 マス　で　やってます
@@ -2579,6 +2581,7 @@ void InitStage13()
 	g_Block[49].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 42, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[50].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 43, DEFO_SIZE_Y - DRAW_SIZE * 0);
 	g_Block[51].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 44, DEFO_SIZE_Y - DRAW_SIZE * 0);
+	
 	//ボタン
 	g_Block[52].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 57, DEFO_SIZE_Y - DRAW_SIZE * 5);
 	g_Block[52].button = true;
@@ -2588,7 +2591,7 @@ void InitStage13()
 	g_Block[55].pos = D3DXVECTOR2(DEFO_SIZE_X + DRAW_SIZE * 63, DEFO_SIZE_Y - DRAW_SIZE * 0);
 }
 
-void InitStage12()
+void InitStage13()
 {
 	//足場に関しては,ザーッと並べる感じにしてみました
 	//一画面 横 16 マス * 縦 9 マス　で　やってます
