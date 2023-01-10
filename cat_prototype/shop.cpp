@@ -84,7 +84,7 @@ HRESULT InitShop()
 	cursor.pos.y = CURSOR_Y_00;
 	cursor.w = CURSOR_SIZE_W;
 	cursor.h = CURSOR_SIZE_H;
-	cursor.texNo = LoadTexture((char*)"data\\texture\\shop_cursor.png");
+	cursor.texNo = LoadTexture((char*)"data\\texture\\mark_nikukyu.png");
 
 	//ショップアイテム初期化(配置)
 	for (int i = 0; i < SHOP_ITEM_MAX; i++)
@@ -139,9 +139,6 @@ HRESULT InitShop()
 	g_Setc[0].texNo = LoadTexture((char*)"data\\texture\\HowToPlay.png");
 	g_Setc[1].texNo = LoadTexture((char*)"data\\texture\\go_scout.png");
 	g_Setc[2].texNo = LoadTexture((char*)"data\\texture\\night_cat.png");
-	g_Setc[3].texNo = LoadTexture((char*)"data\\texture\\neko_hand.png");
-	g_Setc[4].texNo = LoadTexture((char*)"data\\texture\\usiro.png");
-
 	return S_OK;
 }
 
@@ -221,15 +218,12 @@ void UpdateShop()
 		}
 		else
 		{
-			//上下の見えないところは後を動かせば良さそう
 			//カーソル操作　とりあえず
 			if (Keyboard_IsKeyDown(KK_RIGHT) && time <= 0 || GetThumbLeftX(0) > 0 && time <= 0)
 			{//右
 				if (cursor.pos.x != CURSOR_X_04)
 				{
 					cursor.pos.x += CURSOR_MOVE_X;
-					g_Setc[3].patern += 1.0f;
-					//ETCパターンを分ける
 				}
 				time = WAIT_TIME;
 
@@ -239,7 +233,6 @@ void UpdateShop()
 				if (cursor.pos.x != CURSOR_X_00)
 				{
 					cursor.pos.x -= CURSOR_MOVE_X;
-					g_Setc[3].patern -= 1.0f;
 				}
 				time = WAIT_TIME;
 			}
@@ -424,7 +417,7 @@ void DrawShop()
 			GetDeviceContext()->PSSetShaderResources
 			(0, 1, GetTexture(g_Setc[i].texNo));
 
-			if (i == 2 || i== 3)
+			if (i == 2)
 			{
 				//スプライトの描画
 				DrawSpriteColorRotate(

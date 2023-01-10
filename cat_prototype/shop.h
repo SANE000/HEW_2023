@@ -45,7 +45,7 @@
 //お金の桁数
 #define MONEY_MAX		(3)
 //ショップの飾り
-#define SHOP_ETC_MAX	(5)
+#define SHOP_ETC_MAX	(3)
 
 
 //確認メッセージウィンドウのサイズや位置
