@@ -146,10 +146,12 @@ void UpdatePlayer()
 		{
 			if (FalseExistCheck() == true)
 			{
-				blockscore++;//ブロックを何個使ったか
-
-				SetMoveBlock();
-
+				//プレビューブロックがブロックにめりこんでいないときだけ
+				if (PreviewCollisionCheck() == false)
+				{
+					blockscore++;//ブロックを何個使ったか
+					SetMoveBlock();
+				}
 			}
 			//要調整
 			g_Player.bwait = BULLET_WAIT;
@@ -190,15 +192,7 @@ void UpdatePlayer()
 		//ブロックプレビュー更新
 		UpdateBlockPreview(g_Player.pos);
 
-		//プレビューブロックがブロックにめりこんでいたら
-		if (PreviewCollisionCheck() == true)
-		{
-			//プレイヤーの座標を最初の状態に戻して
-			g_Player.pos = now_playerpos;
-
-			//ブロックプレビュー更新
-			UpdateBlockPreview(g_Player.pos);
-		}
+		
 
 
 	//}

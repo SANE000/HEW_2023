@@ -1,6 +1,2 @@
-﻿  camera.cpp
-c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\camera.cpp(76): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
-c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\camera.cpp(95): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
-c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\camera.cpp(108): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
-c:\users\81804\onedrive\デスクトップ\hew2023\hew_2023\cat_prototype\camera.cpp(114): warning C4244: '=': 'FLOAT' から 'int' への変換です。データが失われる可能性があります。
-  sample.vcxproj -> C:\Users\81804\OneDrive\デスクトップ\HEW2023\HEW_2023\cat_prototype\x64\Debug\sample.exe
+﻿  player.cpp
+  sample.vcxproj -> C:\Users\實吉　貴大　学校用\Desktop\新しいフォルダー\HEW_2023\cat_prototype\x64\Debug\sample.exe
