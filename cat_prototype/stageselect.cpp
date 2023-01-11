@@ -217,7 +217,7 @@ void UpdateStageSelect()
 		}
 
 
-		if (Keyboard_IsKeyDown(KK_B) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && time <= 0) {
+		if (Keyboard_IsKeyDown(KK_B) && time <= 0 || IsButtonTriggered(0, XINPUT_GAMEPAD_A) && time <= 0) {
 			for (int i = 0; i < FIELD_MAX; i++) {
 				g_Field[i].use = true;
 			}

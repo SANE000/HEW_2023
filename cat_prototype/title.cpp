@@ -40,11 +40,15 @@ typedef struct
 }TITLE;
 
 static int g_TextureNo = 0;	// テクスチャ識別子
+static int logotime = 300;
+static float patern = 0.0f;
 
 HRESULT InitTitle()
 {
 	g_TextureNo = LoadTexture((char*)"data/TEXTURE/title.png");
-
+	//タイトルアニメ初期化
+	logotime = 300;
+	patern = 0.0f;
 
 	return S_OK;
 }
@@ -56,7 +60,16 @@ void UninitTitle()
 
 void UpdateTitle()
 {
-	if (Keyboard_IsKeyDown(KK_ENTER) || IsButtonTriggered(0, XINPUT_GAMEPAD_B)) {
+	if (logotime > 0)
+	{
+		logotime -= 1;
+	}
+	else
+	{
+		patern = 1.0f;
+	}
+
+	if (Keyboard_IsKeyDown(KK_ENTER) && patern == 1.0f || IsButtonTriggered(0, XINPUT_GAMEPAD_B) && patern == 1.0f) {
 		SetScene(SCENE_SELECT);
 	}
 }
@@ -74,9 +87,9 @@ void DrawTitle()
 		SCREEN_HEIGHT,
 		0,
 		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
-		0,
-		1.0f,//横
+		patern,
+		1.0f/2,//横
 		1.0f,//縦
-		1//総枚数
+		2//総枚数
 	);
 }
