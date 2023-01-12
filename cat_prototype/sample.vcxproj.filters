@@ -177,6 +177,9 @@
     <ClCompile Include="pose.cpp">
       <Filter>ソース ファイル\その他</Filter>
     </ClCompile>
+    <ClCompile Include="bomb.cpp">
+      <Filter>ソース ファイル\ブロック</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BG.h">
@@ -292,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="pose.h">
       <Filter>ヘッダー ファイル\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="bomb.h">
+      <Filter>ヘッダー ファイル\ブロック</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

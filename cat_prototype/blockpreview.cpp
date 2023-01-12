@@ -346,6 +346,7 @@ void SetMoveBlock()
 				g_MoveBlock[i].pos = g_PreviewBlock[b].pos;
 				//フラグを使用中にして
 				g_MoveBlock[i].use = true;
+				g_MoveBlock[i].type = g_PreviewBlock[b].type;
 				g_MoveBlock[i].Speed.y = GRAV;
 				g_MoveBlock[i].group = BlockScore();
 				////サウンド再生
@@ -508,6 +509,31 @@ void BlockPreview(D3DXVECTOR2 pos)
 		g_PreviewBlock[0].pos = pos;
 		break;
 
+	case 7:
+		//爆弾ブロック
+		previewblocknum = 1;
+		g_PreviewBlock[0].use = true;
+
+		g_PreviewBlock[0].pos = pos;
+		break;
+	case 8:
+		//ワープブロック
+		previewblocknum = 2;
+		for (int i = 0; i < previewblocknum; i++)
+		{
+			g_PreviewBlock[i].use = true;
+		}
+
+		g_PreviewBlock[0].pos = pos;
+		g_PreviewBlock[1].pos = pos + (DRAW_SIZE * 4);
+		break;
+	case 9:
+		//檻ブロック
+		previewblocknum = 1;
+		g_PreviewBlock[0].use = true;
+
+		g_PreviewBlock[0].pos = pos;
+		break;
 
 	}
 
@@ -653,6 +679,50 @@ void UpdateBlockPreview(D3DXVECTOR2 pos)
 
 		g_PreviewBlock[0].pos = pos;
 		break;
+
+	case 7:
+		//爆弾ブロック	//どの角度でも一緒
+		previewblocknum = 1;
+		g_PreviewBlock[0].use = true;
+
+		g_PreviewBlock[0].pos = pos;
+		break;
+	case 8:
+		//ワープブロック
+		previewblocknum = 2;
+		g_PreviewBlock[0].pos = pos;
+
+		//□　　　　■
+		if (g_PreviewBlock[0].rot == 0)
+		{
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x + (DRAW_SIZE * 4), pos.y);
+		}
+		//□
+		//■
+		if (g_PreviewBlock[0].rot == 90)
+		{
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y + (DRAW_SIZE * 4));
+		}
+		//■　　　　□
+		if (g_PreviewBlock[0].rot == 180)
+		{
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x - (DRAW_SIZE * 4), pos.y);
+		}
+		//■
+		//□
+		if (g_PreviewBlock[0].rot == 270)
+		{
+			g_PreviewBlock[1].pos = D3DXVECTOR2(pos.x, pos.y - (DRAW_SIZE * 3));
+		}
+		break;
+	case 9:
+		//檻ブロック
+		previewblocknum = 1;
+		g_PreviewBlock[0].use = true;
+
+		g_PreviewBlock[0].pos = pos;
+		break;
+
 
 	}
 }

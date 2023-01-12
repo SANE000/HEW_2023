@@ -10,6 +10,7 @@
 
 #include "block_collision.h"
 
+#include "bomb.h"
 
 
 void UpdateBlockCollision()
@@ -55,9 +56,17 @@ void UpdateBlockCollision()
 							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 							m_block[i].pos.y = G_Top - 1 - DRAW_SIZE / 2;
 						
+							//爆弾ブロックと触れた際
+							if (m_block[i].type == 7)
+							{
+								//周りのブロックを破壊
+								UpdateBomb(gimmickwall[n].pos.x, gimmickwall[n].pos.y);
+								//爆弾ブロックもなくなる
+								m_block[i].use = false;
+							}
 
 							//当たったギミックウォールの添え字を入れる
-							if (m_block[i].gimmickwall == -1)
+							else if (m_block[i].gimmickwall == -1)
 							{
 								m_block[i].gimmickwall = n;
 								m_block[i].Speed.y = 0;
@@ -111,6 +120,16 @@ void UpdateBlockCollision()
 							//ブロックと触れている時はブロックに沈み込まないように座標を固定する
 							m_block[i].Speed.y = 0;
 							m_block[i].pos.y = BlockTop - 1 - DRAW_SIZE / 2;
+
+							//爆弾ブロックと触れた際
+							if (m_block[i].type == 7)
+							{
+								//周りのブロックを破壊
+								UpdateBomb(block[n].pos.x, block[n].pos.y);
+								//爆弾ブロックもなくなる
+								m_block[i].use = false;
+							}
+
 						}
 					}
 				}
@@ -162,6 +181,15 @@ void UpdateBlockCollision()
 							//下にあるブロックが地面に触れているブロックなのか確かめてそうなら当たり判定で止まる処理の追加の必要があるかも
 							if (m_block[i].pos.x - DRAW_SIZE / 2 <= m_block[n].pos.x && m_block[i].pos.x + DRAW_SIZE / 2 >= m_block[n].pos.x)
 							{
+
+								//爆弾ブロックと触れた際
+								if (m_block[i].type == 7)
+								{
+									//周りのブロックを破壊
+									UpdateBomb(m_block[n].pos.x, m_block[n].pos.y);
+									//爆弾ブロックもなくなる
+									m_block[i].use = false;
+								}
 								
 								//ギミックウォールに触っているブロックに当たった時止まる
 								if (m_block[n].gimmickwall != -1 && m_block[i].gimmickwall == -1)
@@ -196,6 +224,15 @@ void UpdateBlockCollision()
 						if (m_block[i].pos.y > m_block[n].pos.y)
 						{
 							//BlockBottomI - GRAV  <= BlockTopN &&
+
+							//爆弾ブロックと触れた際
+							if (m_block[n].type == 7)
+							{
+								//周りのブロックを破壊
+								UpdateBomb(m_block[i].pos.x, m_block[i].pos.y);
+								//爆弾ブロックもなくなる
+								m_block[n].use = false;
+							}
 
 							//下にあるブロックが地面に触れているブロックなのか確かめてそうなら当たり判定で止まる処理の追加の必要があるかも
 							if (m_block[i].pos.x - DRAW_SIZE / 2 <= m_block[n].pos.x && m_block[i].pos.x + DRAW_SIZE / 2 >= m_block[n].pos.x)

@@ -30,10 +30,10 @@
 #define CURSOR_SIZE_H	(110)
 
 //買ったブロックを保持する配列の最大数　こんなにはきっといらない
-#define HAVE_BLOCK_MAX	(256)
+#define HAVE_BLOCK_MAX	(30)
 
 //ショップのアイテムの最大数
-#define SHOP_ITEM_MAX	(15)
+#define SHOP_ITEM_MAX	(10)
 
 #define SHOP_ITEM_SIZE_W (96)
 #define SHOP_ITEM_SIZE_H (96)

@@ -238,23 +238,25 @@ void UpdateShop()
 			}
 			else if (Keyboard_IsKeyDown(KK_DOWN) && time <= 0 || GetThumbLeftY(0) < 0 && time <= 0)
 			{//‰º
-				if (g_item[0].pos.y != -CURSOR_MOVE_Y)
+				if (cursor.pos.y != CURSOR_Y_01)
 				{
-					for (int i = 0; i < SHOP_ITEM_MAX; i++)
+					cursor.pos.y += CURSOR_MOVE_Y;
+					/*for (int i = 0; i < SHOP_ITEM_MAX; i++)
 					{
 						g_item[i].pos.y -= CURSOR_MOVE_Y;
-					}
+					}*/
 				}
 				time = WAIT_TIME;
 			}
 			else if (Keyboard_IsKeyDown(KK_UP) && time <= 0 || GetThumbLeftY(0) > 0 && time <= 0)
 			{//ã
-				if (g_item[0].pos.y != CURSOR_MOVE_Y)
+				if (cursor.pos.y != CURSOR_Y_00)
 				{
-					for (int i = 0; i < SHOP_ITEM_MAX; i++)
+					cursor.pos.y -= CURSOR_MOVE_Y;
+					/*for (int i = 0; i < SHOP_ITEM_MAX; i++)
 					{
 						g_item[i].pos.y += CURSOR_MOVE_Y;
-					}
+					}*/
 				}
 				time = WAIT_TIME;
 			}
@@ -507,7 +509,7 @@ void Buyblock()
 {
 	int blocktype = -1;
 	
-	if (g_item[0].pos.y == CURSOR_MOVE_Y)
+	if (cursor.pos.y == CURSOR_Y_00)
 	{
 		if (cursor.pos.x == CURSOR_X_00)
 		{
@@ -530,7 +532,7 @@ void Buyblock()
 			blocktype = 4;
 		}
 	}
-	else if (g_item[0].pos.y == 0)
+	else if (cursor.pos.y == CURSOR_Y_01)
 	{
 		if (cursor.pos.x == CURSOR_X_00)
 		{
@@ -553,29 +555,29 @@ void Buyblock()
 			blocktype = 9;
 		}
 	}
-	else if (g_item[0].pos.y == -CURSOR_MOVE_Y)
-	{
-		if (cursor.pos.x == CURSOR_X_00)
-		{
-			blocktype = 10;
-		}
-		else if (cursor.pos.x == CURSOR_X_01)
-		{
-			blocktype = 11;
-		}
-		else if (cursor.pos.x == CURSOR_X_02)
-		{
-			blocktype = 12;
-		}
-		else if (cursor.pos.x == CURSOR_X_03)
-		{
-			blocktype = 13;
-		}
-		else if (cursor.pos.x == CURSOR_X_04)
-		{
-			blocktype = 14;
-		}
-	}
+	//else if (g_item[0].pos.y == -CURSOR_MOVE_Y)
+	//{
+	//	if (cursor.pos.x == CURSOR_X_00)
+	//	{
+	//		blocktype = 10;
+	//	}
+	//	else if (cursor.pos.x == CURSOR_X_01)
+	//	{
+	//		blocktype = 11;
+	//	}
+	//	else if (cursor.pos.x == CURSOR_X_02)
+	//	{
+	//		blocktype = 12;
+	//	}
+	//	else if (cursor.pos.x == CURSOR_X_03)
+	//	{
+	//		blocktype = 13;
+	//	}
+	//	else if (cursor.pos.x == CURSOR_X_04)
+	//	{
+	//		blocktype = 14;
+	//	}
+	//}
 	
 	//‚¨‹à‚ª‘«‚è‚Ä‚½‚ç”ƒ‚¤
 	if (g_money >= g_item[blocktype].price)

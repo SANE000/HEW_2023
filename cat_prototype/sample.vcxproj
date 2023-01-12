@@ -143,6 +143,7 @@
     <ClCompile Include="blockpreview.cpp" />
     <ClCompile Include="blocktype.cpp" />
     <ClCompile Include="block_collision.cpp" />
+    <ClCompile Include="bomb.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cat.cpp" />
     <ClCompile Include="cat_collision.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="blockpreview.h" />
     <ClInclude Include="blocktype.h" />
     <ClInclude Include="block_collision.h" />
+    <ClInclude Include="bomb.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cat.h" />
     <ClInclude Include="cat_collision.h" />

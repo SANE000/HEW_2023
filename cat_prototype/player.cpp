@@ -45,7 +45,7 @@ HRESULT InitPlayer()
 	g_Player.SetPos.y = g_Player.pos.y + DRAW_SIZE;
 	g_Player.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	g_Player.patern = 0.0f;
-	g_Player.bwait = 0;
+	g_Player.bwait = BULLET_WAIT;
 	//使用中フラグをオンにする
 	g_Player.use = true;
 

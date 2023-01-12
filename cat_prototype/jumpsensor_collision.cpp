@@ -133,6 +133,12 @@ void UpdateJumpSensorCollision()
 			{
 				continue;
 			}
+			//ワープブロックは飛ばない
+			else if (m_block[i].type == 8)
+			{
+				continue;
+			}
+
 
 			float JumpSensorTopM = m_block[i].pos.y - SIZE / 2;
 			float JumpSensorBottomM = m_block[i].pos.y + SIZE / 2;

@@ -10,6 +10,14 @@
 #include "cat_collision.h"
 #include "jumpflag.h"
 
+//================================
+//グローバル変数
+//================================
+//連続でワープしないようワープの待ち時間
+static int Wait_Warp = 0;
+
+
+
 void UpdateCatCollision()
 {
 	//int temp = 0;
@@ -21,6 +29,11 @@ void UpdateCatCollision()
 	MOVE_BLOCK *m_block = GetMoveBlock();
 	G_WALL* gimmickwall = GetGimmickWall();
 
+	//ワープの待ち時間
+	if (Wait_Warp > 0)
+	{
+		Wait_Warp--;
+	}
 
 
 	float CatTop = cat->pos.y - CAT_SIZE_H / 2;
@@ -267,6 +280,36 @@ void UpdateCatCollision()
 			{
 				continue;
 			}
+			//ワープブロックは当たり判定なし
+			else if (m_block[i].type == 8)
+			{
+
+
+				//ワープブロックの中心あたりにいたら
+				if ((m_block[i].pos.y - (DRAW_SIZE / 2) <= cat->pos.y) && (m_block[i].pos.y + (DRAW_SIZE / 2)) >= cat->pos.y)
+				{
+					if (m_block[i].pos.x - 10.0f <= cat->pos.x && m_block[i].pos.x + 10.0f >= cat->pos.x)
+					{
+						for (int j = 0; j < MOVE_BLOCK_MAX; j++)
+						{
+							//今ぶつかっているブロックはスキップ
+							if (j == i)
+							{
+								continue;
+							}
+							//ワープブロックで今当たっているブロックと同じグループ(同時に置いた)ならワープする
+							if (m_block[j].type == 8 && m_block[j].group == m_block[i].group && Wait_Warp == 0)
+							{
+								cat->pos = m_block[j].pos;
+								Wait_Warp = 60;
+							}
+						}
+					}
+				}
+
+				continue;
+			}
+
 
 			float BlockTopM = m_block[i].pos.y - SIZE / 2;
 			float BlockBottomM = m_block[i].pos.y + SIZE / 2;
